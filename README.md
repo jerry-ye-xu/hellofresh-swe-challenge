@@ -35,6 +35,8 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 
 ## Useful resources
 
+- [Using PostgreSQL image](https://hub.docker.com/_/postgres)
+
 - [.env, ARG, ENV, env_file](https://vsupalov.com/docker-arg-env-variable-guide/)
 
 - [src for `postgresqlDatabase` class](https://github.com/coleifer/peewee/blob/master/peewee.py)
