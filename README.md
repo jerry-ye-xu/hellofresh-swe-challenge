@@ -13,7 +13,12 @@
 
 ## Database Design
 
-Note:
+The following information about recipes we did not include:
+
+- urls/src to the images of ingredients/recipes/instructions (on the website)
+- warnings about ingredients with potential allergies e.g. "contain sesame, gluten may be present".
+- Information about the utensils.
+- Extract instructions of the recipes (I left them as "instruction 1", "instruction 2" etc.)
 
 ## Connecting to PostgreSQL
 
@@ -43,6 +48,18 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 - [Bash scripts pt. 2](https://stackoverflow.com/questions/12137431/test-if-a-command-outputs-an-empty-string/25496589#25496589)
 
 - [Docker: Removing images](https://stackoverflow.com/questions/40084044/how-to-remove-docker-images-based-on-name)
+
+- [exec in Bash](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
+
+- [PostgreSQL CLI commands](https://www.postgresqltutorial.com/psql-commands/)
+
+- [Wait for PostgreSQL to finish before running Flask API](https://docs.docker.com/compose/startup-order/)
+
+- [What does Shift do in Bash](https://unix.stackexchange.com/questions/174566/what-is-the-purpose-of-using-shift-in-shell-scripts)
+
+- [Dockerize PostgreSQL from scratch](https://docs.docker.com/engine/examples/postgresql_service/)
+
+- [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
 <br>
 <br>

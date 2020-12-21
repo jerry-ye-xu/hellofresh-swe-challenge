@@ -19,7 +19,7 @@ services:
     environment:
       - TEST_VAR=user
     env_file:
-      - ".env"
+      - pg_env_var
 
   backend-recipe:
     build: .

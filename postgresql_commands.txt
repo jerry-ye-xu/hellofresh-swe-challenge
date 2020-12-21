@@ -24,14 +24,14 @@ To see tables for a particular schema you can use either pg_catalog or informati
 
 ```
 SELECT *
-FROM pg_catalog.pg_tables
-    WHERE schemaname = 'dimensions';
+    FROM pg_catalog.pg_tables
+        WHERE schemaname = 'dimensions';
 ```
 
 ```
 SELECT *
-FROM information_schema.tables
-    WHERE table_schema = 'dimensions';
+    FROM information_schema.tables
+        WHERE table_schema = 'dimensions';
 ```
 
 In order to create a new schema simply:

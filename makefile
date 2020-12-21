@@ -12,13 +12,11 @@ setup_dir:
 export_keys: $(USER_KEYS)
 	echo "Please see README.md on how to export keys in .env file"
 
-build_all: clean_containers clean_volumes
+build_all: clean_containers clean_volumes clean_images
 	docker-compose up --build
-# 	docker-compose up --build --detached
-# 	docker-compose logs --follow
 
-# rm_docker_compose:
-# 	docker-compose rm -v --stop --force --file docker-compose.yml
+build_quick: clean_containers clean_volumes
+	docker-compose up
 
 pg_it:
 	docker exec -it pg-database bash
@@ -27,20 +25,20 @@ rp_it:
 	docker exec -it backend-recipe /bin/bash
 
 conn_psql:
-	psql --host=localhost \
+	psql --dbname=hellofresh \
+		--host=localhost \
 		--port=8080 \
 		--username=user \
-		--dbname=hellofresh \
 		--password
 
 clean_images:
-	bash clear_images.sh
+	bash clean_images.sh
 
 clean_containers:
-	bash clear_containers.sh
+	bash clean_containers.sh
 
 clean_volumes:
-	bash clear_volumes.sh
+	bash clean_volumes.sh
 
 clean_all: clean_containers clean_volumes clean_images
 
