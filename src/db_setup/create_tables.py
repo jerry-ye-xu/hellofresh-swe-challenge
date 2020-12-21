@@ -60,6 +60,9 @@ class RecipeDimension(BaseModel):
         unique=True,
         null=False
     )
+    recipe_subname = TextField(
+        null=False
+    )
     preparation_time = IntegerField(
         null=False,
         constraints=[Check('preparation_time > 0')]
@@ -77,6 +80,9 @@ class NutrientDimension(BaseModel):
     sk_nutrient = AutoField(primary_key=True)
     nutrient = CharField(
         unique=True,
+        null=False
+    )
+    measurement = CharField(
         null=False
     )
 
@@ -154,9 +160,9 @@ class WeeklyMeals(BaseModel):
         model=RecipeDimension,
         field="sk_recipe"
     )
-    hellofresh_week = CharField(
-        model=DateDimension,
-        field="hellofresh_week"
+    hellofresh_week = FixedCharField(
+        null=False,
+        max_length=8
     )
 
     default_meal = BooleanField(
