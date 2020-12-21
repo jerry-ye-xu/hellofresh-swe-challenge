@@ -15,7 +15,7 @@ from peewee import (
 )
 
 psql_db = PostgresqlDatabase(
-    database=os.environ['POSTGRES_DATABASE'],
+    database=os.environ['POSTGRES_DB'],
     user=os.environ['POSTGRES_USER'],
     password=os.environ['POSTGRES_PASSWORD'],
     host=os.environ['POSTGRES_HOST'],

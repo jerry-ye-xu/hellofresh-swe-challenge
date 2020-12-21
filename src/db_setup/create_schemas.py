@@ -3,7 +3,7 @@ import psycopg2
 
 if __name__ == "__main__":
     pg_conn = psycopg2.connect(
-        database=os.environ['POSTGRES_DATABASE'],
+        database=os.environ['POSTGRES_DB'],
         user=os.environ['POSTGRES_USER'],
         password=os.environ['POSTGRES_PASSWORD'],
         host=os.environ['POSTGRES_HOST'],

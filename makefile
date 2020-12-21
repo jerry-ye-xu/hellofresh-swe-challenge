@@ -12,7 +12,7 @@ setup_dir:
 export_keys: $(USER_KEYS)
 	echo "Please see README.md on how to export keys in .env file"
 
-build_all: clean_containers clean_volumes clean_images
+build_all: clean_all
 	docker-compose up --build
 
 build_quick: clean_containers clean_volumes
