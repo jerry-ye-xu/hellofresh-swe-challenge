@@ -13,6 +13,8 @@
 
 ## Database Design
 
+Note:
+
 ## Connecting to PostgreSQL
 
 You can connect to the PostgreSQL container locally by running
@@ -30,6 +32,18 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 
 - [.env, ARG, ENV, env_file](https://vsupalov.com/docker-arg-env-variable-guide/)
 
+- [src for `postgresqlDatabase` class](https://github.com/coleifer/peewee/blob/master/peewee.py)
+
+- [ENV PYTHONUNBUFFERED=1](https://stackoverflow.com/questions/59812009/what-is-the-use-of-pythonunbuffered-in-docker-file)
+
+- [PostgreSQL System catalog](https://severalnines.com/database-blog/understanding-and-reading-postgresql-system-catalog)
+
+- [Bash scripts](https://stackoverflow.com/questions/34228864/stop-and-delete-docker-container-if-its-running)
+
+- [Bash scripts pt. 2](https://stackoverflow.com/questions/12137431/test-if-a-command-outputs-an-empty-string/25496589#25496589)
+
+- [Docker: Removing images](https://stackoverflow.com/questions/40084044/how-to-remove-docker-images-based-on-name)
+
 <br>
 <br>
 
@@ -37,4 +51,5 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 
 ## Worklog
 
+- 0.0.2-rc: 21/12/20 - Insert fake data into the tables.
 - 0.0.1-rc: 20/12/20 - Initial commit of Docker assets to build the required containers.
