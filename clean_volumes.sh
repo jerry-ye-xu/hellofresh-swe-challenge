@@ -15,9 +15,9 @@ volumes=("pg-volume")
 for e in ${volumes[@]}
 do
     echo "VOLUME: Clearing ${e}"
-    docker ps --quiet --filter \
-        "name=${e}" \
+    docker volume ls --quiet --filter \
+    "name=${e}" \
     | grep . \
-    | xargs docker rm --force "${e}" \
+    | xargs docker volume rm --force \
     && echo "VOLUME: Removed."
 done
