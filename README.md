@@ -2,6 +2,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Setup](#setup)
+- [Schema Design](#schema-design)
 - [Connecting to PostgreSQL](#connecting-to-postgresql)
 - [.env File](#env-file)
 - [Useful resources](#useful-resources)
@@ -11,7 +12,7 @@
 
 
 
-## Database Design
+## Schema Design
 
 - The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
 
@@ -20,7 +21,7 @@ The following information about recipes we did not include:
 - urls/src to the images of ingredients/recipes/instructions (on the website)
 - warnings about ingredients with potential allergies e.g. "contain sesame, gluten may be present".
 - Information about the utensils.
-- Extract instructions of the recipes (I left them as "instruction 1", "instruction 2" etc.)
+- Extract instructions of the recipes (I used lorem ipsum).
 - Serving sizes of 2 and 4. I would effectively create a new column called "serving size", and so whenever you need a particular serving size, you just filter on that column.
 
 ## Connecting to PostgreSQL
@@ -38,7 +39,7 @@ Note that the PostgreSQL image requires exact naming of certain environment vari
 
 Please see `pg_env_var`.
 
-For the sake of this exercise, we upload the .env file for the reader to view.
+For the sake of this exercise, we upload the `pg_env_var` file for the reader to view.
 
 ## Useful resources
 
