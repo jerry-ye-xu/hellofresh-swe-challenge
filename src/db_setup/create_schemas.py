@@ -6,7 +6,7 @@ if __name__ == "__main__":
         database=os.environ['POSTGRES_DB'],
         user=os.environ['POSTGRES_USER'],
         password=os.environ['POSTGRES_PASSWORD'],
-        host=os.environ['POSTGRES_HOST'],
+        host=os.environ['POSTGRES_HOST_FROM_BACKEND'],
         port=os.environ['POSTGRES_PORT']
     )
 

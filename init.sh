@@ -3,10 +3,10 @@
 set -e
 
 until PGPASSWORD=${POSTGRES_PASSWORD} psql  \
-    --dbname="${POSTGRES_DATABASE}" \
-    --host="${POSTGRES_HOST}" \
-    --port="${POSTGRES_PORT}" \
     --username="${POSTGRES_USER}" \
+    --dbname="${POSTGRES_DB}" \
+    --host="${POSTGRES_HOST_FROM_BACKEND}" \
+    --port="${POSTGRES_PORT}" \
     -c '\q';
 do
     echo "Postgres is unavailable - sleeping"

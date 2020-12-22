@@ -31,6 +31,10 @@ and typing in the password.
 
 ## .env File
 
+Note that the PostgreSQL image requires exact naming of certain environment variables, and that the "host" may differ depending on which container we are referencing.
+
+Please see `pg_env_var`.
+
 For the sake of this exercise, we upload the .env file for the reader to view.
 
 ## Useful resources
