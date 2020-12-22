@@ -9,6 +9,7 @@ from peewee import (
     CharField,
     IntegerField,
     FixedCharField,
+    FloatField,
     ForeignKeyField,
     TextField,
     TimestampField
@@ -96,6 +97,7 @@ class IngredientDimension(BaseModel):
         unique=True,
         null=False
     )
+    included_in_delivery = BooleanField(default=True)
 
     class Meta:
         table_name = "ingredient_dimension"
@@ -107,6 +109,7 @@ class IngredientDimension(BaseModel):
 #############################
 
 class RecipeNutrientValue(BaseModel):
+    sk_rec_nut = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -116,9 +119,9 @@ class RecipeNutrientValue(BaseModel):
         field="sk_nutrient"
     )
 
-    value = IntegerField(
+    value = FloatField(
         null=False,
-        constraints=[Check('value > 0')]
+        constraints=[Check('value >= 0')]
     )
 
     class Meta:
@@ -126,6 +129,7 @@ class RecipeNutrientValue(BaseModel):
         schema = "fact_tables"
 
 class RecipeIngredient(BaseModel):
+    sk_rec_ing = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -134,16 +138,21 @@ class RecipeIngredient(BaseModel):
         model=IngredientDimension,
         field="sk_ingredient"
     )
+    serving_size = IntegerField(null=False, default=2)
+    value = FloatField(null=False)
+    unit = CharField(null=False)
 
     class Meta:
         table_name = "recipe_ingredient"
         schema = "fact_tables"
 
 class RecipeInstruction(BaseModel):
+    sk_rec_ins = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
     )
+    step = IntegerField(null=False)
     instruction = TextField(null=False)
 
     class Meta:
@@ -180,7 +189,11 @@ class RecipeRating(BaseModel):
         null=False,
         constraints=[Check('rating >= 1'), Check('rating <= 4')]
     )
-    comment = TextField()
+    fk_recipe = ForeignKeyField(
+        model=RecipeDimension,
+        field="sk_recipe"
+    )
+    comment = TextField(null=True)
     timestamp = TimestampField(
         null=False
     )
