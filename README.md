@@ -77,5 +77,6 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 
 ## Worklog
 
-- 0.0.2-rc: 21/12/20 - Insert fake data into the tables.
-- 0.0.1-rc: 20/12/20 - Initial commit of Docker assets to build the required containers.
+- 0.0.3-rc: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
+- 0.0.2-rc: 21/12/20 - Create Makefile, scripts to build and teardown containers.
+- 0.0.1-rc: 20/12/20 - Initial commit of Docker files and general env setup.
