@@ -1,3 +1,5 @@
+## PG STATS TABLES
+
 The following are some of the tables stored by PostgreSQL System Catalog
 
 - pg_stat_database
@@ -10,7 +12,7 @@ The following are some of the tables stored by PostgreSQL System Catalog
 
 To see all the tables available:
 
-```
+```SQL
 SELECT * FROM information_schema.tables;
 ```
 
@@ -22,13 +24,13 @@ The 3 default schemas are:
 
 To see tables for a particular schema you can use either pg_catalog or information_schema:
 
-```
+```SQL
 SELECT *
     FROM pg_catalog.pg_tables
         WHERE schemaname = 'dimensions';
 ```
 
-```
+```SQL
 SELECT *
     FROM information_schema.tables
         WHERE table_schema = 'dimensions';
@@ -36,6 +38,23 @@ SELECT *
 
 In order to create a new schema simply:
 
+```SQL
+CREATE SCHEMA IF NOT EXISTS new_schema;
 ```
-CREATE SCHEMA [IF NOT EXISTS] new_schema;
+
+## TABLE CHECK COMMANDS
+
+```SQL
+SELECT * FROM dimensions.date_dimension;
+SELECT * FROM dimensions.cooking_difficulty_dimension;
+SELECT * FROM dimensions.recipe_dimension;
+SELECT * FROM dimensions.nutrient_dimension;
+SELECT * FROM dimensions.ingredient_dimension;
+
+SELECT * FROM fact_tables.recipe_nutrient_value;
+SELECT * FROM fact_tables.recipe_ingredient;
+SELECT * FROM fact_tables.recipe_instruction;
+
+SELECT * FROM fact_tables.weekly_meals;
+SELECT * FROM fact_tables.recipe_rating;
 ```

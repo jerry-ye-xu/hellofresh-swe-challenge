@@ -13,12 +13,15 @@
 
 ## Database Design
 
+- The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
+
 The following information about recipes we did not include:
 
 - urls/src to the images of ingredients/recipes/instructions (on the website)
 - warnings about ingredients with potential allergies e.g. "contain sesame, gluten may be present".
 - Information about the utensils.
 - Extract instructions of the recipes (I left them as "instruction 1", "instruction 2" etc.)
+- Serving sizes of 2 and 4. I would effectively create a new column called "serving size", and so whenever you need a particular serving size, you just filter on that column.
 
 ## Connecting to PostgreSQL
 
@@ -74,5 +77,6 @@ For the sake of this exercise, we upload the .env file for the reader to view.
 
 ## Worklog
 
-- 0.0.2-rc: 21/12/20 - Insert fake data into the tables.
-- 0.0.1-rc: 20/12/20 - Initial commit of Docker assets to build the required containers.
+- 0.0.3-rc: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
+- 0.0.2-rc: 21/12/20 - Create Makefile, scripts to build and teardown containers.
+- 0.0.1-rc: 20/12/20 - Initial commit of Docker files and general env setup.
