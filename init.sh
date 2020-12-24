@@ -22,3 +22,6 @@ echo "Running create_tables.py"
 python3 ./${BASE_PATH}/db_setup/create_tables.py
 echo "Running populate_tables.py"
 python3 ./${BASE_PATH}/db_setup/populate_tables.py
+
+echo "FLASK: Kickstarting backend_api."
+flask run

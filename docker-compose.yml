@@ -11,7 +11,7 @@ services:
     image:  "postgres:9.6.18"
     container_name: "pg-database"
     ports:
-      - "8080:5432"
+      - "5432:5432"
     volumes:
       - type: volume
         source: pg-volume
@@ -21,10 +21,11 @@ services:
 
   backend-recipe:
     build: .
+    image: "backend-recipe:${VERSION}"
     container_name: "backend-recipe"
     env_file:
       - ./env_var
     ports:
-      - "8000:8000"
+      - "5000:5000"
     depends_on:
       - pg-database

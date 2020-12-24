@@ -10,8 +10,12 @@
 
 ## Setup
 
+Please export the following environment variables locally.
 
-
+```bash
+export VERSION=$(cat VERSION)
+export $(egrep -v '^#' env_var | xargs)
+```
 ## Schema Design
 
 - The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
@@ -77,7 +81,9 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 - [flask-peewee docs](https://readthedocs.org/projects/flask-peewee/downloads/pdf/latest/)
 
-- Export ENV variables locally: `export $(egrep -v '^#' flask_env_var | xargs)`
+- Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
+
+- Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.
 
 <br>
 <br>
@@ -86,6 +92,6 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 ## Worklog
 
-- 0.0.3-rc: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
-- 0.0.2-rc: 21/12/20 - Create Makefile, scripts to build and teardown containers.
-- 0.0.1-rc: 20/12/20 - Initial commit of Docker files and general env setup.
+- 0.0.3: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
+- 0.0.2: 21/12/20 - Create Makefile, scripts to build and teardown containers.
+- 0.0.1: 20/12/20 - Initial commit of Docker files and general env setup.
