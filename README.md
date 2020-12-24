@@ -14,8 +14,12 @@ Please export the following environment variables locally.
 
 ```bash
 export VERSION=$(cat VERSION)
-export $(egrep -v '^#' env_var | xargs)
+export $(egrep -v '^#' env_var_local | xargs)
 ```
+
+Note: If you open a new tab in terminal you will also need to run this again.
+
+
 ## Schema Design
 
 - The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
@@ -39,51 +43,13 @@ and typing in the password.
 
 ## .env File
 
-Note that the PostgreSQL image requires exact naming of certain environment variables, and that the "host" may differ depending on which container we are referencing.
+The PostgreSQL image requires exact naming of certain environment variables, and that the "host" may differ depending on which container we are referencing.
+
+For the PostgreSQL image, the host should be 'localhost' and it must be set as the ENV variable `POSTGRES_HOST`. Since the Flask app is talking to the database from a different container, that is why we have 2 different ENV variables in the `env_var` file.
 
 Please see `env_var`. We put the environment variables for flask in `env_var` as well.
 
 For the sake of this exercise, we upload the `env_var` file for the reader to view.
-
-## Useful resources
-
-- [Using PostgreSQL image](https://hub.docker.com/_/postgres)
-
-- [.env, ARG, ENV, env_file](https://vsupalov.com/docker-arg-env-variable-guide/)
-
-- [src for `postgresqlDatabase` class](https://github.com/coleifer/peewee/blob/master/peewee.py)
-
-- [ENV PYTHONUNBUFFERED=1](https://stackoverflow.com/questions/59812009/what-is-the-use-of-pythonunbuffered-in-docker-file)
-
-- [PostgreSQL System catalog](https://severalnines.com/database-blog/understanding-and-reading-postgresql-system-catalog)
-
-- [Bash scripts](https://stackoverflow.com/questions/34228864/stop-and-delete-docker-container-if-its-running)
-
-- [Bash scripts pt. 2](https://stackoverflow.com/questions/12137431/test-if-a-command-outputs-an-empty-string/25496589#25496589)
-
-- [Docker: Removing images](https://stackoverflow.com/questions/40084044/how-to-remove-docker-images-based-on-name)
-
-- [exec in Bash](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
-
-- [PostgreSQL CLI commands](https://www.postgresqltutorial.com/psql-commands/)
-
-- [Wait for PostgreSQL to finish before running Flask API](https://docs.docker.com/compose/startup-order/)
-
-- [What does Shift do in Bash](https://unix.stackexchange.com/questions/174566/what-is-the-purpose-of-using-shift-in-shell-scripts)
-
-- [Dockerize PostgreSQL from scratch](https://docs.docker.com/engine/examples/postgresql_service/)
-
-- [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
-
-- [Flask documentation home page](https://flask.palletsprojects.com/en/1.1.x/)
-
-- [Flask API docs](https://flask.palletsprojects.com/en/1.1.x/api/#flask.Flask)
-
-- [flask-peewee docs](https://readthedocs.org/projects/flask-peewee/downloads/pdf/latest/)
-
-- Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
-
-- Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.
 
 <br>
 <br>
@@ -92,6 +58,7 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 ## Worklog
 
+- 0.0.4: 24/12/20 - Set up Flask structure including blueprints, models etc. Test simple GET method to retrieve recipes.
 - 0.0.3: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
 - 0.0.2: 21/12/20 - Create Makefile, scripts to build and teardown containers.
 - 0.0.1: 20/12/20 - Initial commit of Docker files and general env setup.
