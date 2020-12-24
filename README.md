@@ -37,9 +37,9 @@ and typing in the password.
 
 Note that the PostgreSQL image requires exact naming of certain environment variables, and that the "host" may differ depending on which container we are referencing.
 
-Please see `pg_env_var`.
+Please see `env_var`. We put the environment variables for flask in `env_var` as well.
 
-For the sake of this exercise, we upload the `pg_env_var` file for the reader to view.
+For the sake of this exercise, we upload the `env_var` file for the reader to view.
 
 ## Useful resources
 
@@ -70,6 +70,14 @@ For the sake of this exercise, we upload the `pg_env_var` file for the reader to
 - [Dockerize PostgreSQL from scratch](https://docs.docker.com/engine/examples/postgresql_service/)
 
 - [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
+- [Flask documentation home page](https://flask.palletsprojects.com/en/1.1.x/)
+
+- [Flask API docs](https://flask.palletsprojects.com/en/1.1.x/api/#flask.Flask)
+
+- [flask-peewee docs](https://readthedocs.org/projects/flask-peewee/downloads/pdf/latest/)
+
+- Export ENV variables locally: `export $(egrep -v '^#' flask_env_var | xargs)`
 
 <br>
 <br>

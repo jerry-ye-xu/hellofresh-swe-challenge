@@ -6,17 +6,18 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /repo/
 
-COPY .env ./
+COPY env_var ./
 COPY init.sh ./
 COPY activate.sh ./
+
 COPY requirements.txt ./
-
-COPY ./src/ ./src/
-
 RUN pip3 install -r requirements.txt
 
-# RUN python3 ./src/db_setup/create_schemas.py
+COPY ./backend_api/ ./backend_api/
+RUN cd backend_api && pip3 install -e .
 
-# CMD ["python3", "./src/running.py"]
+# RUN python3 ./backend-api/db_setup/create_schemas.py
+
+# CMD ["python3", "./backend-api/running.py"]
 RUN chmod a+x init.sh
 CMD ["./init.sh"]

@@ -15,7 +15,8 @@ export_keys: $(USER_KEYS)
 build_all: clean_all
 	docker-compose up --build
 
-build_quick: clean_containers clean_volumes
+build_quick: clean_containers clean_volumes prune_images
+	docker-compose build
 	docker-compose up
 
 pg_it:
@@ -30,6 +31,9 @@ conn_psql:
 		--port=8080 \
 		--username=user \
 		--password
+
+prune_images:
+	docker image prune --force
 
 clean_images:
 	bash clean_images.sh

@@ -14,10 +14,11 @@ do
 done
 
 echo "Postgres is up - executing command"
+echo "BASE_PATH=${BASE_PATH}"
 
 echo "Running create_schemas.py"
-python3 ./src/db_setup/create_schemas.py
+python3 ./${BASE_PATH}/db_setup/create_schemas.py
 echo "Running create_tables.py"
-python3 ./src/db_setup/create_tables.py
+python3 ./${BASE_PATH}/db_setup/create_tables.py
 echo "Running populate_tables.py"
-python3 ./src/db_setup/populate_tables.py
+python3 ./${BASE_PATH}/db_setup/populate_tables.py

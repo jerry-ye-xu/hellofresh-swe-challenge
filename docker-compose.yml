@@ -17,13 +17,13 @@ services:
         source: pg-volume
         target: /var/lib/postgresql/data
     env_file:
-      - ./pg_env_var
+      - ./env_var
 
   backend-recipe:
     build: .
     container_name: "backend-recipe"
     env_file:
-      - ./pg_env_var
+      - ./env_var
     ports:
       - "8000:8000"
     depends_on:
