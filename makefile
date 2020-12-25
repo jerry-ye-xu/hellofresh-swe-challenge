@@ -1,5 +1,6 @@
 NAME    := hellofresh-takehome
 SHELL   := /bin/bash
+VERSION := $(shell cat VERSION)
 
 .PHONY: all clean lint test
 
@@ -15,7 +16,8 @@ export_keys: $(USER_KEYS)
 build_all: clean_all
 	docker-compose up --build
 
-build_quick: clean_containers clean_volumes
+build_quick: prune_images clean_containers clean_volumes
+	docker-compose build
 	docker-compose up
 
 pg_it:
@@ -25,11 +27,14 @@ rp_it:
 	docker exec -it backend-recipe /bin/bash
 
 conn_psql:
-	psql --dbname=hellofresh \
-		--host=localhost \
-		--port=8080 \
-		--username=user \
+	psql --dbname=${POSTGRES_DB} \
+		--host=${POSTGRES_HOST} \
+		--port=${POSTGRES_PORT} \
+		--username=${POSTGRES_USER} \
 		--password
+
+prune_images:
+	docker image prune --force
 
 clean_images:
 	bash clean_images.sh

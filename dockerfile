@@ -4,19 +4,23 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y \
     postgresql postgresql-contrib
 
+ARG BASE_PATH
+RUN echo "BASE_PATH=${BASE_PATH}"
+
 WORKDIR /repo/
 
-COPY .env ./
+COPY VERSION ./
+COPY env_var ./
 COPY init.sh ./
 COPY activate.sh ./
+
 COPY requirements.txt ./
-
-COPY ./src/ ./src/
-
 RUN pip3 install -r requirements.txt
 
-# RUN python3 ./src/db_setup/create_schemas.py
+COPY "./${BASE_PATH}/" "./${BASE_PATH}/"
+RUN cd $BASE_PATH && pip3 install -e .
 
-# CMD ["python3", "./src/running.py"]
+COPY ./instance/config.py ./instance/
+
 RUN chmod a+x init.sh
 CMD ["./init.sh"]

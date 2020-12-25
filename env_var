@@ -1,3 +1,5 @@
+BASE_PATH=backend_api
+
 POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 POSTGRES_DB=hellofresh
@@ -5,3 +7,7 @@ POSTGRES_HOST_FROM_BACKEND=pg-database
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_VOL_NAME=pg-volume
+
+FLASK_APP=backend_api
+FLASK_ENV=development
+FLASK_RUN_HOST=0.0.0.0
