@@ -11,7 +11,7 @@ def get_db():
             database=os.environ['POSTGRES_DB'],
             user=os.environ['POSTGRES_USER'],
             password=os.environ['POSTGRES_PASSWORD'],
-            host=os.environ['POSTGRES_HOST_FROM_BACKEND_LOCAL'],
+            host=os.environ['POSTGRES_HOST_FROM_BACKEND'],
             port=os.environ['POSTGRES_PORT']
         )
         g.db = psql_db.connect()
