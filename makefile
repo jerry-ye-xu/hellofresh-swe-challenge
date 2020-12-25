@@ -28,7 +28,7 @@ rp_it:
 
 conn_psql:
 	psql --dbname=${POSTGRES_DB} \
-		--host=${POSTGRES_HOST_FROM_BACKEND} \
+		--host=${POSTGRES_HOST} \
 		--port=${POSTGRES_PORT} \
 		--username=${POSTGRES_USER} \
 		--password

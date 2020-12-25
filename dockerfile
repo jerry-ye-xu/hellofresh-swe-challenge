@@ -1,9 +1,11 @@
 FROM python:3.7.8
-ARG BASE_PATH=${BASEPATH}
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && apt-get install -y \
     postgresql postgresql-contrib
+
+ARG BASE_PATH
+RUN echo "BASE_PATH=${BASE_PATH}"
 
 WORKDIR /repo/
 
@@ -15,13 +17,10 @@ COPY activate.sh ./
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
-COPY ./backend_api/ ./backend_api/
-RUN cd backend_api && pip3 install -e .
+COPY "./${BASE_PATH}/" "./${BASE_PATH}/"
+RUN cd $BASE_PATH && pip3 install -e .
 
-COPY config.py ./backend_api/instance/
+COPY ./instance/config.py ./instance/
 
-# RUN python3 ./backend-api/db_setup/create_schemas.py
-
-# CMD ["python3", "./backend-api/running.py"]
 RUN chmod a+x init.sh
 CMD ["./init.sh"]

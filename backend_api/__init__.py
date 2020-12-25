@@ -1,13 +1,16 @@
 import os
 
-from flask import Flask
+from flask import Flask, g, jsonify
+
+from api_exceptions import NoSuchData
 from models import psql_db
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
-
     # Load the default configuration
-    app.config.from_pyfile('config.py', silent=False)
+
+    app.logger.info(f"{__name__}")
+    app.logger.info(f"{app.instance_path}")
 
     # Load environment specific configuration files
     # inside the instance folder
@@ -25,10 +28,9 @@ def create_app(test_config=None):
     except OSError as e:
         app.logger.info(e)
 
-
-    from . import db
-    db.init_app(app)
-    app.logger.info(f"PostgreSQL Database initialised.")
+    # from . import db
+    # db.init_app(app)
+    # app.logger.info(f"PostgreSQL Database initialised.")
 
     from .blueprints import bp_recipes, bp_ratings
     app.register_blueprint(bp_recipes.recipes)
@@ -39,6 +41,7 @@ def create_app(test_config=None):
 
     @app.before_request
     def before_request():
+        g.db = psql_db
         g.db.connect()
 
     @app.after_request
@@ -49,6 +52,13 @@ def create_app(test_config=None):
     @app.route('/')
     def hello():
         return 'Hello World!'
+
+    @app.errorhandler(NoSuchData)
+    def handle_no_such_data_error(error):
+        res = jsonify(error.to_dict())
+        res.status_code = error.status_code
+
+        return res
 
     app.logger.info(f"Application factory is complete for: {app}")
     return app

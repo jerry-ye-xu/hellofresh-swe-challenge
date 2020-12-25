@@ -20,9 +20,13 @@ services:
       - ./env_var
 
   backend-recipe:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        - BASE_PATH=${BASE_PATH}
+
     image: "backend-recipe:${VERSION}"
-    container_name: "backend-recipe"
     env_file:
       - ./env_var
     ports:
