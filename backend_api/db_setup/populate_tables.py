@@ -84,56 +84,56 @@ if __name__ == "__main__":
     CookingDifficultyDimension.create(sk_difficulty='hard')
 
     RecipeDimension.create(
-        sk_recipe=1,
+        # sk_recipe=1,
         recipe_name="Southeast Asian Chicken Coconut Soup",
         recipe_subname="with Makrut Lime & Noodles",
         preparation_time=35,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=2,
+        # sk_recipe=2,
         recipe_name="Saucy Coconut & Chicken Noodles",
         recipe_subname="with Lemongrass & Ginger",
         preparation_time=45,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=3,
+        # sk_recipe=3,
         recipe_name="Dukkah Roasted Sweet Potato",
         recipe_subname="with Lemon Yoghurt & Mint | Serves 2",
         preparation_time=30,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=4,
+        # sk_recipe=4,
         recipe_name="Chicken Tenders & Crushed Lemon Potatoes",
         recipe_subname="with Herbed Yoghurt Sauce",
         preparation_time=30,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=5,
+        # sk_recipe=5,
         recipe_name="Smokey Beef Cheeseburger",
         recipe_subname="with BBQ Mayo & Paprika Fries",
         preparation_time=40,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=6,
+        # sk_recipe=6,
         recipe_name="Caribbean Chicken Tacos",
         recipe_subname="with Pineapple & Cucumber Salsa",
         preparation_time=25,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=7,
+        # sk_recipe=7,
         recipe_name="Beef & Basil Pesto Meatballs",
         recipe_subname="with Spaghetti & Parmesan",
         preparation_time=45,
         fk_difficulty='easy'
     )
     RecipeDimension.create(
-        sk_recipe=8,
+        # sk_recipe=8,
         recipe_name="Korean Pork Bibimbap",
         recipe_subname="with Black Sesame Rice & Sugar Snap Peas",
         preparation_time=35,
@@ -141,46 +141,46 @@ if __name__ == "__main__":
     )
 
     NutrientDimension.create(
-        sk_nutrient=1,
+        # sk_nutrient=1,
         nutrient="Energy",
         measurement="kJ")
     NutrientDimension.create(
-        sk_nutrient=2,
+        # sk_nutrient=2,
         nutrient="Fat",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=3,
+        # sk_nutrient=3,
         nutrient="Saturated",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=4,
+        # sk_nutrient=4,
         nutrient="Carbohydrate",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=5,
+        # sk_nutrient=5,
         nutrient="Sugar",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=6,
+        # sk_nutrient=6,
         nutrient="Dietary Fiber",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=7,
+        # sk_nutrient=7,
         nutrient="Protein",
         measurement="g"
     )
     NutrientDimension.create(
-        sk_nutrient=8,
+        # sk_nutrient=8,
         nutrient="Cholesterol",
         measurement="mg"
     )
     NutrientDimension.create(
-        sk_nutrient=9,
+        # sk_nutrient=9,
         nutrient="Sodium",
         measurement="mg"
     )

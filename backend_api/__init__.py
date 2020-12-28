@@ -28,9 +28,9 @@ def create_app(test_config=None):
     except OSError as e:
         app.logger.info(e)
 
-    # from . import db
-    # db.init_app(app)
-    # app.logger.info(f"PostgreSQL Database initialised.")
+    from . import db
+    db.init_app(app)
+    app.logger.info(f"PostgreSQL Database initialised.")
 
     from .blueprints import bp_recipes, bp_ratings
     app.register_blueprint(bp_recipes.recipes)
