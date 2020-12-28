@@ -32,11 +32,11 @@ def create_app(test_config=None):
     db.init_app(app)
     app.logger.info(f"PostgreSQL Database initialised.")
 
-    from .blueprints import bp_recipes, bp_ratings
+    from .blueprints import bp_recipes, bp_recipe_ratings
     app.register_blueprint(bp_recipes.recipes)
     app.logger.info(f"Recipes blueprint imported.")
 
-    app.register_blueprint(bp_ratings.ratings)
+    app.register_blueprint(bp_recipe_ratings.recipe_ratings)
     app.logger.info(f"Ratings blueprint imported.")
 
     @app.before_request

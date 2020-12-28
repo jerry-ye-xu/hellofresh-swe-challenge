@@ -23,34 +23,28 @@ def handle_recipes():
         recipes_arr = {
             r.sk_recipe: parse_recipe_json(r) for r in recipes
         }
-        print(f"recipes_arr: {recipes_arr}")
         return json.dumps(recipes_arr), 200
 
     elif request.method == 'POST':
         if not request.is_json:
-            return jsonify({"message": "Missing JSON in request"}), 415
+            return jsonify({"message": "Parser requires JSON format."}), 415
 
-        req_json = request.get_json()
+        try:
+            with g.db.atomic():
+                req_json = request.get_json()
 
-        # cur = g.db.cursor()
-        # max_sk = g.db.last_insert_id(cur)
-        # max_sk
-        # current_app.logger.info(f"max_sk: {max_sk}")
+                for idx in range(0, len(req_json), 50):
+                    rows = req_json[idx:idx + 50]
+                    RecipeDimension.insert_many(rows).execute()
 
-        with g.db.atomic():
-            RecipeDimension.create(
-                recipe_name=req_json['recipe_name'],
-                recipe_subname=req_json['recipe_subname'],
-                preparation_time=req_json['preparation_time'],
-                fk_difficulty=req_json['fk_difficulty']
-            )
-            # new_recipe.save(force_insert=True)
-        # new_recipe.save(force_insert=True)
+            total_rows = RecipeDimension.select().count()
 
-        return request.get_json(), 201
+            return f"{len(req_json)} Recipe(s) inserted. Total recipes: {total_rows}", 201
+        except Exception as e:
+            return e, 400
 
 
-@recipes.route('/<int:sk_recipe>', methods=['GET', 'PUT'])
+@recipes.route('/<int:sk_recipe>', methods=['GET', 'PUT', 'DELETE'])
 def sk_recipe_methods(sk_recipe):
     if request.method == 'GET':
         try:
@@ -67,11 +61,47 @@ def sk_recipe_methods(sk_recipe):
             raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
 
     elif request.method == 'PUT':
-        return 'ERROR: Method has not been implemented yet.', 404
+        if not request.is_json:
+            return jsonify({"message": "Parser requires JSON format."}), 415
+
+        try:
+            with g.db.atomic():
+                req_json = request.get_json()
+
+                (
+                    RecipeDimension
+                        .update(req_json)
+                        .where(RecipeDimension.sk_recipe == sk_recipe)
+                        .execute()
+                )
+                updated_recipe = (
+                    RecipeDimension
+                        .select()
+                        .where(
+                            RecipeDimension.sk_recipe == sk_recipe
+                        )
+                        .get()
+                )
+                return json.dumps(model_to_dict(updated_recipe)), 201
+        except DoesNotExist:
+            raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
+
+    elif request.method == 'DELETE':
+        try:
+            with g.db.atomic():
+                (
+                    RecipeDimension
+                        .delete()
+                        .where(RecipeDimension.sk_recipe == sk_recipe)
+                        .execute()
+                )
+            total_rows = RecipeDimension.select().count()
+
+            return f"Recipe {sk_recipe} deleted. Total recipes: {total_rows}", 204
+        except DoesNotExist:
+            raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
 
 def parse_recipe_json(r):
-    current_app.logger.info(f"r: {r}")
-    current_app.logger.info(f"r.fk_difficulty: {r.fk_difficulty}")
     return {
         "recipe_name": r.recipe_name,
         "recipe_subname": r.recipe_subname,

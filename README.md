@@ -27,6 +27,7 @@ Note: If you open a new tab in terminal you will also need to run this again.
 The following information about recipes we did not include:
 
 - urls/src to the images of ingredients/recipes/instructions (on the website)
+- the description of the recipes.
 - warnings about ingredients with potential allergies e.g. "contain sesame, gluten may be present".
 - Information about the utensils.
 - Extract instructions of the recipes (I used lorem ipsum).

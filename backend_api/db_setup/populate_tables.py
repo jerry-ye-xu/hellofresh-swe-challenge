@@ -67,6 +67,7 @@ if __name__ == "__main__":
     DateDimension.create(sk_date=20201104, hellofresh_week='2020-W46')
     DateDimension.create(sk_date=20201105, hellofresh_week='2020-W46')
     DateDimension.create(sk_date=20201106, hellofresh_week='2020-W46')
+
     DateDimension.create(sk_date=20201107, hellofresh_week='2020-W47')
     DateDimension.create(sk_date=20201108, hellofresh_week='2020-W47')
     DateDimension.create(sk_date=20201109, hellofresh_week='2020-W47')
@@ -74,10 +75,39 @@ if __name__ == "__main__":
     DateDimension.create(sk_date=20201111, hellofresh_week='2020-W47')
     DateDimension.create(sk_date=20201112, hellofresh_week='2020-W47')
     DateDimension.create(sk_date=20201113, hellofresh_week='2020-W47')
+
     DateDimension.create(sk_date=20201114, hellofresh_week='2020-W48')
     DateDimension.create(sk_date=20201115, hellofresh_week='2020-W48')
     DateDimension.create(sk_date=20201116, hellofresh_week='2020-W48')
     DateDimension.create(sk_date=20201117, hellofresh_week='2020-W48')
+    DateDimension.create(sk_date=20201118, hellofresh_week='2020-W48')
+    DateDimension.create(sk_date=20201119, hellofresh_week='2020-W48')
+    DateDimension.create(sk_date=20201120, hellofresh_week='2020-W48')
+
+    DateDimension.create(sk_date=20201121, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201122, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201123, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201124, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201125, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201126, hellofresh_week='2020-W49')
+    DateDimension.create(sk_date=20201127, hellofresh_week='2020-W49')
+
+    DateDimension.create(sk_date=20201128, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201129, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201130, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201201, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201202, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201203, hellofresh_week='2020-W50')
+    DateDimension.create(sk_date=20201204, hellofresh_week='2020-W50')
+
+    DateDimension.create(sk_date=20201205, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201206, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201207, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201208, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201209, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201210, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20201211, hellofresh_week='2020-W51')
+
 
     CookingDifficultyDimension.create(sk_difficulty='easy')
     CookingDifficultyDimension.create(sk_difficulty='medium')
