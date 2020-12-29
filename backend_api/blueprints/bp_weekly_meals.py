@@ -37,47 +37,86 @@ def handle_new_weekly_meals():
         else:
             raise ValueError("Please specify either one of hf_week or date parameters. By default we get the HelloFresh week of today's date.")
 
-        avg_rating = fn.AVG(RecipeRating.rating)
-        HellofreshWeeks = (
-            DateDimension
+        # avg_rating = fn.Avg(RecipeRating.rating)
+        # HellofreshWeeks = (
+        #     DateDimension
+        #         .select(
+        #             DateDimension.hellofresh_week.alias("hellofresh_week")
+        #         )
+        #         .group_by(DateDimension.hellofresh_week)
+        # )
+
+        # current_app.logger.info(f"HellofreshWeeks: {HellofreshWeeks}")
+        # current_app.logger.info(f"HellofreshWeeks: {model_to_dict(HellofreshWeeks[0])}")
+
+        hf_week = '2020-W46'
+
+        AvgRating_cte = (
+            RecipeRating
                 .select(
-                    DateDimension.hellofresh_week.alias("hellofresh_week")
+                    RecipeRating.fk_recipe,
+                    fn.AVG(RecipeRating.rating).alias("avg_rating")
                 )
-                .group_by(DateDimension.hellofresh_week)
+                .group_by(RecipeRating.fk_recipe)
+                .cte("AvgRating_cte", columns=('fk_recipe', 'avg_rating'))
         )
 
-        current_app.logger.info(f"HellofreshWeeks: {model_to_dict(HellofreshWeeks[0])}")
+        AvgRating = (
+            RecipeRating
+                .select(
+                    RecipeRating.fk_recipe,
+                    fn.AVG(RecipeRating.rating).alias("avg_rating")
+                )
+                .group_by(RecipeRating.fk_recipe)
+        )
+        test = AvgRating.execute()
+
+        for t in test:
+            print(t.avg_rating)
+
+            print({
+                "fk_recipe": t.fk_recipe.sk_recipe,
+                "avg_rating": t.avg_rating
+                })
+
         weekly_meals = (
             WeeklyMeals
-                .select()
-                .join(
-                    HellofreshWeeks,
-                    JOIN.LEFT_OUTER,
-                    on=(HellofreshWeeks.hellofresh_week == WeeklyMeals.hellofresh_week)
+                .select(
+                    WeeklyMeals,
+                    AvgRating_cte.c.avg_rating
                 )
-                # .where(
-                #     (HellofreshWeeks.hellofresh_week == hf_week) |
-                #     (WeeklyMeals.default_meal == default)
-                # )
-                # .join(
-                #     RecipeRating
-                #         .select(
-                #             RecipeRating.fk_recipe,
-                #             avg_rating.alias("avg_rating")
-                #         )
-                #         .group_by(RecipeRating.fk_recipe),
-                #     JOIN.LEFT_OUTER,
-                #     on=(WeeklyMeals.fk_recipe == RecipeRating.fk_recipe)
-                # )
-                # .order_by(avg_rating.desc())
-                # .limit(meal_size)
+                .where(
+                    (WeeklyMeals.hellofresh_week == hf_week) &
+                    (WeeklyMeals.default_meal == default)
+                )
+                .join(
+                    AvgRating_cte,
+                    JOIN.LEFT_OUTER,
+                    on=(WeeklyMeals.fk_recipe == AvgRating_cte.c.fk_recipe)
+                )
+                .order_by(AvgRating_cte.c.avg_rating.desc())
+                .with_cte(AvgRating_cte)
         )
-        current_app.logger.info(f"weekly_meals: {weekly_meals}")
-        current_app.logger.info(f"weekly_meals: {weekly_meals}")
+        current_app.logger.info(f"weekly_meals.sql(): {weekly_meals.sql()}")
 
-        # for meal in weekly_meals:
-        #     print(model_to_dict(meal))
-        # return model_to_dict(weekly_meals[0]), 200
+        testing = weekly_meals.execute()
+        current_app.logger.info(f"hf_week: {hf_week}")
+
+        for meal in testing:
+            print(meal.avg_rating)
+            print({
+                "fk_recipe": meal.fk_recipe.sk_recipe,
+                "avg_rating": meal.avg_rating,
+                "hellofresh_week": meal.hellofresh_week,
+                "default_meal": default_meal
+            })
+        meal = testing[0]
+        return model_to_dict({
+                "fk_recipe": meal.fk_recipe.sk_recipe,
+                "avg_rating": meal.avg_rating,
+                "hellofresh_week": meal.hellofresh_week,
+                "default_meal": default_meal
+            }), 200
         # weekly_meals_arr = {
         #     r.fk_recipe: model_to_dict(r, recurse=False) for r in weekly_meals
         # }

@@ -113,62 +113,110 @@ if __name__ == "__main__":
     CookingDifficultyDimension.create(sk_difficulty='medium')
     CookingDifficultyDimension.create(sk_difficulty='hard')
 
+
+    #
+    # Obtained from https://www.hellofresh.com.au/recipes
+    #
+
+    # Tag pt. 1
+    CuisineDimension.create(sk_cuisine="Family Favourite")
+    CuisineDimension.create(sk_cuisine="Turkish")
+    CuisineDimension.create(sk_cuisine="American")
+    CuisineDimension.create(sk_cuisine="Australian")
+    CuisineDimension.create(sk_cuisine="Asian")
+    CuisineDimension.create(sk_cuisine="British")
+    CuisineDimension.create(sk_cuisine="Chinese")
+    CuisineDimension.create(sk_cuisine="Cuban")
+    CuisineDimension.create(sk_cuisine="French")
+    CuisineDimension.create(sk_cuisine="German")
+    CuisineDimension.create(sk_cuisine="Greek")
+    CuisineDimension.create(sk_cuisine="Hawaiian")
+    CuisineDimension.create(sk_cuisine="Indian")
+    CuisineDimension.create(sk_cuisine="Indonesian")
+    CuisineDimension.create(sk_cuisine="Irish")
+
+    # Tag pt. 2
+    CuisineDimension.create(sk_cuisine="Italian")
+    CuisineDimension.create(sk_cuisine="Japanese")
+    CuisineDimension.create(sk_cuisine="Korean")
+    CuisineDimension.create(sk_cuisine="Mediterrean")
+    CuisineDimension.create(sk_cuisine="Mexican")
+    CuisineDimension.create(sk_cuisine="Middle Eastern")
+    CuisineDimension.create(sk_cuisine="Moroccan")
+    CuisineDimension.create(sk_cuisine="North African")
+    CuisineDimension.create(sk_cuisine="Portuguese")
+    CuisineDimension.create(sk_cuisine="Spanish")
+    CuisineDimension.create(sk_cuisine="Russian")
+    CuisineDimension.create(sk_cuisine="Singaporean")
+    CuisineDimension.create(sk_cuisine="Thai")
+    CuisineDimension.create(sk_cuisine="Vietnamese")
+
+
     RecipeDimension.create(
         # sk_recipe=1,
         recipe_name="Southeast Asian Chicken Coconut Soup",
         recipe_subname="with Makrut Lime & Noodles",
         preparation_time=35,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Asian'
     )
     RecipeDimension.create(
         # sk_recipe=2,
         recipe_name="Saucy Coconut & Chicken Noodles",
         recipe_subname="with Lemongrass & Ginger",
         preparation_time=45,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Asian'
     )
     RecipeDimension.create(
         # sk_recipe=3,
         recipe_name="Dukkah Roasted Sweet Potato",
         recipe_subname="with Lemon Yoghurt & Mint | Serves 2",
         preparation_time=30,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Middle Eastern'
     )
     RecipeDimension.create(
         # sk_recipe=4,
         recipe_name="Chicken Tenders & Crushed Lemon Potatoes",
         recipe_subname="with Herbed Yoghurt Sauce",
         preparation_time=30,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=5,
         recipe_name="Smokey Beef Cheeseburger",
         recipe_subname="with BBQ Mayo & Paprika Fries",
         preparation_time=40,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=6,
         recipe_name="Caribbean Chicken Tacos",
         recipe_subname="with Pineapple & Cucumber Salsa",
         preparation_time=25,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=7,
         recipe_name="Beef & Basil Pesto Meatballs",
         recipe_subname="with Spaghetti & Parmesan",
         preparation_time=45,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=8,
         recipe_name="Korean Pork Bibimbap",
         recipe_subname="with Black Sesame Rice & Sugar Snap Peas",
         preparation_time=35,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Korean'
     )
+
 
     NutrientDimension.create(
         # sk_nutrient=1,
@@ -1478,6 +1526,78 @@ if __name__ == "__main__":
     WeeklyMeals.create(
         fk_recipe=2,
         hellofresh_week='2020-W47',
+        default_meal=False
+    )
+
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week='2020-W48',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week='2020-W48',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week='2020-W48',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week='2020-W48',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week='2020-W48',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week='2020-W48',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week='2020-W48',
+        default_meal=False
+    )
+
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week='2020-W49',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week='2020-W49',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week='2020-W49',
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week='2020-W49',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week='2020-W49',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week='2020-W49',
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week='2020-W49',
         default_meal=False
     )
 

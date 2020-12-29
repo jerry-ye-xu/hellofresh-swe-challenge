@@ -50,6 +50,8 @@
 
 - [Status codes](https://www.restapitutorial.com/httpstatuscodes.html)
 
+- [Peewee Complex Subquery (Github issue)](https://github.com/coleifer/peewee/issues/1684)
+
 - Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
 
 - Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.

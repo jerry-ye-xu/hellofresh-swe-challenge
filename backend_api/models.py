@@ -47,12 +47,17 @@ class DateDimension(BaseModel):
         schema = "dimensions"
 
 class CookingDifficultyDimension(BaseModel):
-    sk_difficulty = CharField(
-        primary_key=True
-    )
+    sk_difficulty = CharField(primary_key=True)
 
     class Meta:
         table_name = "cooking_difficulty_dimension"
+        schema = "dimensions"
+
+class CuisineDimension(BaseModel):
+    sk_cuisine = CharField(primary_key=True)
+
+    class Meta:
+        table_name = "cuisine_dimension"
         schema = "dimensions"
 
 class RecipeDimension(BaseModel):
@@ -71,6 +76,11 @@ class RecipeDimension(BaseModel):
     fk_difficulty = ForeignKeyField(
         model=CookingDifficultyDimension,
         field="sk_difficulty"
+    )
+    fk_cuisine = ForeignKeyField(
+        null=False,
+        model=CuisineDimension,
+        field="sk_cuisine"
     )
 
     class Meta:
@@ -185,9 +195,9 @@ class WeeklyMeals(BaseModel):
 
 class RecipeRating(BaseModel):
     sk_rating = AutoField(primary_key=True)
-    rating = IntegerField(
+    rating = FloatField(
         null=False,
-        constraints=[Check('rating >= 1'), Check('rating <= 4')]
+        constraints=[Check('rating >= 1.0'), Check('rating <= 4.0')]
     )
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
