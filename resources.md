@@ -52,6 +52,8 @@
 
 - [Peewee Complex Subquery (Github issue)](https://github.com/coleifer/peewee/issues/1684)
 
+- [Nested aggregates](https://stackoverflow.com/questions/21297971/can-peewee-nest-select-queries-such-that-the-outer-query-selects-on-an-aggregate)
+
 - Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
 
 - Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.

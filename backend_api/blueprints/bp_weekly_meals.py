@@ -3,7 +3,7 @@ import sys
 
 from datetime import datetime
 
-from peewee import DoesNotExist, fn, JOIN
+from peewee import DoesNotExist, fn, JOIN, Table
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from flask import Blueprint, current_app, request, g
@@ -104,41 +104,47 @@ def handle_new_weekly_meals():
                     fn.AVG(RecipeRating.rating).alias("avg_rating")
                 )
                 .group_by(RecipeRating.fk_recipe)
-                .alias("AvgRating")
+                .alias("avg_ratings")
         )
 
-        avg_rating = fn.AVG(RecipeRating.rating)
+        weekly_meals = Table("fact_tables.weekly_meals")
 
-        testing = (
+        filtered_meals = (
             WeeklyMeals
                 .select(
-                    WeeklyMeals.fk_recipe,
-                    fn.AVG(RecipeRating.rating).alias("avg_rating")
+                    weekly_meals.c.fk_recipe,
+                    weekly_meals.c.hellofresh_week,
+                    weekly_meals.c.default_meal
+                    # avg_ratings.c.avg_rating
                 )
+                .from_(weekly_meals, avg_ratings)
                 .join(
-                    RecipeRating,
-                    JOIN.LEFT_OUTER,
-                    on=(WeeklyMeals.fk_recipe == RecipeRating.fk_recipe)
+                    avg_ratings,
+                    JOIN.INNER,
+                    on=(weekly_meals.c.fk_recipe_id == avg_ratings.c.fk_recipe)
                 )
-                # .where(
-                #     (WeeklyMeals.hellofresh_week == hf_week) &
-                #     (WeeklyMeals.default_meal == default)
-                # )
-                .group_by(WeeklyMeals.fk_recipe)
-                .order_by(avg_rating.desc())
+                .where(
+                    (weekly_meals.c.hellofresh_week == hf_week) &
+                    (weekly_meals.c.default_meal == default)
+                )
         )
-        current_app.logger.info(f"testing.sql(): {testing.sql()}")
-        testing = testing.execute()
+
+        current_app.logger.info(f"testing.sql(): {filtered_meals.sql()}")
+        testing = filtered_meals.execute()
 
         # current_app.logger.info(f"weekly_meals.sql(): {weekly_meals.sql()}")
-        current_app.logger.info(f"hf_week: {hf_week}")
+        current_app.logger.info(f"testing: {testing}")
 
         for meal in testing:
+            print("-------")
+            print("-------")
             print(model_to_dict(meal))
-            print(f"meal: {meal}")
+            print(f"meal: {type(meal)}")
+            print("-------")
+            print("-------")
             print(f"meal.fk_recipe: {meal.fk_recipe}")
             print(f"meal.hellofresh_week: {meal.hellofresh_week}")
-            print(f"meal.avg_rating: {meal.avg_rating}")
+            print(f"meal.avg_rating: {avg_ratings.c.avg_rating}")
             # print({
             #     "fk_recipe": meal.fk_recipe.sk_recipe,
             #     "avg_rating": meal.avg_rating,
