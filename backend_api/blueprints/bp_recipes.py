@@ -1,6 +1,6 @@
 import json
 import sys
-from peewee import DoesNotExist
+from peewee import DoesNotExist, fn
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from flask import Blueprint, current_app, request, g
@@ -10,16 +10,63 @@ sys.path.insert(0, '..')
 from models import *
 from api_exceptions import NoSuchData
 
-recipes = Blueprint(
+bp_recipes = Blueprint(
     name='recipes',
     import_name=__name__,
     url_prefix='/recipes'
 )
 
-@recipes.route('/', methods=['GET', 'POST'])
-def handle_recipes():
+@bp_recipes.route('/', methods=['GET', 'POST'])
+def search_recipes():
     if request.method == 'GET':
-        recipes = RecipeDimension.select()
+        # Searching for both name and subname
+        recipe_word = request.args.get('name')
+        cuisine = request.args.get('cuisine')
+
+        if recipe_word is not None and cuisine is not None:
+            recipes = (
+                RecipeDimension
+                    .select()
+                    .where(
+                        (
+                            (fn.LOWER(RecipeDimension.recipe_name).contains(recipe_word)) |
+                            (fn.LOWER(RecipeDimension.recipe_subname).contains(recipe_word))
+                        )
+                        &
+                        (
+                            fn.LOWER(RecipeDimension.fk_cuisine) == fn.LOWER(cuisine)
+                        )
+                    )
+            )
+        elif recipe_word is not None:
+            recipes = (
+                RecipeDimension
+                    .select()
+                    .where(
+                        (
+                            (fn.LOWER(RecipeDimension.recipe_name).contains(recipe_word)) |
+                            (fn.LOWER(RecipeDimension.recipe_subname).contains(recipe_word))
+                        )
+                    )
+            )
+        elif cuisine is not None:
+            recipes = (
+                RecipeDimension
+                    .select()
+                    .where(
+                        (
+                            fn.LOWER(RecipeDimension.fk_cuisine) == fn.LOWER(cuisine)
+                        )
+                    )
+            )
+        else:
+            recipes = (
+                RecipeDimension
+                    .select()
+                    .order_by(fn.Random())
+                    .limit(50)
+            )
+
         recipes_arr = {
             r.sk_recipe: parse_recipe_json(r) for r in recipes
         }
@@ -44,7 +91,7 @@ def handle_recipes():
             return e, 400
 
 
-@recipes.route('/<int:sk_recipe>', methods=['GET', 'PUT', 'DELETE'])
+@bp_recipes.route('/<int:sk_recipe>', methods=['GET', 'PUT', 'DELETE'])
 def sk_recipe_methods(sk_recipe):
     if request.method == 'GET':
         try:
@@ -106,5 +153,6 @@ def parse_recipe_json(r):
         "recipe_name": r.recipe_name,
         "recipe_subname": r.recipe_subname,
         "preparation_time": r.preparation_time,
-        "fk_difficulty": r.fk_difficulty.sk_difficulty
+        "fk_difficulty": r.fk_difficulty.sk_difficulty,
+        "fk_cuisine": r.fk_cuisine.sk_cuisine
     }
