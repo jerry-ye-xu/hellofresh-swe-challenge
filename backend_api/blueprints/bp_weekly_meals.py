@@ -7,6 +7,7 @@ from peewee import DoesNotExist, fn, JOIN, Table
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from flask import Blueprint, current_app, request, g
+from flask_restful import inputs
 
 sys.path.insert(0, '..')
 
@@ -20,83 +21,21 @@ bp_weekly_meals = Blueprint(
 )
 
 @bp_weekly_meals.route('/', methods=['GET', 'POST'])
-def handle_new_weekly_meals():
+def handle_weekly_meals():
     if request.method == 'GET':
-        hf_week =  request.args.get('hf_week')
-        date = request.args.get('date', type=int)
-        meal_size = request.args.get('meal_size', 3)
-        default = True if request.args.get('default') == 'true' else False
+        hf_week =  request.args.get('hf_week', None)
+        date = request.args.get('date', None, type=str)
+        # meal_size = request.args.get('meal_size')
+        default_meal = request.args.get('default_meal', None)
+        default_meal = inputs.boolean(default_meal) if default_meal is not None else default_meal
+
+        current_app.logger.info(f"Parameters: hf_week={hf_week}, date={date}, default_meal={default_meal}")
 
         if hf_week is None and date is None:
-            hf_week = get_hf_week(20201110)
-            # hf_week = get_hf_week(get_today_sk_date())
+            hf_week = get_hf_week(get_today_sk_date())
         elif hf_week is None:
             hf_week = get_hf_week(date)
-        elif date is None:
-            pass
-        else:
-            raise ValueError("Please specify either one of hf_week or date parameters. By default we get the HelloFresh week of today's date.")
 
-        hf_week = '2020-W46'
-
-        # AvgRating_cte = (
-        #     RecipeRating
-        #         .select(
-        #             RecipeRating.fk_recipe,
-        #             fn.AVG(RecipeRating.rating).alias("avg_rating")
-        #         )
-        #         .group_by(RecipeRating.fk_recipe)
-        #         .cte("AvgRating_cte", columns=('fk_recipe', 'avg_rating'))
-        # )
-
-        # AvgRating = (
-        #     RecipeRating
-        #         .select(
-        #             RecipeRating.fk_recipe.alias("fk_recipe"),
-        #             fn.AVG(RecipeRating.rating).alias("avg_rating")
-        #         )
-        #         .group_by(RecipeRating.fk_recipe)
-        #         .alias("AvgRating")
-        # )
-        # test = AvgRating.execute()
-
-        # for t in AvgRating:
-        #     print(t.avg_rating)
-
-        #     print({
-        #         "fk_recipe": t.fk_recipe.sk_recipe,
-        #         "avg_rating": t.avg_rating
-        #         })
-
-        # testing = (
-        #     WeeklyMeals
-        #         .select(
-        #             WeeklyMeals
-        #             # AvgRating.c.fk_recipe,
-        #             AvgRating.c.avg_rating
-        #         )
-        #         .join(
-        #             AvgRating,
-        #             JOIN.LEFT_OUTER,
-        #             on=(WeeklyMeals.fk_recipe == AvgRating.c.fk_recipe)
-        #         )
-        #         .where(
-        #             (WeeklyMeals.hellofresh_week == hf_week) &
-        #             (WeeklyMeals.default_meal == default)
-        #         )
-        #         .order_by(AvgRating.c.avg_rating.desc())
-        # )
-        # testing = testing.execute()
-
-        meals = (
-            WeeklyMeals
-                .select()
-                .where(
-                    (WeeklyMeals.hellofresh_week == hf_week) &
-                    (WeeklyMeals.default_meal == default)
-                )
-                .alias("meals")
-        )
         avg_ratings = (
             RecipeRating
                 .select(
@@ -107,55 +46,32 @@ def handle_new_weekly_meals():
                 .alias("avg_ratings")
         )
 
-        weekly_meals = Table("fact_tables.weekly_meals")
-
-        filtered_meals = (
+        meals_filter = (
             WeeklyMeals
                 .select(
-                    weekly_meals.c.fk_recipe,
-                    weekly_meals.c.hellofresh_week,
-                    weekly_meals.c.default_meal
-                    # avg_ratings.c.avg_rating
+                    WeeklyMeals.fk_recipe,
+                    WeeklyMeals.hellofresh_week,
+                    WeeklyMeals.default_meal,
+                    avg_ratings.c.avg_rating
                 )
-                .from_(weekly_meals, avg_ratings)
                 .join(
                     avg_ratings,
                     JOIN.INNER,
-                    on=(weekly_meals.c.fk_recipe_id == avg_ratings.c.fk_recipe)
+                    on=(WeeklyMeals.fk_recipe == avg_ratings.c.fk_recipe),
+                    attr = 'avg_ratings'
                 )
-                .where(
-                    (weekly_meals.c.hellofresh_week == hf_week) &
-                    (weekly_meals.c.default_meal == default)
-                )
+                .where(filter_weekly_meals(default_meal, hf_week))
         )
+        weekly_meals_arr = {
+            wm.fk_recipe.sk_recipe: parse_weekly_meals(wm) for wm in meals_filter
+        }
 
-        current_app.logger.info(f"testing.sql(): {filtered_meals.sql()}")
-        testing = filtered_meals.execute()
+        return json.dumps(weekly_meals_arr), 200
 
-        # current_app.logger.info(f"weekly_meals.sql(): {weekly_meals.sql()}")
-        current_app.logger.info(f"testing: {testing}")
 
-        for meal in testing:
-            print("-------")
-            print("-------")
-            print(model_to_dict(meal))
-            print(f"meal: {type(meal)}")
-            print("-------")
-            print("-------")
-            print(f"meal.fk_recipe: {meal.fk_recipe}")
-            print(f"meal.hellofresh_week: {meal.hellofresh_week}")
-            print(f"meal.avg_rating: {avg_ratings.c.avg_rating}")
-            # print({
-            #     "fk_recipe": meal.fk_recipe.sk_recipe,
-            #     "avg_rating": meal.avg_rating,
-            #     "hellofresh_week": meal.hellofresh_week,
-            #     "default_meal": default_meal
-            # })
-        # weekly_meals_arr = {
-        #     r.fk_recipe: model_to_dict(r, recurse=False) for r in weekly_meals
-        # }
-
-        # return json.dumps(weekly_meals_arr), 200
+#
+# HELPERS
+#
 
 def get_today_sk_date():
     return datetime.strftime(datetime.today(), format="%Y%m%d")
@@ -173,3 +89,19 @@ def get_hf_week(fk_date=None):
             .get()
     )
     return curr_hf_week.hellofresh_week
+
+def filter_weekly_meals(default_meal, hf_week):
+    if default_meal is None:
+        return (WeeklyMeals.hellofresh_week == hf_week)
+    else:
+        return (WeeklyMeals.hellofresh_week == hf_week) & (WeeklyMeals.default_meal == default_meal)
+
+def parse_weekly_meals(wm):
+    return {
+        "fk_recipe": wm.fk_recipe.sk_recipe,
+        "recipe_name": wm.fk_recipe.recipe_name,
+        "recipe_subname": wm.fk_recipe.recipe_subname,
+        "hellofresh_week": wm.hellofresh_week,
+        "default_meal": wm.default_meal,
+        "avg_rating": wm.avg_ratings.avg_rating
+    }

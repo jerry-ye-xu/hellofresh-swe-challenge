@@ -17,13 +17,13 @@ bp_recipe_ratings = Blueprint(
 )
 
 @bp_recipe_ratings.route('/', methods=['GET', 'POST'])
-def add_new_rating():
+def handle_ratings():
     if request.method == 'GET':
         recipe_ratings = (
             RecipeRating
                 .select()
                 .order_by(fn.Random())
-                .limit(50)
+                .limit(10)
         )
         recipe_ratings_arr = {
             r.sk_rating: parse_ratings_json(r) for r in recipe_ratings
@@ -62,6 +62,11 @@ def get_recipe_ratings(fk_recipe):
             return json.dumps(recipe_ratings_arr), 200
         except DoesNotExist:
             raise NoSuchData(f'sk_recipe={fk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
+
+
+#
+# HELPERS
+#
 
 def parse_ratings_json(r):
     return {
