@@ -126,7 +126,8 @@ class RecipeNutrientValue(BaseModel):
     )
     fk_nutrient = ForeignKeyField(
         model=NutrientDimension,
-        field="sk_nutrient"
+        field="sk_nutrient",
+        backref='nutrient_id'
     )
 
     value = FloatField(

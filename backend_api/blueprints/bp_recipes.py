@@ -2,6 +2,8 @@ import json
 import sys
 from peewee import (
     fn,
+    JOIN,
+    SQL,
     DoesNotExist,
     IntegrityError
 )
@@ -177,7 +179,7 @@ def sk_recipe_instructions(sk_recipe):
 
         if "instructions" not in req_json.keys():
             return jsonify({
-                "message": "JSON requires \'instruction\' key. See example shown.",
+                "message": "JSON requires \'instructions\' key. See example shown.",
                 "instruction": {
                     "1": "instruction here",
                     "2": "another instruction",
@@ -191,11 +193,11 @@ def sk_recipe_instructions(sk_recipe):
         if is_valid:
             exists_step_arr = []
             new_steps_arr = []
-            for step in req_json['instructions'].keys():
+            for step, instruction in req_json['instructions'].items():
                 if int(step) > table_max_step:
-                    new_steps_arr.append(int(step))
+                    new_steps_arr.append((int(step), instruction))
                 else:
-                    exists_step_arr.append(int(step))
+                    exists_step_arr.append((int(step), instruction))
 
             exists_step_arr.sort()
             new_steps_arr.sort()
@@ -203,29 +205,27 @@ def sk_recipe_instructions(sk_recipe):
             current_app.logger.info(f"exists_step_arr: {exists_step_arr}")
             current_app.logger.info(f"new_steps_arr: {new_steps_arr}")
 
-            for step in exists_step_arr:
+            for step, instruction in exists_step_arr:
                 current_app.logger.info(f"step: {step}")
                 with g.db.atomic():
                     query = (
                         RecipeInstruction
-                            .update({
-                                "instruction": req_json['instructions'][f"{step}"]
-                            })
+                            .update({"instruction": instruction})
                             .where(
-                                (RecipeInstruction.fk_recipe == sk_recipe) &
-                                (RecipeInstruction.step == int(step))
+                                (RecipeInstruction.fk_recipe.sk_recipe == sk_recipe) &
+                                (RecipeInstruction.step == step)
                             )
+                            .execute()
                     )
-                    updated_instructions = query.execute()
 
-            for step in new_steps_arr:
+            for step, instruction in new_steps_arr:
                 with g.db.atomic():
                     query = (
                         RecipeInstruction
                             .insert({
                                 "fk_recipe": sk_recipe,
-                                "step": int(step),
-                                "instruction": req_json['instructions'][f"{step}"]
+                                "step": step,
+                                "instruction": instruction
                             })
                             .execute()
                     )
@@ -259,16 +259,65 @@ def sk_recipe_nutrients(sk_recipe):
 
         req_json = request.get_json()
 
-        for nutrient in req_json.keys():
+        if "nutrients" not in req_json.keys():
+            return jsonify({
+                "message": "JSON requires \'nutrients\' key. See example shown.",
+                "nutrients": {
+                    "Carbohydrate": 0.0,
+                    "Energy": 0.0,
+                }
+            }), 415
+
+        for nutrient in req_json["nutrients"].keys():
+            # current_app.logger.info(nutrient)
             if not nutrient_exists(nutrient):
                 return jsonify({
                     "message": f"{nutrient} cannot be found in dimensions.nutrient_dimension table. Please use the PUT method at /nutrients to add the new nutrient first."
                     }), 400
 
-        (
-            RecipeNutrientValue
-                .update(req_json)
-        )
+        for nutrient, value in req_json["nutrients"].items():
+            try:
+                with g.db.atomic():
+                    current_app.logger.info(f"HERE 3")
+
+                    cte = (
+                        NutrientDimension
+                            .select(
+                                NutrientDimension.sk_nutrient,
+                                NutrientDimension.nutrient
+                            )
+                            .where(
+                                NutrientDimension.nutrient == nutrient
+                            )
+                            .cte('nutrient_dimension', columns=('sk_nutrient', 'nutrient'))
+
+                    )
+
+                    query = (
+                        RecipeNutrientValue
+                            .update({
+                                "value": value
+                            })
+                            .with_cte(cte)
+                            .from_(cte)
+                            .where(
+                                (RecipeNutrientValue.fk_recipe == sk_recipe) &
+                                (RecipeNutrientValue.fk_nutrient == SQL('nutrient_dimension.sk_nutrient'))
+                            )
+                    )
+                    current_app.logger.error(query.sql())
+                    updated_nutrients = query.execute()
+
+            except Exception as e:
+                current_app.logger.error(sys.exc_info())
+                current_app.logger.error(str(e))
+                return str(e), 400
+
+        return f"Updated {list(req_json['nutrients'].keys())} for sk_recipe={sk_recipe}", 201
+
+
+
+
 
 #
 # HELPERS
@@ -333,26 +382,12 @@ def recipe_exists(sk_recipe):
 
 def nutrient_exists(nutrient):
     does_exist = (
-        RecipeDimension
+        NutrientDimension
             .select()
-            .where(RecipeNutrientValue.nutrient == nutrient)
+            .where(NutrientDimension.nutrient == nutrient)
             .exists()
     )
     return does_exist
-
-def get_max_step(sk_recipe):
-    return (
-        RecipeInstruction
-            .select(
-                RecipeInstruction.fk_recipe,
-                fn.Max(RecipeInstruction.step).alias("max_step")
-            )
-            .where(
-                RecipeInstruction.fk_recipe == sk_recipe
-            )
-            .group_by(RecipeInstruction.fk_recipe)
-            .get()
-    )
 
 def validate_instructions_json(req_json, table_max_step):
     steps_arr = []
@@ -370,6 +405,20 @@ def validate_instructions_json(req_json, table_max_step):
         return False, str(e)
 
     return True, None
+
+def get_max_step(sk_recipe):
+    return (
+        RecipeInstruction
+            .select(
+                RecipeInstruction.fk_recipe,
+                fn.Max(RecipeInstruction.step).alias("max_step")
+            )
+            .where(
+                RecipeInstruction.fk_recipe == sk_recipe
+            )
+            .group_by(RecipeInstruction.fk_recipe)
+            .get()
+    )
 
 def check_consecutive_steps(steps_arr, table_max_step):
     steps_arr = sorted(steps_arr)
