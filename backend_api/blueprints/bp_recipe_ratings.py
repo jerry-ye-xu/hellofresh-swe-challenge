@@ -3,7 +3,7 @@ import sys
 from peewee import DoesNotExist, fn
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from flask import Blueprint, current_app, request, g
+from flask import Blueprint, jsonify, current_app, request, g
 
 sys.path.insert(0, '..')
 

@@ -38,6 +38,8 @@
 
 - [Useful Docker asset management commands 2](https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/)
 
+- [sys.path in Python](https://stackoverflow.com/questions/31291608/effect-of-using-sys-path-insert0-path-and-sys-pathappend-when-loading-modul)
+
 - [Flask documentation home page](https://flask.palletsprojects.com/en/1.1.x/)
 
 - [Flask API docs](https://flask.palletsprojects.com/en/1.1.x/api/#flask.Flask)
@@ -53,6 +55,8 @@
 - [Peewee Complex Subquery (Github issue)](https://github.com/coleifer/peewee/issues/1684)
 
 - [Nested aggregates](https://stackoverflow.com/questions/21297971/can-peewee-nest-select-queries-such-that-the-outer-query-selects-on-an-aggregate)
+
+- [Status code for update or delete](https://stackoverflow.com/questions/2342579/http-status-code-for-update-and-delete)
 
 - Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
 

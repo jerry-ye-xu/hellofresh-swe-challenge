@@ -6,7 +6,7 @@ from datetime import datetime
 from peewee import DoesNotExist, fn, JOIN, Table
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from flask import Blueprint, current_app, request, g
+from flask import Blueprint, jsonify, current_app, request, g
 from flask_restful import inputs
 
 sys.path.insert(0, '..')

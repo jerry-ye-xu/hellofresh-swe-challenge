@@ -44,6 +44,168 @@ def random_text(p, max_sentence_length):
         return lorem.words(max_sentence_length)
     return None
 
+def weekly_meals_pattern_one(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_two(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_three(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_four(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def generate_month(first_date, start_idx, end_idx, hf_week, count):
+
+    for i in range(start_idx, end_idx + 1):
+        hellofresh_week = f'{str(first_date)[:4]}-W0{hf_week}' if hf_week < 10 else f'{str(first_date)[:4]}-W{hf_week}'
+
+        DateDimension.create(
+            sk_date=first_date+i,
+            hellofresh_week=hellofresh_week
+        )
+
+        count += 1
+        if count % 7 == 0:
+            hf_week += 1
+
 
 if __name__ == "__main__":
     psql_db = PostgresqlDatabase(
@@ -60,53 +222,41 @@ if __name__ == "__main__":
     # Dimension Tables #
     ####################
 
-    # 20201101 is a Sunday
-    DateDimension.create(sk_date=20201101, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201102, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201103, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201104, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201105, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201106, hellofresh_week='2020-W46')
+    # 20201031 is a Saturday
+    DateDimension.create(sk_date=20201031, hellofresh_week='2020-W45')
 
-    DateDimension.create(sk_date=20201107, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201108, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201109, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201110, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201111, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201112, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201113, hellofresh_week='2020-W47')
+    generate_month(
+        first_date=20201100,
+        start_idx=1,
+        end_idx=30,
+        hf_week=45,
+        count=1
+    )
 
-    DateDimension.create(sk_date=20201114, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201115, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201116, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201117, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201118, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201119, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201120, hellofresh_week='2020-W48')
+    generate_month(
+        first_date=20201200,
+        start_idx=1,
+        end_idx=31,
+        hf_week=49,
+        count=3
+    )
 
-    DateDimension.create(sk_date=20201121, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201122, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201123, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201124, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201125, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201126, hellofresh_week='2020-W49')
-    DateDimension.create(sk_date=20201127, hellofresh_week='2020-W49')
+    # Handle simple edge cases, for the sake of this exercise.
+    DateDimension.create(sk_date=20210101, hellofresh_week='2020-W53')
 
-    DateDimension.create(sk_date=20201128, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201129, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201130, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201201, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201202, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201203, hellofresh_week='2020-W50')
-    DateDimension.create(sk_date=20201204, hellofresh_week='2020-W50')
+    generate_month(
+        first_date=20210100,
+        start_idx=2,
+        end_idx=31,
+        hf_week=1,
+        count=0
+    )
 
-    DateDimension.create(sk_date=20201205, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201206, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201207, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201208, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201209, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201210, hellofresh_week='2020-W51')
-    DateDimension.create(sk_date=20201211, hellofresh_week='2020-W51')
+    DateDimension.create(sk_date=20210201, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210202, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210203, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210204, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210205, hellofresh_week='2021-W05')
 
 
     CookingDifficultyDimension.create(sk_difficulty='easy')
@@ -139,6 +289,7 @@ if __name__ == "__main__":
     CuisineDimension.create(sk_cuisine="Italian")
     CuisineDimension.create(sk_cuisine="Japanese")
     CuisineDimension.create(sk_cuisine="Korean")
+    CuisineDimension.create(sk_cuisine="Lebanese")
     CuisineDimension.create(sk_cuisine="Mediterrean")
     CuisineDimension.create(sk_cuisine="Mexican")
     CuisineDimension.create(sk_cuisine="Middle Eastern")
@@ -1457,149 +1608,27 @@ if __name__ == "__main__":
     # Fact Tables #
     ###############
 
-    WeeklyMeals.create(
-        fk_recipe=1,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=2,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=7,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
+    #
+    # For the purposes of this exercise, we repeat the pattern every 4 weeks.
+    #
 
-    WeeklyMeals.create(
-        fk_recipe=8,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=7,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=2,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
+    weekly_meals_pattern_one('2020-W45')
+    weekly_meals_pattern_two('2020-W46')
+    weekly_meals_pattern_three('2020-W47')
+    weekly_meals_pattern_four('2020-W48')
+    weekly_meals_pattern_one('2020-W49')
+    weekly_meals_pattern_two('2020-W50')
+    weekly_meals_pattern_three('2020-W51')
+    weekly_meals_pattern_four('2020-W52')
+    weekly_meals_pattern_one('2020-W53')
+    weekly_meals_pattern_two('2021-W01')
+    weekly_meals_pattern_three('2020-W02')
+    weekly_meals_pattern_four('2020-W03')
+    weekly_meals_pattern_one('2021-W04')
+    weekly_meals_pattern_two('2021-W05')
+    weekly_meals_pattern_three('2020-W06')
+    weekly_meals_pattern_four('2020-W07')
 
-    WeeklyMeals.create(
-        fk_recipe=2,
-        hellofresh_week='2020-W48',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W48',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W48',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W48',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=8,
-        hellofresh_week='2020-W48',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W48',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=1,
-        hellofresh_week='2020-W48',
-        default_meal=False
-    )
-
-    WeeklyMeals.create(
-        fk_recipe=1,
-        hellofresh_week='2020-W49',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W49',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W49',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W49',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=8,
-        hellofresh_week='2020-W49',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W49',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=7,
-        hellofresh_week='2020-W49',
-        default_meal=False
-    )
 
     for i in range(500):
         RecipeRating.create(
