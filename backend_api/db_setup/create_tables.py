@@ -7,6 +7,7 @@ if __name__ == "__main__":
     dim_tables = [
         DateDimension,
         CookingDifficultyDimension,
+        CuisineDimension,
         RecipeDimension,
         NutrientDimension,
         IngredientDimension,

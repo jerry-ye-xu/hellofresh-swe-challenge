@@ -2,6 +2,7 @@ import os
 
 from peewee import (
     Check,
+    CompositeKey,
     Model,
     PostgresqlDatabase,
     AutoField,
@@ -47,12 +48,17 @@ class DateDimension(BaseModel):
         schema = "dimensions"
 
 class CookingDifficultyDimension(BaseModel):
-    sk_difficulty = CharField(
-        primary_key=True
-    )
+    sk_difficulty = CharField(primary_key=True)
 
     class Meta:
         table_name = "cooking_difficulty_dimension"
+        schema = "dimensions"
+
+class CuisineDimension(BaseModel):
+    sk_cuisine = CharField(primary_key=True)
+
+    class Meta:
+        table_name = "cuisine_dimension"
         schema = "dimensions"
 
 class RecipeDimension(BaseModel):
@@ -71,6 +77,11 @@ class RecipeDimension(BaseModel):
     fk_difficulty = ForeignKeyField(
         model=CookingDifficultyDimension,
         field="sk_difficulty"
+    )
+    fk_cuisine = ForeignKeyField(
+        null=False,
+        model=CuisineDimension,
+        field="sk_cuisine"
     )
 
     class Meta:
@@ -109,14 +120,15 @@ class IngredientDimension(BaseModel):
 #############################
 
 class RecipeNutrientValue(BaseModel):
-    sk_rec_nut = AutoField()
+    # sk_rec_nut = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
     )
     fk_nutrient = ForeignKeyField(
         model=NutrientDimension,
-        field="sk_nutrient"
+        field="sk_nutrient",
+        backref='nutrient_id'
     )
 
     value = FloatField(
@@ -127,9 +139,10 @@ class RecipeNutrientValue(BaseModel):
     class Meta:
         table_name = "recipe_nutrient_value"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'fk_nutrient')
 
 class RecipeIngredient(BaseModel):
-    sk_rec_ing = AutoField()
+    # sk_rec_ing = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -145,9 +158,10 @@ class RecipeIngredient(BaseModel):
     class Meta:
         table_name = "recipe_ingredient"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'fk_ingredient')
 
 class RecipeInstruction(BaseModel):
-    sk_rec_ins = AutoField()
+    # sk_rec_ins = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -158,6 +172,7 @@ class RecipeInstruction(BaseModel):
     class Meta:
         table_name = "recipe_instruction"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'step', 'instruction')
 
 
 ###############
@@ -182,12 +197,13 @@ class WeeklyMeals(BaseModel):
     class Meta:
         table_name = "weekly_meals"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'hellofresh_week')
 
 class RecipeRating(BaseModel):
     sk_rating = AutoField(primary_key=True)
-    rating = IntegerField(
+    rating = FloatField(
         null=False,
-        constraints=[Check('rating >= 1'), Check('rating <= 4')]
+        constraints=[Check('rating >= 1.0'), Check('rating <= 4.0')]
     )
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,

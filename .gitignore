@@ -1,0 +1,16 @@
+.env
+
+venv/
+
+backend_api/*.pyc
+backend_api/__pycache__/
+
+instance/
+
+backend_api/.pytest_cache/
+backend_api/.coverage
+backend_api/htmlcov/
+
+backend_api/dist/
+backend_api/build/
+backend_api/*.egg-info/

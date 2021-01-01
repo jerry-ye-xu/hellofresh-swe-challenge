@@ -44,6 +44,168 @@ def random_text(p, max_sentence_length):
         return lorem.words(max_sentence_length)
     return None
 
+def weekly_meals_pattern_one(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_two(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_three(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=2,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def weekly_meals_pattern_four(hellofresh_week):
+    WeeklyMeals.create(
+        fk_recipe=1,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=3,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=5,
+        hellofresh_week=hellofresh_week,
+        default_meal=True
+    )
+    WeeklyMeals.create(
+        fk_recipe=4,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=8,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=6,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+    WeeklyMeals.create(
+        fk_recipe=7,
+        hellofresh_week=hellofresh_week,
+        default_meal=False
+    )
+
+def generate_month(first_date, start_idx, end_idx, hf_week, count):
+
+    for i in range(start_idx, end_idx + 1):
+        hellofresh_week = f'{str(first_date)[:4]}-W0{hf_week}' if hf_week < 10 else f'{str(first_date)[:4]}-W{hf_week}'
+
+        DateDimension.create(
+            sk_date=first_date+i,
+            hellofresh_week=hellofresh_week
+        )
+
+        count += 1
+        if count % 7 == 0:
+            hf_week += 1
+
 
 if __name__ == "__main__":
     psql_db = PostgresqlDatabase(
@@ -60,85 +222,152 @@ if __name__ == "__main__":
     # Dimension Tables #
     ####################
 
-    # 20201101 is a Sunday
-    DateDimension.create(sk_date=20201101, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201102, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201103, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201104, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201105, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201106, hellofresh_week='2020-W46')
-    DateDimension.create(sk_date=20201107, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201108, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201109, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201110, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201111, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201112, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201113, hellofresh_week='2020-W47')
-    DateDimension.create(sk_date=20201114, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201115, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201116, hellofresh_week='2020-W48')
-    DateDimension.create(sk_date=20201117, hellofresh_week='2020-W48')
+    # 20201031 is a Saturday
+    DateDimension.create(sk_date=20201031, hellofresh_week='2020-W45')
+
+    generate_month(
+        first_date=20201100,
+        start_idx=1,
+        end_idx=30,
+        hf_week=45,
+        count=1
+    )
+
+    generate_month(
+        first_date=20201200,
+        start_idx=1,
+        end_idx=31,
+        hf_week=49,
+        count=3
+    )
+
+    # Handle simple edge cases, for the sake of this exercise.
+    DateDimension.create(sk_date=20210101, hellofresh_week='2020-W53')
+
+    generate_month(
+        first_date=20210100,
+        start_idx=2,
+        end_idx=31,
+        hf_week=1,
+        count=0
+    )
+
+    DateDimension.create(sk_date=20210201, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210202, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210203, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210204, hellofresh_week='2021-W05')
+    DateDimension.create(sk_date=20210205, hellofresh_week='2021-W05')
+
 
     CookingDifficultyDimension.create(sk_difficulty='easy')
     CookingDifficultyDimension.create(sk_difficulty='medium')
     CookingDifficultyDimension.create(sk_difficulty='hard')
+
+
+    #
+    # Obtained from https://www.hellofresh.com.au/recipes
+    #
+
+    # Tag pt. 1
+    CuisineDimension.create(sk_cuisine="Family Favourite")
+    CuisineDimension.create(sk_cuisine="Turkish")
+    CuisineDimension.create(sk_cuisine="American")
+    CuisineDimension.create(sk_cuisine="Australian")
+    CuisineDimension.create(sk_cuisine="Asian")
+    CuisineDimension.create(sk_cuisine="British")
+    CuisineDimension.create(sk_cuisine="Chinese")
+    CuisineDimension.create(sk_cuisine="Cuban")
+    CuisineDimension.create(sk_cuisine="French")
+    CuisineDimension.create(sk_cuisine="German")
+    CuisineDimension.create(sk_cuisine="Greek")
+    CuisineDimension.create(sk_cuisine="Hawaiian")
+    CuisineDimension.create(sk_cuisine="Indian")
+    CuisineDimension.create(sk_cuisine="Indonesian")
+    CuisineDimension.create(sk_cuisine="Irish")
+
+    # Tag pt. 2
+    CuisineDimension.create(sk_cuisine="Italian")
+    CuisineDimension.create(sk_cuisine="Japanese")
+    CuisineDimension.create(sk_cuisine="Korean")
+    CuisineDimension.create(sk_cuisine="Lebanese")
+    CuisineDimension.create(sk_cuisine="Mediterrean")
+    CuisineDimension.create(sk_cuisine="Mexican")
+    CuisineDimension.create(sk_cuisine="Middle Eastern")
+    CuisineDimension.create(sk_cuisine="Moroccan")
+    CuisineDimension.create(sk_cuisine="North African")
+    CuisineDimension.create(sk_cuisine="Portuguese")
+    CuisineDimension.create(sk_cuisine="Spanish")
+    CuisineDimension.create(sk_cuisine="Russian")
+    CuisineDimension.create(sk_cuisine="Singaporean")
+    CuisineDimension.create(sk_cuisine="Thai")
+    CuisineDimension.create(sk_cuisine="Vietnamese")
+
 
     RecipeDimension.create(
         # sk_recipe=1,
         recipe_name="Southeast Asian Chicken Coconut Soup",
         recipe_subname="with Makrut Lime & Noodles",
         preparation_time=35,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Asian'
     )
     RecipeDimension.create(
         # sk_recipe=2,
         recipe_name="Saucy Coconut & Chicken Noodles",
         recipe_subname="with Lemongrass & Ginger",
         preparation_time=45,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Asian'
     )
     RecipeDimension.create(
         # sk_recipe=3,
         recipe_name="Dukkah Roasted Sweet Potato",
         recipe_subname="with Lemon Yoghurt & Mint | Serves 2",
         preparation_time=30,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Middle Eastern'
     )
     RecipeDimension.create(
         # sk_recipe=4,
         recipe_name="Chicken Tenders & Crushed Lemon Potatoes",
         recipe_subname="with Herbed Yoghurt Sauce",
         preparation_time=30,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=5,
         recipe_name="Smokey Beef Cheeseburger",
         recipe_subname="with BBQ Mayo & Paprika Fries",
         preparation_time=40,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=6,
         recipe_name="Caribbean Chicken Tacos",
         recipe_subname="with Pineapple & Cucumber Salsa",
         preparation_time=25,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=7,
         recipe_name="Beef & Basil Pesto Meatballs",
         recipe_subname="with Spaghetti & Parmesan",
         preparation_time=45,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='American'
     )
     RecipeDimension.create(
         # sk_recipe=8,
         recipe_name="Korean Pork Bibimbap",
         recipe_subname="with Black Sesame Rice & Sugar Snap Peas",
         preparation_time=35,
-        fk_difficulty='easy'
+        fk_difficulty='easy',
+        fk_cuisine='Korean'
     )
+
 
     NutrientDimension.create(
         # sk_nutrient=1,
@@ -264,6 +493,11 @@ if __name__ == "__main__":
     IngredientDimension.create(sk_ingredient=71, ingredient="sugar snap peas")
     IngredientDimension.create(sk_ingredient=72, ingredient="black sesame seeds")
     IngredientDimension.create(sk_ingredient=73, ingredient="garlic aioli")
+
+    # We duplicate the 'ingredient' to allow for composite keys to hold.
+    # A simple workaround for the purposes of this exercise.
+    IngredientDimension.create(sk_ingredient=74, ingredient="water (for the sauce)")
+    IngredientDimension.create(sk_ingredient=75, ingredient="water (for the rice)")
 
     #############################
     # Recipe Information Tables #
@@ -1338,14 +1572,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=14,
+        fk_ingredient=74,
         value=1,
         unit="tbs"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=14,
-
+        fk_ingredient=75,
         value=1.5,
         unit="cup"
     )
@@ -1379,77 +1612,27 @@ if __name__ == "__main__":
     # Fact Tables #
     ###############
 
-    WeeklyMeals.create(
-        fk_recipe=1,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=2,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W46',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=7,
-        hellofresh_week='2020-W46',
-        default_meal=False
-    )
+    #
+    # For the purposes of this exercise, we repeat the pattern every 4 weeks.
+    #
 
-    WeeklyMeals.create(
-        fk_recipe=8,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=7,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=6,
-        hellofresh_week='2020-W47',
-        default_meal=True
-    )
-    WeeklyMeals.create(
-        fk_recipe=5,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=4,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=3,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
-    WeeklyMeals.create(
-        fk_recipe=2,
-        hellofresh_week='2020-W47',
-        default_meal=False
-    )
+    weekly_meals_pattern_one('2020-W45')
+    weekly_meals_pattern_two('2020-W46')
+    weekly_meals_pattern_three('2020-W47')
+    weekly_meals_pattern_four('2020-W48')
+    weekly_meals_pattern_one('2020-W49')
+    weekly_meals_pattern_two('2020-W50')
+    weekly_meals_pattern_three('2020-W51')
+    weekly_meals_pattern_four('2020-W52')
+    weekly_meals_pattern_one('2020-W53')
+    weekly_meals_pattern_two('2021-W01')
+    weekly_meals_pattern_three('2020-W02')
+    weekly_meals_pattern_four('2020-W03')
+    weekly_meals_pattern_one('2021-W04')
+    weekly_meals_pattern_two('2021-W05')
+    weekly_meals_pattern_three('2020-W06')
+    weekly_meals_pattern_four('2020-W07')
+
 
     for i in range(500):
         RecipeRating.create(

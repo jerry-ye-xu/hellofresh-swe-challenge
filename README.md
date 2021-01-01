@@ -10,6 +10,15 @@
 
 ## Setup
 
+Set up your local virtual environment with
+```bash
+virtualenv venv
+
+# shortcut for activating virtualenv
+source activate.sh
+```
+
+
 Please export the following environment variables locally.
 
 ```bash
@@ -27,6 +36,7 @@ Note: If you open a new tab in terminal you will also need to run this again.
 The following information about recipes we did not include:
 
 - urls/src to the images of ingredients/recipes/instructions (on the website)
+- the description of the recipes.
 - warnings about ingredients with potential allergies e.g. "contain sesame, gluten may be present".
 - Information about the utensils.
 - Extract instructions of the recipes (I used lorem ipsum).
@@ -39,7 +49,7 @@ You can connect to the PostgreSQL container locally by running
 ```bash
 make psql_conn
 ```
-and typing in the password.
+and typing in the password (see `env_var_local`).
 
 ## .env File
 
@@ -58,6 +68,9 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 ## Worklog
 
+- 0.0.7: 01/12/20 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
+- 0.0.6: 30/12/20 - Add end points for updating rows in nutrient and instruction dimension tables.
+- 0.0.5: 28/12/20 - Set up API for weekly_meals and recipe_ratings.
 - 0.0.4: 24/12/20 - Set up Flask structure including blueprints, models etc. Test simple GET method to retrieve recipes.
 - 0.0.3: 22/12/20 - Insert fake data into the tables, add reasons for omitting certain details.
 - 0.0.2: 21/12/20 - Create Makefile, scripts to build and teardown containers.
