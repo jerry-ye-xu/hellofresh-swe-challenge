@@ -2,15 +2,15 @@
 
 venv/
 
-*.pyc
-__pycache__/
+backend_api/*.pyc
+backend_api/__pycache__/
 
 instance/
 
-.pytest_cache/
-.coverage
-htmlcov/
+backend_api/.pytest_cache/
+backend_api/.coverage
+backend_api/htmlcov/
 
-dist/
-build/
-*.egg-info/
+backend_api/dist/
+backend_api/build/
+backend_api/*.egg-info/

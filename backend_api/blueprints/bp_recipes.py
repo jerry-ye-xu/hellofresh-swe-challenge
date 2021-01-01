@@ -315,8 +315,127 @@ def sk_recipe_nutrients(sk_recipe):
 
         return f"Updated {list(req_json['nutrients'].keys())} for sk_recipe={sk_recipe}", 201
 
+@bp_recipes.route('/<int:sk_recipe>/ingredients', methods=['GET', 'PUT'])
+def sk_recipe_ingredients(sk_recipe):
+    if request.method == 'GET':
+        if not recipe_exists(sk_recipe):
+            raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
+        # try:
+        query = (
+            RecipeIngredient
+                .select()
+                .where(
+                    RecipeIngredient.fk_recipe == sk_recipe
+                )
+                .execute()
+        )
+        ingredients = parse_recipe_ingredients(query)
 
+        return ingredients, 200
 
+    elif request.method == 'PUT':
+        if not request.is_json:
+            return jsonify({"message": "Parser requires JSON format."}), 415
+
+        req_json = request.get_json()
+
+        if "ingredients" not in req_json.keys():
+            return jsonify({
+                "message": "JSON requires \'ingredients\' key. See example shown.",
+                "ingredients": {
+                    "name": "bread",
+                    "serving_size": 2,
+                    "value": 1,
+                    "unit": "loaf"
+                }
+            }), 415
+
+        for ingredient in req_json["ingredients"].keys():
+            if not ingredient_exists(ingredient):
+                return jsonify({
+                    "message": f"{ingredient} cannot be found in dimensions.nutrient_dimension table. Please use the PUT method at /nutrients to add the new nutrient first."
+                    }), 400
+
+        for ingredient, ing_json in req_json["ingredients"].items():
+            try:
+                with g.db.atomic():
+
+                    cte = (
+                        IngredientDimension
+                            .select(
+                                IngredientDimension.sk_ingredient,
+                                IngredientDimension.ingredient
+                            )
+                            .where(
+                                IngredientDimension.ingredient == ingredient
+                            )
+                            .cte('ingredient_dimension', columns=('sk_ingredient', 'ingredient'))
+
+                    )
+                    ing_dim = (
+                        IngredientDimension
+                            .select()
+                            .where(
+                                IngredientDimension.ingredient == ingredient
+                            )
+                            .get()
+                    )
+
+                    rp_ing = (
+                        RecipeIngredient
+                            .select()
+                            .where(
+                                (RecipeIngredient.fk_recipe == sk_recipe) &
+                                (RecipeIngredient.fk_ingredient == ing_dim.sk_ingredient)
+                            )
+                            .get()
+                    )
+
+                    default_values = {
+                        "fk_recipe": sk_recipe,
+                        "fk_ingredient": ing_dim.sk_ingredient,
+                        "serving_size": rp_ing.serving_size,
+                        "value": rp_ing.value,
+                        "unit": rp_ing.unit,
+                    }
+
+                    current_app.logger.info(model_to_dict(ing_dim))
+                    current_app.logger.info(model_to_dict(rp_ing))
+
+                    # We update the default values to ensure
+                    # INSERT doesn't run into null constraint
+                    # issues.
+                    default_values.update(ing_json)
+
+                    query = (
+                        RecipeIngredient
+                            .insert(default_values)
+                            # .with_cte(cte)
+                            # .from_(cte)
+                            .on_conflict(
+                                action="update",
+                                conflict_target=[
+                                    RecipeIngredient.fk_ingredient,
+                                    RecipeIngredient.fk_recipe
+                                ],
+                                update=(ing_json),
+                                # update=(ing_json),
+                                where=(RecipeIngredient.fk_recipe == sk_recipe)
+                                # where=(
+                                #     (RecipeIngredient.fk_recipe == sk_recipe) &
+                                #     (RecipeIngredient.fk_ingredient == SQL('nutrient_dimension.sk_ingredient'))
+                                # )
+                            )
+                    )
+                    current_app.logger.error(query.sql())
+                    updated_ingredients = query.execute()
+
+            except Exception as e:
+                current_app.logger.error(sys.exc_info())
+                current_app.logger.error(str(e))
+                return str(e), 400
+
+        return f"Updated {list(req_json['ingredients'].keys())} for sk_recipe={sk_recipe}", 201
 
 
 #
@@ -362,6 +481,26 @@ def parse_recipe_nutrients(nutrients):
 
     return json_file
 
+def parse_recipe_ingredients(ingredients):
+    json_file = dict()
+    json_file["ingredients"] = []
+    counter = 1
+    for ing in ingredients:
+        if counter == 1:
+            json_file["fk_recipe"] = ing.fk_recipe.sk_recipe
+            json_file["recipe_name"] = ing.fk_recipe.recipe_name
+            json_file["recipe_subname"] = ing.fk_recipe.recipe_subname
+
+        json_file["ingredients"].append({
+            "sk_ingredient": ing.fk_ingredient.sk_ingredient,
+            "name": ing.fk_ingredient.ingredient,
+            "serving_size": ing.serving_size,
+            "value": ing.value,
+            "unit": ing.unit
+        })
+
+    return json_file
+
 def search_recipe_names(recipe_word):
     return (
         (fn.LOWER(RecipeDimension.recipe_name).contains(recipe_word)) |
@@ -380,6 +519,7 @@ def recipe_exists(sk_recipe):
     )
     return does_exist
 
+
 def nutrient_exists(nutrient):
     does_exist = (
         NutrientDimension
@@ -387,6 +527,23 @@ def nutrient_exists(nutrient):
             .where(NutrientDimension.nutrient == nutrient)
             .exists()
     )
+    return does_exist
+
+def ingredient_exists(ingredient):
+    """
+    We can also prefetch all the ingredients. However, if the number of ingredients is significantly large, it will affect performance.
+
+    Perhaps .exists() function has an optimised implementation under the hood, or we can use the in_() function.
+
+    For the sake of this exercise we keep it simple.
+    """
+    does_exist = (
+        IngredientDimension
+            .select()
+            .where(IngredientDimension.ingredient == ingredient)
+            .exists()
+    )
+
     return does_exist
 
 def validate_instructions_json(req_json, table_max_step):

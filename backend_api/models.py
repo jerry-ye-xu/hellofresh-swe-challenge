@@ -2,6 +2,7 @@ import os
 
 from peewee import (
     Check,
+    CompositeKey,
     Model,
     PostgresqlDatabase,
     AutoField,
@@ -119,7 +120,7 @@ class IngredientDimension(BaseModel):
 #############################
 
 class RecipeNutrientValue(BaseModel):
-    sk_rec_nut = AutoField()
+    # sk_rec_nut = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -138,9 +139,10 @@ class RecipeNutrientValue(BaseModel):
     class Meta:
         table_name = "recipe_nutrient_value"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'fk_nutrient')
 
 class RecipeIngredient(BaseModel):
-    sk_rec_ing = AutoField()
+    # sk_rec_ing = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -156,9 +158,10 @@ class RecipeIngredient(BaseModel):
     class Meta:
         table_name = "recipe_ingredient"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'fk_ingredient')
 
 class RecipeInstruction(BaseModel):
-    sk_rec_ins = AutoField()
+    # sk_rec_ins = AutoField()
     fk_recipe = ForeignKeyField(
         model=RecipeDimension,
         field="sk_recipe"
@@ -169,6 +172,7 @@ class RecipeInstruction(BaseModel):
     class Meta:
         table_name = "recipe_instruction"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'step', 'instruction')
 
 
 ###############
@@ -193,6 +197,7 @@ class WeeklyMeals(BaseModel):
     class Meta:
         table_name = "weekly_meals"
         schema = "fact_tables"
+        primary_key = CompositeKey('fk_recipe', 'hellofresh_week')
 
 class RecipeRating(BaseModel):
     sk_rating = AutoField(primary_key=True)

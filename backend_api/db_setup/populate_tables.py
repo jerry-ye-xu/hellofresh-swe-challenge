@@ -494,6 +494,11 @@ if __name__ == "__main__":
     IngredientDimension.create(sk_ingredient=72, ingredient="black sesame seeds")
     IngredientDimension.create(sk_ingredient=73, ingredient="garlic aioli")
 
+    # We duplicate the 'ingredient' to allow for composite keys to hold.
+    # A simple workaround for the purposes of this exercise.
+    IngredientDimension.create(sk_ingredient=74, ingredient="water (for the sauce)")
+    IngredientDimension.create(sk_ingredient=75, ingredient="water (for the rice)")
+
     #############################
     # Recipe Information Tables #
     #############################
@@ -1567,14 +1572,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=14,
+        fk_ingredient=74,
         value=1,
         unit="tbs"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=14,
-
+        fk_ingredient=75,
         value=1.5,
         unit="cup"
     )
