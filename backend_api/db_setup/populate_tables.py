@@ -414,90 +414,322 @@ if __name__ == "__main__":
         measurement="mg"
     )
 
-    IngredientDimension.create(sk_ingredient=1, ingredient="garlic")
-    IngredientDimension.create(sk_ingredient=2, ingredient="carrot")
-    IngredientDimension.create(sk_ingredient=3, ingredient="Asian greens")
-    IngredientDimension.create(sk_ingredient=4, ingredient="Southeast Asian Spice Blend")
-    IngredientDimension.create(sk_ingredient=5, ingredient="udon noodles")
-    IngredientDimension.create(sk_ingredient=6, ingredient="crushed peanuts")
-    IngredientDimension.create(sk_ingredient=7, ingredient="makrut lime leaves")
-    IngredientDimension.create(sk_ingredient=8, ingredient="capsicum")
-    IngredientDimension.create(sk_ingredient=9, ingredient="chicken tenderloins")
-    IngredientDimension.create(sk_ingredient=10, ingredient="coconut milk")
-    IngredientDimension.create(sk_ingredient=11, ingredient="coriander")
-    IngredientDimension.create(sk_ingredient=12, ingredient="olive oil", included_in_delivery=False)
-    IngredientDimension.create(sk_ingredient=13, ingredient="soy sauce", included_in_delivery=False)
-    IngredientDimension.create(sk_ingredient=14, ingredient="water", included_in_delivery=False)
-    IngredientDimension.create(sk_ingredient=15, ingredient="brown sugar", included_in_delivery=False)
+    IngredientDimension.create(
+        # sk_ingredient=1,
+        ingredient="garlic"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=2,
+        ingredient="carrot"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=3,
+        ingredient="Asian greens"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=4,
+        ingredient="Southeast Asian Spice Blend"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=5,
+        ingredient="udon noodles"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=6,
+        ingredient="crushed peanuts"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=7,
+        ingredient="makrut lime leaves"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=8,
+        ingredient="capsicum"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=9,
+        ingredient="chicken tenderloins"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=10,
+        ingredient="coconut milk"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=11,
+        ingredient="coriander"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=12,
+        ingredient="olive oil",
+        included_in_delivery=False
+    )
+    IngredientDimension.create(
+        # sk_ingredient=13,
+        ingredient="soy sauce",
+        included_in_delivery=False
+    )
+    IngredientDimension.create(
+        # sk_ingredient=14,
+        ingredient="water",
+        included_in_delivery=False
+    )
+    IngredientDimension.create(
+        # sk_ingredient=15,
+        ingredient="brown sugar",
+        included_in_delivery=False
+    )
 
-    IngredientDimension.create(sk_ingredient=16, ingredient="chicken thighs")
-    IngredientDimension.create(sk_ingredient=17, ingredient="ginger lemongrass paste")
-    IngredientDimension.create(sk_ingredient=18, ingredient="lime")
-    IngredientDimension.create(sk_ingredient=19, ingredient="flat noodles")
-    IngredientDimension.create(sk_ingredient=20, ingredient="oyster sauce")
+    IngredientDimension.create(
+        # sk_ingredient=16,
+        ingredient="chicken thighs"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=17,
+        ingredient="ginger lemongrass paste"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=18,
+        ingredient="lime"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=19,
+        ingredient="flat noodles"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=20,
+        ingredient="oyster sauce"
+    )
 
-    IngredientDimension.create(sk_ingredient=21, ingredient="sweet potato")
-    IngredientDimension.create(sk_ingredient=23, ingredient="dukkah")
-    IngredientDimension.create(sk_ingredient=24, ingredient="lemon")
-    IngredientDimension.create(sk_ingredient=25, ingredient="long red chilli")
-    IngredientDimension.create(sk_ingredient=26, ingredient="red onion")
-    IngredientDimension.create(sk_ingredient=27, ingredient="flaked almonds")
-    IngredientDimension.create(sk_ingredient=28, ingredient="mint")
-    IngredientDimension.create(sk_ingredient=29, ingredient="Greek-style yoghurt")
-    IngredientDimension.create(sk_ingredient=30, ingredient="honey", included_in_delivery=False)
+    IngredientDimension.create(
+        # sk_ingredient=21,
+        ingredient="sweet potato"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=23,
+        ingredient="dukkah"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=24,
+        ingredient="lemon"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=25,
+        ingredient="long red chilli"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=26,
+        ingredient="red onion"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=27,
+        ingredient="flaked almonds"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=28,
+        ingredient="mint"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=29,
+        ingredient="Greek-style yoghurt"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=30,
+        ingredient="honey",
+        included_in_delivery=False
+    )
 
-    IngredientDimension.create(sk_ingredient=31, ingredient="potatoes")
-    IngredientDimension.create(sk_ingredient=32, ingredient="cherry tomatoes")
-    IngredientDimension.create(sk_ingredient=33, ingredient="chicken stock")
-    IngredientDimension.create(sk_ingredient=34, ingredient="Dijon mustard")
-    IngredientDimension.create(sk_ingredient=35, ingredient="dill & parsley mayonnaise")
-    IngredientDimension.create(sk_ingredient=36, ingredient="mixed salad leaves")
-    IngredientDimension.create(sk_ingredient=37, ingredient="butter", included_in_delivery=False)
+    IngredientDimension.create(
+        # sk_ingredient=31,
+        ingredient="potatoes"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=32,
+        ingredient="cherry tomatoes"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=33,
+        ingredient="chicken stock"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=34,
+        ingredient="Dijon mustard"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=35,
+        ingredient="dill & parsley mayonnaise"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=36,
+        ingredient="mixed salad leaves"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=37,
+        ingredient="butter",
+        included_in_delivery=False
+    )
 
-    IngredientDimension.create(sk_ingredient=38, ingredient="brown onion")
-    IngredientDimension.create(sk_ingredient=39, ingredient="cos lettuce leaves")
-    IngredientDimension.create(sk_ingredient=40, ingredient="beef mince")
-    IngredientDimension.create(sk_ingredient=41, ingredient="shredded Cheddar cheese")
-    IngredientDimension.create(sk_ingredient=42, ingredient="BBQ mayonnaise")
-    IngredientDimension.create(sk_ingredient=43, ingredient="paprika spice blend")
-    IngredientDimension.create(sk_ingredient=44, ingredient="tomato")
-    IngredientDimension.create(sk_ingredient=45, ingredient="All-American spice splend")
-    IngredientDimension.create(sk_ingredient=46, ingredient="fine breadcrumbs")
-    IngredientDimension.create(sk_ingredient=47, ingredient="bake-at-home burger buns")
-    IngredientDimension.create(sk_ingredient=48, ingredient="salt", included_in_delivery=False)
-    IngredientDimension.create(sk_ingredient=49, ingredient="balsamic vinegar", included_in_delivery=False)
-    IngredientDimension.create(sk_ingredient=50, ingredient="eggs", included_in_delivery=False)
+    IngredientDimension.create(
+        # sk_ingredient=38,
+        ingredient="brown onion"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=39,
+        ingredient="cos lettuce leaves"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=40,
+        ingredient="beef mince"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=41,
+        ingredient="shredded Cheddar cheese"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=42,
+        ingredient="BBQ mayonnaise"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=43,
+        ingredient="paprika spice blend"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=44,
+        ingredient="tomato"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=45,
+        ingredient="All-American spice splend"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=46,
+        ingredient="fine breadcrumbs"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=47,
+        ingredient="bake-at-home burger buns"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=48,
+        ingredient="salt",
+        included_in_delivery=False
+    )
+    IngredientDimension.create(
+        # sk_ingredient=49,
+        ingredient="balsamic vinegar",
+        included_in_delivery=False
+    )
+    IngredientDimension.create(
+        # sk_ingredient=50,
+        ingredient="eggs",
+        included_in_delivery=False
+    )
 
-    IngredientDimension.create(sk_ingredient=51, ingredient="cucumber")
-    IngredientDimension.create(sk_ingredient=52, ingredient="mild Caribbean jerk seasoning")
-    IngredientDimension.create(sk_ingredient=53, ingredient="mayonnaise")
-    IngredientDimension.create(sk_ingredient=54, ingredient="pineapple slices")
-    IngredientDimension.create(sk_ingredient=55, ingredient="cos lettuce")
-    IngredientDimension.create(sk_ingredient=56, ingredient="mini flour tortillas")
-    IngredientDimension.create(sk_ingredient=57, ingredient="vinegar (either balsamic or white wine)", included_in_delivery=False)
+    IngredientDimension.create(
+        # sk_ingredient=51,
+        ingredient="cucumber"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=52,
+        ingredient="mild Caribbean jerk seasoning"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=53,
+        ingredient="mayonnaise"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=54,
+        ingredient="pineapple slices"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=55,
+        ingredient="cos lettuce"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=56,
+        ingredient="mini flour tortillas"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=57,
+        ingredient="vinegar (either balsamic or white wine)",
+        included_in_delivery=False
+    )
 
-    IngredientDimension.create(sk_ingredient=58, ingredient="basil")
-    IngredientDimension.create(sk_ingredient=59, ingredient="basil pesto")
-    IngredientDimension.create(sk_ingredient=60, ingredient="dried oregano")
-    IngredientDimension.create(sk_ingredient=61, ingredient="beef stock")
-    IngredientDimension.create(sk_ingredient=62, ingredient="grated Parmesan cheese")
-    IngredientDimension.create(sk_ingredient=63, ingredient="zucchini")
-    IngredientDimension.create(sk_ingredient=64, ingredient="spaghetti pasta")
-    IngredientDimension.create(sk_ingredient=65, ingredient="passata")
-    IngredientDimension.create(sk_ingredient=66, ingredient="baby spinach leaves")
+    IngredientDimension.create(
+        # sk_ingredient=58,
+        ingredient="basil"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=59,
+        ingredient="basil pesto"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=60,
+        ingredient="dried oregano"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=61,
+        ingredient="beef stock"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=62,
+        ingredient="grated Parmesan cheese"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=63,
+        ingredient="zucchini"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=64,
+        ingredient="spaghetti pasta"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=65,
+        ingredient="passata"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=66,
+        ingredient="baby spinach leaves"
+    )
 
-    IngredientDimension.create(sk_ingredient=67, ingredient="basmati rice")
-    IngredientDimension.create(sk_ingredient=68, ingredient="ginger")
-    IngredientDimension.create(sk_ingredient=69, ingredient="chilli flakes")
-    IngredientDimension.create(sk_ingredient=70, ingredient="pork mince")
-    IngredientDimension.create(sk_ingredient=71, ingredient="sugar snap peas")
-    IngredientDimension.create(sk_ingredient=72, ingredient="black sesame seeds")
-    IngredientDimension.create(sk_ingredient=73, ingredient="garlic aioli")
+    IngredientDimension.create(
+        # sk_ingredient=67,
+        ingredient="basmati rice"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=68,
+        ingredient="ginger"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=69,
+        ingredient="chilli flakes"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=70,
+        ingredient="pork mince"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=71,
+        ingredient="sugar snap peas"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=72,
+        ingredient="black sesame seeds"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=73,
+        ingredient="garlic aioli"
+    )
 
     # We duplicate the 'ingredient' to allow for composite keys to hold.
     # A simple workaround for the purposes of this exercise.
-    IngredientDimension.create(sk_ingredient=74, ingredient="water (for the sauce)")
-    IngredientDimension.create(sk_ingredient=75, ingredient="water (for the rice)")
+    IngredientDimension.create(
+        # sk_ingredient=74,
+        ingredient="water (for the sauce)"
+    )
+    IngredientDimension.create(
+        # sk_ingredient=75,
+        ingredient="water (for the rice)"
+    )
 
     #############################
     # Recipe Information Tables #
