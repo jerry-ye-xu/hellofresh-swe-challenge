@@ -505,229 +505,229 @@ if __name__ == "__main__":
         ingredient="sweet potato"
     )
     IngredientDimension.create(
-        # sk_ingredient=23,
+        # sk_ingredient=22,
         ingredient="dukkah"
     )
     IngredientDimension.create(
-        # sk_ingredient=24,
+        # sk_ingredient=23,
         ingredient="lemon"
     )
     IngredientDimension.create(
-        # sk_ingredient=25,
+        # sk_ingredient=24,
         ingredient="long red chilli"
     )
     IngredientDimension.create(
-        # sk_ingredient=26,
+        # sk_ingredient=25,
         ingredient="red onion"
     )
     IngredientDimension.create(
-        # sk_ingredient=27,
+        # sk_ingredient=26,
         ingredient="flaked almonds"
     )
     IngredientDimension.create(
-        # sk_ingredient=28,
+        # sk_ingredient=27,
         ingredient="mint"
     )
     IngredientDimension.create(
-        # sk_ingredient=29,
+        # sk_ingredient=28,
         ingredient="Greek-style yoghurt"
     )
     IngredientDimension.create(
-        # sk_ingredient=30,
+        # sk_ingredient=29,
         ingredient="honey",
         included_in_delivery=False
     )
 
     IngredientDimension.create(
-        # sk_ingredient=31,
+        # sk_ingredient=30,
         ingredient="potatoes"
     )
     IngredientDimension.create(
-        # sk_ingredient=32,
+        # sk_ingredient=31,
         ingredient="cherry tomatoes"
     )
     IngredientDimension.create(
-        # sk_ingredient=33,
+        # sk_ingredient=32,
         ingredient="chicken stock"
     )
     IngredientDimension.create(
-        # sk_ingredient=34,
+        # sk_ingredient=33,
         ingredient="Dijon mustard"
     )
     IngredientDimension.create(
-        # sk_ingredient=35,
+        # sk_ingredient=34,
         ingredient="dill & parsley mayonnaise"
     )
     IngredientDimension.create(
-        # sk_ingredient=36,
+        # sk_ingredient=35,
         ingredient="mixed salad leaves"
     )
     IngredientDimension.create(
-        # sk_ingredient=37,
+        # sk_ingredient=36,
         ingredient="butter",
         included_in_delivery=False
     )
 
     IngredientDimension.create(
-        # sk_ingredient=38,
+        # sk_ingredient=37,
         ingredient="brown onion"
     )
     IngredientDimension.create(
-        # sk_ingredient=39,
+        # sk_ingredient=38,
         ingredient="cos lettuce leaves"
     )
     IngredientDimension.create(
-        # sk_ingredient=40,
+        # sk_ingredient=39,
         ingredient="beef mince"
     )
     IngredientDimension.create(
-        # sk_ingredient=41,
+        # sk_ingredient=40,
         ingredient="shredded Cheddar cheese"
     )
     IngredientDimension.create(
-        # sk_ingredient=42,
+        # sk_ingredient=41,
         ingredient="BBQ mayonnaise"
     )
     IngredientDimension.create(
-        # sk_ingredient=43,
+        # sk_ingredient=42,
         ingredient="paprika spice blend"
     )
     IngredientDimension.create(
-        # sk_ingredient=44,
+        # sk_ingredient=43,
         ingredient="tomato"
     )
     IngredientDimension.create(
-        # sk_ingredient=45,
+        # sk_ingredient=44,
         ingredient="All-American spice splend"
     )
     IngredientDimension.create(
-        # sk_ingredient=46,
+        # sk_ingredient=45,
         ingredient="fine breadcrumbs"
     )
     IngredientDimension.create(
-        # sk_ingredient=47,
+        # sk_ingredient=46,
         ingredient="bake-at-home burger buns"
     )
     IngredientDimension.create(
-        # sk_ingredient=48,
+        # sk_ingredient=47,
         ingredient="salt",
         included_in_delivery=False
     )
     IngredientDimension.create(
-        # sk_ingredient=49,
+        # sk_ingredient=48,
         ingredient="balsamic vinegar",
         included_in_delivery=False
     )
     IngredientDimension.create(
-        # sk_ingredient=50,
+        # sk_ingredient=49,
         ingredient="eggs",
         included_in_delivery=False
     )
 
     IngredientDimension.create(
-        # sk_ingredient=51,
+        # sk_ingredient=50,
         ingredient="cucumber"
     )
     IngredientDimension.create(
-        # sk_ingredient=52,
+        # sk_ingredient=51,
         ingredient="mild Caribbean jerk seasoning"
     )
     IngredientDimension.create(
-        # sk_ingredient=53,
+        # sk_ingredient=52,
         ingredient="mayonnaise"
     )
     IngredientDimension.create(
-        # sk_ingredient=54,
+        # sk_ingredient=53,
         ingredient="pineapple slices"
     )
     IngredientDimension.create(
-        # sk_ingredient=55,
+        # sk_ingredient=54,
         ingredient="cos lettuce"
     )
     IngredientDimension.create(
-        # sk_ingredient=56,
+        # sk_ingredient=55,
         ingredient="mini flour tortillas"
     )
     IngredientDimension.create(
-        # sk_ingredient=57,
+        # sk_ingredient=56,
         ingredient="vinegar (either balsamic or white wine)",
         included_in_delivery=False
     )
 
     IngredientDimension.create(
-        # sk_ingredient=58,
+        # sk_ingredient=57,
         ingredient="basil"
     )
     IngredientDimension.create(
-        # sk_ingredient=59,
+        # sk_ingredient=58,
         ingredient="basil pesto"
     )
     IngredientDimension.create(
-        # sk_ingredient=60,
+        # sk_ingredient=59,
         ingredient="dried oregano"
     )
     IngredientDimension.create(
-        # sk_ingredient=61,
+        # sk_ingredient=60,
         ingredient="beef stock"
     )
     IngredientDimension.create(
-        # sk_ingredient=62,
+        # sk_ingredient=61,
         ingredient="grated Parmesan cheese"
     )
     IngredientDimension.create(
-        # sk_ingredient=63,
+        # sk_ingredient=62,
         ingredient="zucchini"
     )
     IngredientDimension.create(
-        # sk_ingredient=64,
+        # sk_ingredient=63,
         ingredient="spaghetti pasta"
     )
     IngredientDimension.create(
-        # sk_ingredient=65,
+        # sk_ingredient=64,
         ingredient="passata"
     )
     IngredientDimension.create(
-        # sk_ingredient=66,
+        # sk_ingredient=65,
         ingredient="baby spinach leaves"
     )
 
     IngredientDimension.create(
-        # sk_ingredient=67,
+        # sk_ingredient=66,
         ingredient="basmati rice"
     )
     IngredientDimension.create(
-        # sk_ingredient=68,
+        # sk_ingredient=67,
         ingredient="ginger"
     )
     IngredientDimension.create(
-        # sk_ingredient=69,
+        # sk_ingredient=68,
         ingredient="chilli flakes"
     )
     IngredientDimension.create(
-        # sk_ingredient=70,
+        # sk_ingredient=69,
         ingredient="pork mince"
     )
     IngredientDimension.create(
-        # sk_ingredient=71,
+        # sk_ingredient=70,
         ingredient="sugar snap peas"
     )
     IngredientDimension.create(
-        # sk_ingredient=72,
+        # sk_ingredient=71,
         ingredient="black sesame seeds"
     )
     IngredientDimension.create(
-        # sk_ingredient=73,
+        # sk_ingredient=72,
         ingredient="garlic aioli"
     )
 
     # We duplicate the 'ingredient' to allow for composite keys to hold.
     # A simple workaround for the purposes of this exercise.
     IngredientDimension.create(
-        # sk_ingredient=74,
+        # sk_ingredient=73,
         ingredient="water (for the sauce)"
     )
     IngredientDimension.create(
-        # sk_ingredient=75,
+        # sk_ingredient=74,
         ingredient="water (for the rice)"
     )
 
@@ -1303,49 +1303,49 @@ if __name__ == "__main__":
     # Accidently missed 22 when creating ingredients
     RecipeIngredient.create(
         fk_recipe=3,
-        fk_ingredient=23,
+        fk_ingredient=22,
         value=1,
         unit="sachet"
     )
     RecipeIngredient.create(
         fk_recipe=3,
-        fk_ingredient=24,
+        fk_ingredient=23,
         value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=3,
-        fk_ingredient=25,
+        fk_ingredient=24,
         value=3,
+        unit=""
+    )
+    RecipeIngredient.create(
+        fk_recipe=3,
+        fk_ingredient=25,
+        value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=3,
         fk_ingredient=26,
         value=1,
-        unit=""
+        unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=3,
         fk_ingredient=27,
         value=1,
-        unit="packet"
+        unit="bunch"
     )
     RecipeIngredient.create(
         fk_recipe=3,
         fk_ingredient=28,
         value=1,
-        unit="bunch"
-    )
-    RecipeIngredient.create(
-        fk_recipe=3,
-        fk_ingredient=29,
-        value=1,
         unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=3,
-        fk_ingredient=30,
+        fk_ingredient=29,
         value=1,
         unit="tsp"
     )
@@ -1353,31 +1353,31 @@ if __name__ == "__main__":
     # Chicken Tenders & Crushed Lemon Potatoes
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=31,
+        fk_ingredient=30,
         value=2,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=32,
+        fk_ingredient=31,
         value=1,
         unit="punnet"
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=33,
+        fk_ingredient=32,
         value=1,
         unit="cube"
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=34,
+        fk_ingredient=33,
         value=0.5,
         unit="tub"
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=35,
+        fk_ingredient=34,
         value=0.5,
         unit="packet"
     )
@@ -1389,7 +1389,7 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=24,
+        fk_ingredient=23,
         value=0.5,
         unit=""
     )
@@ -1401,13 +1401,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=36,
+        fk_ingredient=35,
         value=1,
         unit="bag"
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=29,
+        fk_ingredient=28,
         value=0.5,
         unit="packet"
     )
@@ -1426,13 +1426,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=37,
+        fk_ingredient=36,
         value=25,
         unit="g"
     )
     RecipeIngredient.create(
         fk_recipe=4,
-        fk_ingredient=30,
+        fk_ingredient=29,
         value=0.5,
         unit="tsp"
     )
@@ -1440,21 +1440,27 @@ if __name__ == "__main__":
     # Smokey Beef Cheeseburger
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=31,
+        fk_ingredient=30,
         value=2,
+        unit=""
+    )
+    RecipeIngredient.create(
+        fk_recipe=5,
+        fk_ingredient=37,
+        value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=5,
         fk_ingredient=38,
         value=1,
-        unit=""
+        unit="bag"
     )
     RecipeIngredient.create(
         fk_recipe=5,
         fk_ingredient=39,
         value=1,
-        unit="bag"
+        unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=5,
@@ -1471,36 +1477,30 @@ if __name__ == "__main__":
     RecipeIngredient.create(
         fk_recipe=5,
         fk_ingredient=42,
-        value=1,
-        unit="packet"
-    )
-    RecipeIngredient.create(
-        fk_recipe=5,
-        fk_ingredient=43,
         value=0.5,
         unit="sachet"
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=44,
+        fk_ingredient=43,
         value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=45,
+        fk_ingredient=44,
         value=1,
         unit="sachet"
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=46,
+        fk_ingredient=45,
         value=0.5,
         unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=47,
+        fk_ingredient=46,
         value=2,
         unit=""
     )
@@ -1519,13 +1519,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=48,
+        fk_ingredient=47,
         value=0.25,
         unit="tsp"
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=49,
+        fk_ingredient=48,
         value=1,
         unit="tbs"
     )
@@ -1537,7 +1537,7 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=5,
-        fk_ingredient=50,
+        fk_ingredient=49,
         value=1,
         unit=""
     )
@@ -1551,37 +1551,37 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=51,
+        fk_ingredient=50,
         value=1,
         unit="",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=25,
+        fk_ingredient=24,
         value=0.5,
         unit="",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=52,
+        fk_ingredient=51,
         value=1,
         unit="sachet",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=53,
+        fk_ingredient=52,
         value=1,
         unit="packet",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=54,
+        fk_ingredient=53,
         value=0.5,
         unit="tin",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=55,
+        fk_ingredient=54,
         value=0.5,
         unit="head",
     )
@@ -1593,7 +1593,7 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=56,
+        fk_ingredient=55,
         value=6,
         unit="",
     )
@@ -1606,13 +1606,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=57,
+        fk_ingredient=56,
         value=0.5,
         unit="tsp",
     )
     RecipeIngredient.create(
         fk_recipe=6,
-        fk_ingredient=48,
+        fk_ingredient=47,
         value=0.25,
         unit="tsp",
     )
@@ -1620,43 +1620,43 @@ if __name__ == "__main__":
     # Beef & Basil Pesto Meatballs
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=38,
+        fk_ingredient=37,
         value=0.5,
         unit="",
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=58,
+        fk_ingredient=57,
         value=1,
         unit="punnet",
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=40,
+        fk_ingredient=39,
         value=1,
         unit="packet",
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=59,
+        fk_ingredient=58,
         value=1,
         unit="sachet",
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=60,
+        fk_ingredient=59,
         value=0.5,
         unit="sachet",
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=61,
+        fk_ingredient=60,
         value=1,
         unit="cube"
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=62,
+        fk_ingredient=61,
         value=1,
         unit="packet"
     )
@@ -1668,13 +1668,19 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=63,
+        fk_ingredient=62,
         value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=46,
+        fk_ingredient=45,
+        value=1,
+        unit="packet"
+    )
+    RecipeIngredient.create(
+        fk_recipe=7,
+        fk_ingredient=63,
         value=1,
         unit="packet"
     )
@@ -1682,17 +1688,11 @@ if __name__ == "__main__":
         fk_recipe=7,
         fk_ingredient=64,
         value=1,
-        unit="packet"
-    )
-    RecipeIngredient.create(
-        fk_recipe=7,
-        fk_ingredient=65,
-        value=1,
         unit="box"
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=66,
+        fk_ingredient=65,
         value=1,
         unit="bag"
     )
@@ -1705,7 +1705,7 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=50,
+        fk_ingredient=49,
         value=1,
         unit=""
     )
@@ -1717,13 +1717,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=48,
+        fk_ingredient=47,
         value=0.25,
         unit="tsp"
     )
     RecipeIngredient.create(
         fk_recipe=7,
-        fk_ingredient=37,
+        fk_ingredient=36,
         value=10,
         unit="g"
     )
@@ -1731,13 +1731,13 @@ if __name__ == "__main__":
     # Korean Pork Bibimbap
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=67,
+        fk_ingredient=66,
         value=1,
         unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=68,
+        fk_ingredient=67,
         value=1,
         unit="knob"
     )
@@ -1749,13 +1749,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=51,
+        fk_ingredient=50,
         value=1,
         unit=""
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=69,
+        fk_ingredient=68,
         value=1,
         unit="pinch"
     )
@@ -1767,25 +1767,25 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=70,
+        fk_ingredient=69,
         value=1,
         unit="packet"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=71,
+        fk_ingredient=70,
         value=1,
         unit="bag"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=72,
+        fk_ingredient=71,
         value=0.5,
         unit="sachet"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=73,
+        fk_ingredient=72,
         value=1,
         unit="packet"
     )
@@ -1804,13 +1804,13 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=74,
+        fk_ingredient=73,
         value=1,
         unit="tbs"
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=75,
+        fk_ingredient=74,
         value=1.5,
         unit="cup"
     )
@@ -1822,7 +1822,7 @@ if __name__ == "__main__":
     )
     RecipeIngredient.create(
         fk_recipe=8,
-        fk_ingredient=50,
+        fk_ingredient=49,
         value=2,
         unit=""
     )
