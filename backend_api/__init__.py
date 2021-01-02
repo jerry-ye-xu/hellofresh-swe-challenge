@@ -36,6 +36,7 @@ def create_app(test_config=None):
         bp_recipes,
         bp_nutrients,
         bp_ingredients,
+        bp_cuisines,
         bp_recipe_ratings,
         bp_weekly_meals
     )
@@ -48,6 +49,9 @@ def create_app(test_config=None):
 
     app.register_blueprint(bp_ingredients.bp_ingredients)
     app.logger.info(f"Ingredients blueprint imported.")
+
+    app.register_blueprint(bp_cuisines.bp_cuisines)
+    app.logger.info(f"Cuisines blueprint imported.")
 
     app.register_blueprint(bp_recipe_ratings.bp_recipe_ratings)
     app.logger.info(f"Recipe ratings blueprint imported.")
