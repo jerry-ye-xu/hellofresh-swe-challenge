@@ -68,7 +68,9 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 ## Worklog
 
-- 0.0.7: 01/12/20 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
+- 0.0.9: 03/01/21 - Split weekly_meals into 'non_default_meals' and 'default_meals' end points and add in checks for various cases. Finalise ER diagram.
+- 0.0.8: 03/01/21 - Create tests for POSTMAN collections (except HF-recipes).
+- 0.0.7: 01/01/21 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
 - 0.0.6: 30/12/20 - Add end points for updating rows in nutrient and instruction dimension tables.
 - 0.0.5: 28/12/20 - Set up API for weekly_meals and recipe_ratings.
 - 0.0.4: 24/12/20 - Set up Flask structure including blueprints, models etc. Test simple GET method to retrieve recipes.
