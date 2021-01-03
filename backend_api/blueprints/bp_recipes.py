@@ -278,7 +278,7 @@ def sk_recipe_nutrients(sk_recipe):
         for nutrient, value in req_json["nutrients"].items():
             try:
                 with g.db.atomic():
-                    current_app.logger.info(f"HERE 3")
+                    # current_app.logger.info(f"HERE 3")
 
                     cte = (
                         NutrientDimension
@@ -432,7 +432,6 @@ def sk_recipe_ingredients(sk_recipe):
 
             except Exception as e:
                 current_app.logger.error(sys.exc_info())
-                current_app.logger.error(str(e))
                 return str(e), 400
 
         return f"Updated {list(req_json['ingredients'].keys())} for sk_recipe={sk_recipe}", 201

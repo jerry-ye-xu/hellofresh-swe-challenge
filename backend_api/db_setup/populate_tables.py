@@ -1862,8 +1862,8 @@ if __name__ == "__main__":
     weekly_meals_pattern_four('2020-W03')
     weekly_meals_pattern_one('2021-W04')
     weekly_meals_pattern_two('2021-W05')
-    weekly_meals_pattern_three('2020-W06')
-    weekly_meals_pattern_four('2020-W07')
+    weekly_meals_pattern_three('2021-W06')
+    weekly_meals_pattern_four('2021-W07')
 
 
     for i in range(500):
