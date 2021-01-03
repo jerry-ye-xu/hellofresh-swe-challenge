@@ -22,7 +22,7 @@ def handle_ratings():
         recipe_ratings = (
             RecipeRating
                 .select()
-                .order_by(fn.Random())
+                .order_by(RecipeRating.sk_rating)
                 .limit(10)
         )
         recipe_ratings_arr = {
@@ -47,7 +47,9 @@ def handle_ratings():
 
                 new_sk_rating = RecipeRating.insert(req_json).execute()
 
-            return f"{len(req_json)} rating(s) inserted.", 201
+            return jsonify({
+                "message": f"{len(req_json)} rating(s) inserted."
+            }), 201
         except Exception as e:
             current_app.logger.error(sys.exc_info())
             return str(e), 404
@@ -73,7 +75,9 @@ def delete_recipe_ratings(sk_rating):
                         .get_by_id(sk_rating)
                         .delete_instance()
                 )
-            return f"Rating deleted for sk_ratings={sk_rating}.", 201
+            return jsonify({
+                "message": f"Rating deleted for sk_ratings={sk_rating}."
+            }), 201
         except DoesNotExist:
             raise NoSuchData(f'sk_rating={sk_rating} cannot be found in fact_tables.recipe_ratings table.', status_code=404)
 

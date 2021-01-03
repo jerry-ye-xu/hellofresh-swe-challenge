@@ -71,7 +71,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        return 'Welcome to the HelloFresh SWE Challenge Backend API.!'
+        return 'Welcome to the HelloFresh SWE Challenge Backend API.'
 
     @app.errorhandler(NoSuchData)
     def handle_no_such_data_error(error):

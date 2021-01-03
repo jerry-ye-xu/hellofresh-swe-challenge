@@ -33,7 +33,7 @@ def handle_cuisine():
                 .execute()
         )
         cuisines_arr = [n.sk_cuisine for n in query]
-        return json.dumps(cuisines_arr), 200
+        return json.dumps({"cuisines": cuisines_arr}), 200
 
     elif request.method == 'POST':
         if not request.is_json:
@@ -50,7 +50,9 @@ def handle_cuisine():
 
                     CuisineDimension.insert_many(rows).execute()
 
-            return f"Added {len(req_json)} new ingredient(s).", 201
+            return jsonify({
+                "message": f"Added {len(req_json)} new cuisine(s)."
+            }), 201
         except Exception as e:
             current_app.logger.error(sys.exc_info())
             return str(e), 400

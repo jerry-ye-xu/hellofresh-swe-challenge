@@ -20,14 +20,12 @@ bp_weekly_meals = Blueprint(
     url_prefix='/weekly_meals'
 )
 
-@bp_weekly_meals.route('/', methods=['GET', 'POST'])
+@bp_weekly_meals.route('/', methods=['GET'])
 def handle_weekly_meals():
     if request.method == 'GET':
         hf_week =  request.args.get('hf_week', None)
         date = request.args.get('date', None, type=str)
-        # meal_size = request.args.get('meal_size')
-        default_meal = request.args.get('default_meal', None)
-        default_meal = inputs.boolean(default_meal) if default_meal is not None else default_meal
+        default_meal = None
 
         current_app.logger.info(f"Parameters: hf_week={hf_week}, date={date}, default_meal={default_meal}")
 
@@ -36,32 +34,166 @@ def handle_weekly_meals():
         elif hf_week is None:
             hf_week = get_hf_week(date)
 
-        avg_ratings = (
-            RecipeRating
-                .select(
-                    RecipeRating.fk_recipe.alias("fk_recipe"),
-                    fn.AVG(RecipeRating.rating).alias("avg_rating")
-                )
-                .group_by(RecipeRating.fk_recipe)
-                .alias("avg_ratings")
-        )
+        meals_filter = query_weekly_meals(default_meal, hf_week)
 
-        meals_filter = (
+        weekly_meals_arr = {
+            wm.fk_recipe.sk_recipe: parse_weekly_meals(wm) for wm in meals_filter
+        }
+
+        return json.dumps(weekly_meals_arr), 200
+
+    elif request.method == 'POST':
+        pass
+
+@bp_weekly_meals.route('/non_default_meals/', methods=['GET', 'POST'])
+def handle_non_default_weekly_meals():
+    if request.method == 'GET':
+        hf_week =  request.args.get('hf_week', None)
+        date = request.args.get('date', None, type=str)
+        default_meal = False
+
+        current_app.logger.info(f"Parameters: hf_week={hf_week}, date={date}, default_meal={default_meal}")
+
+        if hf_week is None and date is None:
+            hf_week = get_hf_week(get_today_sk_date())
+        elif hf_week is None:
+            hf_week = get_hf_week(date)
+
+        meals_filter = query_weekly_meals(default_meal, hf_week)
+
+        weekly_meals_arr = {
+            wm.fk_recipe.sk_recipe: parse_weekly_meals(wm) for wm in meals_filter
+        }
+
+        return json.dumps(weekly_meals_arr), 200
+    elif request.method == 'POST':
+        if not request.is_json:
+            return jsonify({"message": "Parser requires JSON format."}), 415
+
+        default_meal = False
+
+        req_json = request.get_json()
+        hf_week = req_json['hellofresh_week']
+
+        non_default_meals_add = req_json['non_default']['add']
+        non_default_meals_rm = req_json['non_default']['remove']
+
+        overlapping_fk_recipes = set(non_default_meals_add).intersection(set(non_default_meals_rm))
+        if len(overlapping_fk_recipes) > 0:
+            return jsonify({
+                "message": f"These fk_recipe IDs: {overlapping_fk_recipes} appear in both the add and remove arrays of the JSON request. The fk_recipes specified should be unique to each array."
+                }), 400
+
+        query = (
             WeeklyMeals
                 .select(
-                    WeeklyMeals.fk_recipe,
                     WeeklyMeals.hellofresh_week,
-                    WeeklyMeals.default_meal,
-                    avg_ratings.c.avg_rating
+                    WeeklyMeals.fk_recipe,
+                    WeeklyMeals.default_meal
                 )
-                .join(
-                    avg_ratings,
-                    JOIN.INNER,
-                    on=(WeeklyMeals.fk_recipe == avg_ratings.c.fk_recipe),
-                    attr = 'avg_ratings'
+                .where(
+                    (WeeklyMeals.hellofresh_week == hf_week)
                 )
-                .where(filter_weekly_meals(default_meal, hf_week))
         )
+        curr_default_meals_arr = []
+        curr_non_default_meals_arr = []
+        for row in query.execute():
+            if row.default_meal:
+                curr_default_meals_arr.append(row.fk_recipe.sk_recipe)
+            else:
+                curr_non_default_meals_arr.append(row.fk_recipe.sk_recipe)
+
+        incorrect_non_default_meals_add = []
+        incorrect_non_default_meals_rm = []
+        curr_meals_arr = curr_default_meals_arr + curr_non_default_meals_arr
+
+        # You cannot remove default meals.
+        for m in non_default_meals_rm:
+            if m not in curr_non_default_meals_arr:
+                incorrect_non_default_meals_rm.append(m)
+
+        if len(incorrect_non_default_meals_rm) > 0:
+            return jsonify({
+                "message": f"These fk_recipe IDs: {incorrect_non_default_meals_rm} are not non_default_meals for hf_week={hf_week}. Please specify only default_meal=False fk_recipe IDs for \'remove\' array."
+                }), 400
+
+        # You cannot add non_default meal if it's already in the table.
+        for m in non_default_meals_add:
+            if m in curr_meals_arr:
+                incorrect_non_default_meals_add.append(m)
+
+        if len(incorrect_non_default_meals_add) > 0:
+            return jsonify({
+                "message": f"These fk_recipe IDs: {incorrect_non_default_meals_add} are already weekly_meals for hf_week={hf_week}. Please specify only default_meal=False fk_recipe IDs for \'add\' array."
+                }), 400
+
+        if len(non_default_meals_add) > 0:
+            try:
+                with g.db.atomic():
+                    batch_size = 50
+
+                    for idx in range(0, len(non_default_meals_add), batch_size):
+                        rows = [
+                            build_weekly_meals_json(
+                                fk_recipe,
+                                hf_week,
+                                is_default=default_meal
+                            ) for fk_recipe in non_default_meals_add[idx:idx + batch_size]
+                        ]
+                        query = (
+                            WeeklyMeals
+                                .insert_many(rows)
+                        )
+                        current_app.logger.info(query.sql())
+                        query.execute()
+            except Exception as e:
+                current_app.logger.error(sys.exc_info())
+                return f"NON DEFAULT MEALS ADD: {str(e)}", 404
+
+        if len(non_default_meals_rm) > 0:
+            try:
+                with g.db.atomic():
+                    batch_size = 50
+
+                    for idx in range(0, len(non_default_meals_rm), batch_size):
+                        rows = [
+                        non_default_meals_rm[idx:idx + batch_size]
+                        ]
+                        query = (
+                            WeeklyMeals
+                                .delete()
+                                .where(
+                                    (WeeklyMeals.hellofresh_week == hf_week) &
+                                    (WeeklyMeals.default_meal == default_meal) &
+                                    (WeeklyMeals.fk_recipe.in_(non_default_meals_rm))
+
+                                )
+                        )
+                        current_app.logger.info(query.sql())
+                        query.execute()
+            except Exception as e:
+                current_app.logger.error(sys.exc_info())
+                return f"NON DEFAULT MEALS REMOVE: {str(e)}", 404
+
+        return jsonify({"message": f"Default meals fk_recipe={non_default_meals_rm} removed and fk_recipe={non_default_meals_add} added to weekly meals for {hf_week}."}), 201
+
+
+@bp_weekly_meals.route('/default_meals/', methods=['GET', 'POST'])
+def handle_default_weekly_meals():
+    if request.method == 'GET':
+        hf_week =  request.args.get('hf_week', None)
+        date = request.args.get('date', None, type=str)
+        default_meal = True
+
+        current_app.logger.info(f"Parameters: hf_week={hf_week}, date={date}, default_meal={default_meal}")
+
+        if hf_week is None and date is None:
+            hf_week = get_hf_week(get_today_sk_date())
+        elif hf_week is None:
+            hf_week = get_hf_week(date)
+
+        meals_filter = query_weekly_meals(default_meal, hf_week)
+
         weekly_meals_arr = {
             wm.fk_recipe.sk_recipe: parse_weekly_meals(wm) for wm in meals_filter
         }
@@ -74,10 +206,8 @@ def handle_weekly_meals():
 
         req_json = request.get_json()
         hf_week = req_json['hellofresh_week']
-        non_default_meals_add = req_json['non-default']['add']
         default_meals_add = req_json['default']['add']
         default_meals_rm = req_json['default']['remove']
-
 
         overlapping_fk_recipes = set(default_meals_add).intersection(set(default_meals_rm))
         if len(overlapping_fk_recipes) > 0:
@@ -90,21 +220,25 @@ def handle_weekly_meals():
                 .select(
                     WeeklyMeals.hellofresh_week,
                     WeeklyMeals.fk_recipe
-                    # fn.COUNT(WeeklyMeals.fk_recipe).alias('num_default_meals')
                 )
                 .where(
                     (WeeklyMeals.hellofresh_week == hf_week) &
                     (WeeklyMeals.default_meal == True)
                 )
-                .execute()
         )
         curr_default_meals_arr = []
         for row in query.execute():
-            curr_default_meals_arr.append(row.fk_recipe)
+            curr_default_meals_arr.append(row.fk_recipe.sk_recipe)
 
-        check_non_default_meals_to_remove()
+        incorrect_default_meals = []
+        for m in default_meals_rm:
+            if m not in curr_default_meals_arr:
+                incorrect_default_meals.append(m)
 
-        if
+        if len(incorrect_default_meals) > 0:
+            return jsonify({
+                "message": f"These fk_recipe IDs: {incorrect_default_meals} are not default_meals for hf_week={hf_week}. Please specify only default_meal=True fk_recipe IDs."
+                }), 400
 
         """
         For the purposes of this exercise, the number of default meals
@@ -123,7 +257,6 @@ def handle_weekly_meals():
                 .select(
                     WeeklyMeals.hellofresh_week,
                     fn.Count(WeeklyMeals.default_meal).alias('num_default_meals')
-                    # fn.COUNT(WeeklyMeals.fk_recipe).alias('num_default_meals')
                 )
                 .where(
                     (WeeklyMeals.hellofresh_week == hf_week) &
@@ -160,34 +293,10 @@ def handle_weekly_meals():
                 "message": f"The maximum number of default meals is {max_default_meal_size}. Since you are adding {len(default_meals_add)} default meals and there are already {num_default_meals} default meals, you must remove {min_def_meal_to_rm} default meals."
                 }), 400
 
-        if len(non_default_meals_add) > 0:
-            try:
-                with g.db.atomic():
-                    batch_size = 50
-
-                    for idx in range(0, len(non_default_meals), batch_size):
-                        rows = [
-                            build_weekly_meals_json(
-                                fk_recipe,
-                                hf_week,
-                                is_default=False
-                            ) for fk_recipe in non_default_meals[idx:idx + batch_size]
-                        ]
-                        query_add_non_def = (
-                            WeeklyMeals
-                                .insert_many(rows)
-                                .on_conflict(
-                                    action="ignore",
-                                    conflict_target=[
-                                        WeeklyMeals.fk_recipe
-                                    ]
-                                )
-                        )
-                        current_app.logger.info(query_add_non_def.sql())
-                        query_add_non_def.execute()
-            except Exception as e:
-                current_app.logger.error(sys.exc_info())
-                return f"NON_DEFAULT MEALS: {str(e)}", 404
+        if len(default_meals_add) < max_def_meal_to_rm:
+            return jsonify({
+                "message": f"You will need to add in enough default_meals to ensure that the number of default meals is {max_default_meal_size}. Currently there are {num_default_meals} default meals."
+                }), 400
 
         if len(default_meals_add) > 0:
             try:
@@ -213,10 +322,9 @@ def handle_weekly_meals():
                 current_app.logger.error(sys.exc_info())
                 return f"DEFAULT MEALS REMOVE: {str(e)}", 404
 
-        return "Successfully updated weekly meals", 200
-
-@bp_weekly_meals.route('/default', methods=['GET', 'POST'])
-def handle_weekly_meals():
+        return jsonify({
+                "message": f"Successfully updated weekly meals"
+                }), 200
 
 #
 # HELPERS
@@ -238,6 +346,36 @@ def get_hf_week(fk_date=None):
             .get()
     )
     return curr_hf_week.hellofresh_week
+
+def query_weekly_meals(default_meal, hf_week):
+    avg_ratings = (
+        RecipeRating
+            .select(
+                RecipeRating.fk_recipe.alias("fk_recipe"),
+                fn.AVG(RecipeRating.rating).alias("avg_rating")
+            )
+            .group_by(RecipeRating.fk_recipe)
+            .alias("avg_ratings")
+    )
+
+    meals_filter = (
+        WeeklyMeals
+            .select(
+                WeeklyMeals.fk_recipe,
+                WeeklyMeals.hellofresh_week,
+                WeeklyMeals.default_meal,
+                avg_ratings.c.avg_rating
+            )
+            .join(
+                avg_ratings,
+                JOIN.INNER,
+                on=(WeeklyMeals.fk_recipe == avg_ratings.c.fk_recipe),
+                attr = 'avg_ratings'
+            )
+            .where(filter_weekly_meals(default_meal, hf_week))
+    )
+
+    return meals_filter
 
 def filter_weekly_meals(default_meal, hf_week):
     if default_meal is None:

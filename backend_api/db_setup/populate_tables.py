@@ -724,11 +724,13 @@ if __name__ == "__main__":
     # A simple workaround for the purposes of this exercise.
     IngredientDimension.create(
         # sk_ingredient=73,
-        ingredient="water (for the sauce)"
+        ingredient="water (for the sauce)",
+        included_in_delivery=False
     )
     IngredientDimension.create(
         # sk_ingredient=74,
-        ingredient="water (for the rice)"
+        ingredient="water (for the rice)",
+        included_in_delivery=False
     )
 
     #############################

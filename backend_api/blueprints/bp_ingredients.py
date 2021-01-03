@@ -55,7 +55,11 @@ def handle_ingredients():
 
                     IngredientDimension.insert_many(rows).execute()
 
-            return f"Added {len(req_json)} new ingredient(s).", 201
+            return jsonify({
+                "message": f"Added {len(req_json)} new ingredient(s)."
+            }), 201
+
+            f"Added {len(req_json)} new ingredient(s).", 201
         except Exception as e:
             current_app.logger.error(sys.exc_info())
             return str(e), 400
