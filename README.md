@@ -10,6 +10,8 @@
 
 ## Setup
 
+### Step 1
+
 Set up your local virtual environment with
 ```bash
 virtualenv venv
@@ -18,7 +20,7 @@ virtualenv venv
 source activate.sh
 ```
 
-
+### Step 2
 Please export the following environment variables locally.
 
 ```bash
@@ -28,6 +30,19 @@ export $(egrep -v '^#' env_var_local | xargs)
 
 Note: If you open a new tab in terminal you will also need to run this again.
 
+### Step 3
+
+Run the application with
+```bash
+make build_all
+```
+
+To rebuild without deleting the images, run
+```bash
+make build_quick
+```
+
+Please see the makefile for more.
 
 ## Schema Design
 
@@ -42,7 +57,9 @@ The following information about recipes we did not include:
 - Extract instructions of the recipes (I used lorem ipsum).
 - Serving sizes of 2 and 4. I would effectively create a new column called "serving size", and so whenever you need a particular serving size, you just filter on that column.
 
-## Connecting to PostgreSQL
+For the ER diagram, please see the __HF-SWE-ERD-design.pdf__ file.
+
+## Connecting to PostgreSQL using CLI
 
 You can connect to the PostgreSQL container locally by running
 
@@ -60,6 +77,8 @@ For the PostgreSQL image, the host should be 'localhost' and it must be set as t
 Please see `env_var`. We put the environment variables for flask in `env_var` as well.
 
 For the sake of this exercise, we upload the `env_var` file for the reader to view.
+
+For local use outside of the containers, the environment variables are kept in `env_var_local`.
 
 <br>
 <br>
