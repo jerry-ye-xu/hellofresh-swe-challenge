@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 
-from models import *
+from backend_api.models import *
 
 if __name__ == "__main__":
     dim_tables = [

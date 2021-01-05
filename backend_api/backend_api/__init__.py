@@ -2,8 +2,8 @@ import os
 
 from flask import Flask, g, jsonify
 
-from api_exceptions import NoSuchData
-from models import psql_db
+from backend_api.api_exceptions import NoSuchData
+from backend_api.models import psql_db
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -71,7 +71,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        return 'Welcome to the HelloFresh SWE Challenge Backend API.'
+        return 'Welcome to the HelloFresh SWE Challenge Backend API.', 200
 
     @app.errorhandler(NoSuchData)
     def handle_no_such_data_error(error):

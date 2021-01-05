@@ -15,8 +15,8 @@ from flask_restful import inputs
 
 sys.path.insert(0, '..')
 
-from models import *
-from api_exceptions import NoSuchData
+from backend_api.models import *
+from backend_api.api_exceptions import NoSuchData
 
 bp_ingredients = Blueprint(
     name='ingredients',

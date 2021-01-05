@@ -14,8 +14,8 @@ from flask import Blueprint, jsonify, current_app, request, g
 
 sys.path.insert(0, '..')
 
-from models import *
-from api_exceptions import NoSuchData
+from backend_api.models import *
+from backend_api.api_exceptions import NoSuchData
 
 bp_nutrients = Blueprint(
     name='nutrients',

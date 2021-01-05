@@ -12,13 +12,17 @@ build_quick: prune_images clean_containers clean_volumes
 	docker-compose build
 	docker-compose up
 
-# build_all
+run_pytest:
+	cd backend_api && pytest
 
-run_tests:
+run_postman_tests:
 	newman run ./postman_tests/HF-dimensions.postman_collection.json
 	newman run ./postman_tests/HF-ratings.postman_collection.json
 	newman run ./postman_tests/HF-recipes.postman_collection.json
 	newman run ./postman_tests/HF-weekly-meals.postman_collection.json
+
+run_tests: run_pytest run_pytest
+	echo "Finished running Pytest and Postman tests."
 
 pg_it:
 	docker exec -it pg-database bash

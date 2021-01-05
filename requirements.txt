@@ -1,6 +1,7 @@
 aniso8601==8.1.0
 attrs==20.3.0
 click==7.1.2
+coverage==5.3.1
 Flask==1.1.2
 Flask-RESTful==0.3.8
 importlib-metadata==3.3.0
@@ -17,6 +18,7 @@ psycopg2==2.8.6
 py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.1
+pytest-cov==2.10.1
 pytz==2020.5
 scipy==1.5.4
 six==1.15.0
