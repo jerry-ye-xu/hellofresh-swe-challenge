@@ -5,8 +5,6 @@ venv/
 backend_api/*.pyc
 backend_api/__pycache__/
 
-instance/
-
 backend_api/.pytest_cache/
 backend_api/.coverage
 backend_api/htmlcov/

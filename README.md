@@ -18,6 +18,10 @@ virtualenv venv
 
 # shortcut for activating virtualenv
 source activate.sh
+
+pip3 install -r requirements.txt
+
+cd backend_api && pip3 install -e . && cd ..
 ```
 
 ### Step 2
@@ -48,11 +52,6 @@ To kickstart the application and run the tests, use
 make run_all
 ```
 
-To just run the application, use
-```bash
-make build_all
-```
-
 To rebuild without deleting the images, run
 ```bash
 make build_quick
@@ -61,6 +60,11 @@ make build_quick
 Please see the makefile for more.
 
 __IMPORTANT:__ The tests are not omnipotent. If you want to repeat any steps, please start again from `build_quick` and make sure all Docker assets are deleted with `make clean_all`.
+
+Note: To just run the application without clearing the images, use
+```bash
+make build_all
+```
 
 
 ## Schema Design
