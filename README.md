@@ -84,13 +84,6 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 For local use outside of the containers, the environment variables are kept in `env_var_local`.
 
-## Improvements
-
-- More test cases. There are a few edge cases not covered.
-- Be more rigorous in specifying how `DELETE` occurs. However, without more business context its hard to determine what is the best course of action.
-- More test cases for the Flask app.
-- Handle more specific errors better. Although we return the error message for some of the endpoints, we should implement code to handle more specific cases.
-
 <br>
 <br>
 
