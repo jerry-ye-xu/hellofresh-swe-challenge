@@ -18,6 +18,10 @@ virtualenv venv
 
 # shortcut for activating virtualenv
 source activate.sh
+
+pip3 install -r requirements.txt
+
+cd backend_api && pip3 install -e . && cd ..
 ```
 
 ### Step 2
@@ -30,11 +34,22 @@ export $(egrep -v '^#' env_var_local | xargs)
 
 Note: If you open a new tab in terminal you will also need to run this again.
 
+### Step 2
+
+Import the Postman collections for testing. The version used is `v2.1`.
+
+To run the tests in the command line, first install the `newman` package.
+
+```bash
+npm install -g newman
+```
+
 ### Step 3
 
-Run the application with
+To kickstart the application and run the tests, use
+
 ```bash
-make build_all
+make run_all
 ```
 
 To rebuild without deleting the images, run
@@ -44,9 +59,13 @@ make build_quick
 
 Please see the makefile for more.
 
-### Step 4
+__IMPORTANT:__ The tests are not omnipotent. If you want to repeat any steps, please start again from `build_quick` and make sure all Docker assets are deleted with `make clean_all`.
 
-Import the Postman collections for testing. The version used is `v2.1`.
+Note: To just run the application without clearing the images, use
+```bash
+make build_all
+```
+
 
 ## Schema Design
 
@@ -91,6 +110,8 @@ For local use outside of the containers, the environment variables are kept in `
 
 ## Worklog
 
+
+- 0.2.0: 05/01/21 - Change Flask structure to `backend_api/backend_api/` to allow local directory installatino to work. Add in simple pytests to showcase functionality.
 - 0.1.1: 05/01/21 - Update DELETE request for recipes (to relevant information from all other dependent tables). Finalise and add POSTMAN collection.
 - 0.1.0: 04/01/21 - Configure /recipes POST method to include ingredients and nutrients and instructions.
 - 0.0.9: 03/01/21 - Split weekly_meals into 'non_default_meals' and 'default_meals' end points and add in checks for various cases. Finalise ER diagram.

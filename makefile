@@ -2,16 +2,8 @@ NAME    := hellofresh-takehome
 SHELL   := /bin/bash
 VERSION := $(shell cat VERSION)
 
-.PHONY: all clean lint test
-
-setup: set_up_dir
-	echo "Setup has finished."
-
-setup_dir:
-	source setup.sh
-
 export_keys: $(USER_KEYS)
-	echo "Please see README.md on how to export keys in .env file"
+	echo "Please see README.md on how to export keys in env_var_local file"
 
 build_all: clean_all
 	docker-compose up --build
@@ -19,6 +11,18 @@ build_all: clean_all
 build_quick: prune_images clean_containers clean_volumes
 	docker-compose build
 	docker-compose up
+
+run_pytest:
+	cd backend_api && pytest
+
+run_postman_tests:
+	newman run ./postman_tests/HF-dimensions.postman_collection.json
+	newman run ./postman_tests/HF-ratings.postman_collection.json
+	newman run ./postman_tests/HF-recipes.postman_collection.json
+	newman run ./postman_tests/HF-weekly-meals.postman_collection.json
+
+run_tests: run_pytest run_postman_tests
+	echo "Finished running Pytest and Postman tests."
 
 pg_it:
 	docker exec -it pg-database bash
@@ -46,6 +50,9 @@ clean_volumes:
 	bash clean_volumes.sh
 
 clean_all: clean_containers clean_volumes clean_images
+
+run_all: build_all run_tests
+	echo "BACKEND_API-${VERSION} finished running."
 
 # test:
 # 	docker ps --all --quiet --filter \

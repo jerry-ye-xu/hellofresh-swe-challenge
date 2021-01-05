@@ -1366,9 +1366,6 @@
 							"pm.test(\"fk_recipe=2\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData['fk_recipe']).to.eql(2);",
-							"    pm.expect(jsonData['ingredients'][0][\"name\"]).to.eql(\"garlic\");",
-							"    pm.expect(jsonData['ingredients'][1][\"name\"]).to.eql(\"carrot\");",
-							"    pm.expect(jsonData['ingredients'][2][\"name\"]).to.eql(\"chicken thighs\");",
 							"});    ",
 							""
 						],
