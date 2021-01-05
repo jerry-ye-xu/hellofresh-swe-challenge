@@ -32,9 +32,26 @@ def create_app(test_config=None):
     db.init_app(app)
     app.logger.info(f"PostgreSQL Database initialised.")
 
-    from .blueprints import bp_recipes, bp_recipe_ratings, bp_weekly_meals
+    from .blueprints import (
+        bp_recipes,
+        bp_nutrients,
+        bp_ingredients,
+        bp_cuisines,
+        bp_recipe_ratings,
+        bp_weekly_meals
+    )
+
     app.register_blueprint(bp_recipes.bp_recipes)
     app.logger.info(f"Recipes blueprint imported.")
+
+    app.register_blueprint(bp_nutrients.bp_nutrients)
+    app.logger.info(f"Nutrients blueprint imported.")
+
+    app.register_blueprint(bp_ingredients.bp_ingredients)
+    app.logger.info(f"Ingredients blueprint imported.")
+
+    app.register_blueprint(bp_cuisines.bp_cuisines)
+    app.logger.info(f"Cuisines blueprint imported.")
 
     app.register_blueprint(bp_recipe_ratings.bp_recipe_ratings)
     app.logger.info(f"Recipe ratings blueprint imported.")
@@ -54,7 +71,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        return 'Welcome to the HelloFresh SWE Challenge Backend API.!'
+        return 'Welcome to the HelloFresh SWE Challenge Backend API.'
 
     @app.errorhandler(NoSuchData)
     def handle_no_such_data_error(error):

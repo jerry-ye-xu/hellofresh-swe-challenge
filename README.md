@@ -10,6 +10,8 @@
 
 ## Setup
 
+### Step 1
+
 Set up your local virtual environment with
 ```bash
 virtualenv venv
@@ -18,7 +20,7 @@ virtualenv venv
 source activate.sh
 ```
 
-
+### Step 2
 Please export the following environment variables locally.
 
 ```bash
@@ -28,6 +30,23 @@ export $(egrep -v '^#' env_var_local | xargs)
 
 Note: If you open a new tab in terminal you will also need to run this again.
 
+### Step 3
+
+Run the application with
+```bash
+make build_all
+```
+
+To rebuild without deleting the images, run
+```bash
+make build_quick
+```
+
+Please see the makefile for more.
+
+### Step 4
+
+Import the Postman collections for testing. The version used is `v2.1`.
 
 ## Schema Design
 
@@ -42,7 +61,9 @@ The following information about recipes we did not include:
 - Extract instructions of the recipes (I used lorem ipsum).
 - Serving sizes of 2 and 4. I would effectively create a new column called "serving size", and so whenever you need a particular serving size, you just filter on that column.
 
-## Connecting to PostgreSQL
+For the ER diagram, please see the __HF-SWE-ERD-design.pdf__ file.
+
+## Connecting to PostgreSQL using CLI
 
 You can connect to the PostgreSQL container locally by running
 
@@ -61,6 +82,15 @@ Please see `env_var`. We put the environment variables for flask in `env_var` as
 
 For the sake of this exercise, we upload the `env_var` file for the reader to view.
 
+For local use outside of the containers, the environment variables are kept in `env_var_local`.
+
+## Improvements
+
+- More test cases. There are a few edge cases not covered.
+- Be more rigorous in specifying how `DELETE` occurs. However, without more business context its hard to determine what is the best course of action.
+- More test cases for the Flask app.
+- Handle more specific errors better. Although we return the error message for some of the endpoints, we should implement code to handle more specific cases.
+
 <br>
 <br>
 
@@ -68,7 +98,11 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 ## Worklog
 
-- 0.0.7: 01/12/20 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
+- 0.1.1: 05/01/21 - Update DELETE request for recipes (to relevant information from all other dependent tables). Finalise and add POSTMAN collection.
+- 0.1.0: 04/01/21 - Configure /recipes POST method to include ingredients and nutrients and instructions.
+- 0.0.9: 03/01/21 - Split weekly_meals into 'non_default_meals' and 'default_meals' end points and add in checks for various cases. Finalise ER diagram.
+- 0.0.8: 03/01/21 - Create tests for POSTMAN collections (except HF-recipes).
+- 0.0.7: 01/01/21 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
 - 0.0.6: 30/12/20 - Add end points for updating rows in nutrient and instruction dimension tables.
 - 0.0.5: 28/12/20 - Set up API for weekly_meals and recipe_ratings.
 - 0.0.4: 24/12/20 - Set up Flask structure including blueprints, models etc. Test simple GET method to retrieve recipes.

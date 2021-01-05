@@ -1,0 +1,1005 @@
+{
+	"info": {
+		"_postman_id": "9ae48fe8-1a9e-4c36-b4c0-56fbfde8dc7b",
+		"name": "HF-weekly-meals",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WM-GET-no-params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0db0b5b2-1915-4dcb-9ddb-b427fb5b771a",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['fk_recipe']).to.eql(8);",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['hellofresh_week']).to.eql(\"2021-W01\");",
+							"    pm.expect(jsonData['8']['default_meal']).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2, Saucy Coconut & Chicken Noodles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['2']['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['2']['recipe_name']).to.eql(\"Saucy Coconut & Chicken Noodles\");",
+							"    pm.expect(jsonData['2']['recipe_subname']).to.eql(\"with Lemongrass & Ginger\");",
+							"    pm.expect(jsonData['2']['hellofresh_week']).to.eql(\"2021-W01\");",
+							"    pm.expect(jsonData['2']['default_meal']).to.eql(false);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/?date=20210103",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "20210103"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-2020-W47",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efdfacc6-33df-49a6-bee9-040ab5b5c5e8",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['fk_recipe']).to.eql(8);",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['8']['default_meal']).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2, Saucy Coconut & Chicken Noodles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['2']['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['2']['recipe_name']).to.eql(\"Saucy Coconut & Chicken Noodles\");",
+							"    pm.expect(jsonData['2']['recipe_subname']).to.eql(\"with Lemongrass & Ginger\");",
+							"    pm.expect(jsonData['2']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['2']['default_meal']).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/?hf_week=2020-W47",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "hf_week",
+							"value": "2020-W47"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-sk_date=20201119",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b2e412d-4b59-4b2b-912b-a700b5bda70a",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['fk_recipe']).to.eql(8);",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['8']['default_meal']).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2, Saucy Coconut & Chicken Noodles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['2']['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['2']['recipe_name']).to.eql(\"Saucy Coconut & Chicken Noodles\");",
+							"    pm.expect(jsonData['2']['recipe_subname']).to.eql(\"with Lemongrass & Ginger\");",
+							"    pm.expect(jsonData['2']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['2']['default_meal']).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/?date=20201119",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "20201119"
+						},
+						{
+							"key": "hf_week",
+							"value": "2020-W47",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-default-2020-W47",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9422971c-feb1-45b8-b17b-c895e71503d1",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2, Saucy Coconut & Chicken Noodles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['2']['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['2']['recipe_name']).to.eql(\"Saucy Coconut & Chicken Noodles\");",
+							"    pm.expect(jsonData['2']['recipe_subname']).to.eql(\"with Lemongrass & Ginger\");",
+							"    pm.expect(jsonData['2']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['2']['default_meal']).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/?hf_week=2020-W47",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "hf_week",
+							"value": "2020-W47"
+						},
+						{
+							"key": "date",
+							"value": "20201119",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-default-sk_date=20201119",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16e06dda-2dc3-4009-9ecd-7321a4725a37",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2, Saucy Coconut & Chicken Noodles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['2']['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['2']['recipe_name']).to.eql(\"Saucy Coconut & Chicken Noodles\");",
+							"    pm.expect(jsonData['2']['recipe_subname']).to.eql(\"with Lemongrass & Ginger\");",
+							"    pm.expect(jsonData['2']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['2']['default_meal']).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals?date=20201119",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "20201119"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-non_default-2020-W47",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "256acf41-0cd1-404d-a373-aaa6a326e3a7",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['fk_recipe']).to.eql(8);",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['8']['default_meal']).to.eql(false);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/?hf_week=2020-W47",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "hf_week",
+							"value": "2020-W47"
+						},
+						{
+							"key": "date",
+							"value": "20201119",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-GET-non_default-sk_date=20201119",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2c41c87-be80-42a6-b741-75ae2e229f16",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['fk_recipe']).to.eql(8);",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['hellofresh_week']).to.eql(\"2020-W47\");",
+							"    pm.expect(jsonData['8']['default_meal']).to.eql(false);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/?date=20201119",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "20201119"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-add=3-rm=3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5858611d-c347-4b61-821a-46f676b4d77b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Add and modify 3 default meals.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Successfully updated weekly meals\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W06\",\n    \"default\": {\n        \"add\": [1, 3, 5],\n        \"remove\": [2, 4, 6]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-duplicate-fk_recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a47842ac-2975-4af3-bf0c-8d2b64b1aa3a",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail duplicate recipe insertion\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"These fk_recipe IDs: {4} appear in both the add and remove arrays of the JSON request. The fk_recipes specified should be unique to each array.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W07\",\n    \"default\": {\n        \"add\": [2, 4],\n        \"remove\": [4]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-incorrect-default_meals-specified",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "807ca459-93df-43b5-b588-9a7c040ecb1b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail set default meal to False\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"These fk_recipe IDs: [7, 8] are not default_meals for hf_week=2021-W07. Please specify only default_meal=True fk_recipe IDs.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W07\",\n    \"default\": {\n        \"add\": [2, 4, 6],\n        \"remove\": [1, 7, 8]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-add=3-rm=2-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0727eaa1-a516-4658-bbeb-80082985f16f",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail add 3 and modify 2 default meals.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"The maximum number of default meals is 3. Since you are adding 3 default meals and there are already 3 default meals, you must remove 3 default meals.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W07\",\n    \"default\": {\n        \"add\": [2, 4, 6],\n        \"remove\": [1, 3]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-add=2-rm=1-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d07e21e6-a49e-4c0d-b7c3-6814215c5fce",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail add 2 and modify 1 default meals.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"The maximum number of default meals is 3. Since you are adding 2 default meals and there are already 3 default meals, you must remove 2 default meals.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W07\",\n    \"default\": {\n        \"add\": [2, 4],\n        \"remove\": [1]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-default-add=1-rm=2-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21bca61b-8900-4c77-a09b-2119c3adf3c2",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail add 1 and modify 2 default meals.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"You will need to add in enough default_meals to ensure that the number of default meals is 3. Currently there are 3 default meals.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W07\",\n    \"default\": {\n        \"add\": [2],\n        \"remove\": [1, 3]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-add-single",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d70c585a-5a2a-4a2b-903e-749a8b0c6511",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Add single non-default meal to hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Default meals fk_recipe=[] removed and fk_recipe=[1] added to weekly meals for 2021-W05.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W05\",\n    \"non_default\": {\n        \"add\": [1],\n        \"remove\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-rm-single",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a00f1be2-a34a-4f53-9292-64037c3991c3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Remove single non-default meal to hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Default meals fk_recipe=[5] removed and fk_recipe=[] added to weekly meals for 2021-W05.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W05\",\n    \"non_default\": {\n        \"add\": [],\n        \"remove\": [5]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-rm-multiple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52d8463a-dc01-44b8-8d8a-c01de7cb65e3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Remove multiple non-default meal to hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Default meals fk_recipe=[4, 3, 2] removed and fk_recipe=[] added to weekly meals for 2021-W05.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W05\",\n    \"non_default\": {\n        \"add\": [],\n        \"remove\": [4, 3, 2]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-add-default-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc6377c1-4e07-41fb-a8d6-fcc4fb50b872",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail to add default meals already in weekly_meal table for hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"These fk_recipe IDs: [2] are already weekly_meals for hf_week=2021-W04. Please specify only default_meal=False fk_recipe IDs for 'add' array.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W04\",\n    \"non_default\": {\n        \"add\": [2],\n        \"remove\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-add-non-default-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1af99343-1e5b-430a-9ed6-02e84780f276",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail to add non-default meals to  weekly_meal table for hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"These fk_recipe IDs: [5] are already weekly_meals for hf_week=2021-W04. Please specify only default_meal=False fk_recipe IDs for 'add' array.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W04\",\n    \"non_default\": {\n        \"add\": [5],\n        \"remove\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WM-POST-non_default-rm-default-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9775b8f-30c9-4ed6-a79e-22559aaee928",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Fail to remove meals not in weekly_meal table for hf-week\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"These fk_recipe IDs: [8] are not non_default_meals for hf_week=2021-W04. Please specify only default_meal=False fk_recipe IDs for 'remove' array.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hellofresh_week\": \"2021-W04\",\n    \"non_default\": {\n        \"add\": [],\n        \"remove\": [8]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/weekly_meals/non_default_meals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"weekly_meals",
+						"non_default_meals",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

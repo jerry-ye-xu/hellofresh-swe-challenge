@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "6bc5a203-d6e2-431d-9d1c-4483d3024783",
+		"name": "HF-ratings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "recipe_ratings-GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f1ee472-2851-4b31-bcf6-05ec7d5298ce",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"// Comments are randomly generated.",
+							"// pm.test(\"Successful GET: sk_rating=1\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['1']['fk_recipe']).to.eql(2);",
+							"//     pm.expect(jsonData['1']['rating']).to.eql(4.0);",
+							"//     pm.expect(jsonData['1']['comment']).to.eql(null);",
+							"// });",
+							"",
+							"// pm.test(\"Successful GET: sk_rating=7\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['7']['fk_recipe']).to.eql(1);",
+							"//     pm.expect(jsonData['7']['rating']).to.eql(3.0);",
+							"//     pm.expect(jsonData['7']['comment']).to.eql(\"reprehenderit quibusdam voluptatibus suscipit expedita porro sapiente delectus exercitationem qui dignissimos iusto nulla illum praesentium\");",
+							"// });",
+							"",
+							"// pm.test(\"Successful GET: sk_rating=10\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['10']['fk_recipe']).to.eql(3);",
+							"//     pm.expect(jsonData['10']['rating']).to.eql(4.0);",
+							"//     pm.expect(jsonData['10']['comment']).to.eql(null);",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						""
+					]
+				},
+				"description": "Returns 10 random comments.\n\nNormally you would filter by top comments or by sk_recipe, but this endpoint exists for testing purposes."
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-GET-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9d8d7e0-a0e3-4a86-86cd-ff8b8d8a4c3a",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"// Comments are randomly generated.",
+							"// pm.test(\"Successful GET: sk_rating=2\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['fk_recipe']).to.eql(1);",
+							"//     pm.expect(jsonData['rating']).to.eql(4.0);",
+							"//     pm.expect(jsonData['comment']).to.eql(\"amet optio\");",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						"2"
+					]
+				},
+				"description": "Get the rating based on sk_rating, i.e. the primary key for recipe_ratings."
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-GET-sk_recipe=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7afc4273-032a-4bb5-a3a2-705e313d1fd6",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"// Comments are randomly generated.",
+							"// pm.test(\"Successful GET: sk_rating=1\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['1']['fk_recipe']).to.eql(2);",
+							"//     pm.expect(jsonData['1']['rating']).to.eql(4.0);",
+							"//     pm.expect(jsonData['1']['comment']).to.eql(null);",
+							"// });",
+							"",
+							"// pm.test(\"Successful GET: sk_rating=14\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['14']['fk_recipe']).to.eql(2);",
+							"//     pm.expect(jsonData['14']['rating']).to.eql(3.0);",
+							"//     pm.expect(jsonData['14']['comment']).to.eql(null);",
+							"// });",
+							"",
+							"// pm.test(\"Successful GET: sk_rating=381\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['381']['fk_recipe']).to.eql(2);",
+							"//     pm.expect(jsonData['381']['rating']).to.eql(3.0);",
+							"//     pm.expect(jsonData['381']['comment']).to.eql(\"quam facilis asperiores optio in molestiae autem\");",
+							"// });",
+							"",
+							"// pm.test(\"Successful GET: sk_rating=486\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['486']['fk_recipe']).to.eql(2);",
+							"//     pm.expect(jsonData['486']['rating']).to.eql(4.0);",
+							"//     pm.expect(jsonData['486']['comment']).to.eql(\"culpa\");",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/recipe/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						"recipe",
+						"2"
+					]
+				},
+				"description": "Get all ratings for sk_recipe=2."
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-POST-single",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec5a122d-1ba6-475b-8490-cd1a0c4edff8",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful insertion of 1 rating\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"1 rating(s) inserted.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"fk_recipe\": 1,\n        \"rating\": 3,\n        \"comment\": \"It was delicious!\",\n        \"timestamp\": 1606773195\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-POST-multiple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "115fea7b-1116-4167-82aa-e251796ddcfc",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful insertion of 3 ratings\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"3 rating(s) inserted.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"fk_recipe\": 1,\n        \"rating\": 4,\n        \"comment\": \"It was reall tasty!\",\n        \"timestamp\": 1606763191\n    },\n    {\n        \"fk_recipe\": 4,\n        \"rating\": 3,\n        \"comment\": \"It was better than expected. Really yummy!\",\n        \"timestamp\": 1606771095\n    },\n    {\n        \"fk_recipe\": 5,\n        \"rating\": 2,\n        \"comment\": \"The flavour was a little bland.\",\n        \"timestamp\": 1606783195\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-DELETE-5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97be5aa1-2607-4069-91c4-cac7364e5c08",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful deletion of a single rating\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Rating deleted for sk_ratings=5.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipe_ratings-DELETE-5000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bcf4c44-ff9a-4381-ad02-642df81458bd",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+							"});",
+							"",
+							"pm.test(\"Successful deletion of a single rating\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"sk_rating=5000 cannot be found in fact_tables.recipe_ratings table.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipe_ratings/5000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe_ratings",
+						"5000"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "b7b2d8a6-1c39-4198-b506-de04ce555bd4",
+		"name": "HF-dimensions",
+		"description": "This contains the API tests for the following tables in the \"dimensions\" schema.\n\n- CuisineDimension\n- NutrientDimension\n- IngredientDimension",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "nutrient-GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a72fe98-aee4-44ac-ba34-0cde128637ce",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Check nutrient_dimension row: Energy\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['Energy']['sk_nutrient']).to.eql(1);",
+							"    pm.expect(jsonData['Energy']['nutrient']).to.eql(\"Energy\");",
+							"    pm.expect(jsonData['Energy']['measurement']).to.eql(\"kJ\");",
+							"});",
+							"",
+							"pm.test(\"Check nutrient_dimension row: Fat\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['Fat']['sk_nutrient']).to.eql(2);",
+							"    pm.expect(jsonData['Fat']['nutrient']).to.eql(\"Fat\");",
+							"    pm.expect(jsonData['Fat']['measurement']).to.eql(\"g\");",
+							"});",
+							"",
+							"pm.test(\"Check nutrient_dimension row: Cholesterol\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['Cholesterol']['sk_nutrient']).to.eql(8);",
+							"    pm.expect(jsonData['Cholesterol']['nutrient']).to.eql(\"Cholesterol\");",
+							"    pm.expect(jsonData['Cholesterol']['measurement']).to.eql(\"mg\");",
+							"});",
+							"",
+							"pm.test(\"Check nutrient_dimension row: Sodium\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['Sodium']['sk_nutrient']).to.eql(9);",
+							"    pm.expect(jsonData['Sodium']['nutrient']).to.eql(\"Sodium\");",
+							"    pm.expect(jsonData['Sodium']['measurement']).to.eql(\"mg\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/nutrients/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"nutrients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "nutrient-POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cde7ce86-7f61-436d-99ee-d069072f898b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful insertion of 2 nutrients\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Added 2 new nutrient(s).\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"nutrient\": \"new-nutrient-three\",\n        \"measurement\": \"unit\"\n    },\n    {\n        \"nutrient\": \"new-nutrient-four\",\n        \"measurement\": \"UNIT\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/nutrients/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"nutrients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ingredient-GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "737ec5fe-63b9-48ac-9416-90e4a339f282",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: garlic\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['garlic']['sk_ingredient']).to.eql(1);",
+							"    pm.expect(jsonData['garlic']['ingredient']).to.eql(\"garlic\");",
+							"    pm.expect(jsonData['garlic']['included_in_delivery']).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: carrot\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['carrot']['sk_ingredient']).to.eql(2);",
+							"    pm.expect(jsonData['carrot']['ingredient']).to.eql(\"carrot\");",
+							"    pm.expect(jsonData['carrot']['included_in_delivery']).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: olive oil\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['olive oil']['sk_ingredient']).to.eql(12);",
+							"    pm.expect(jsonData['olive oil']['ingredient']).to.eql(\"olive oil\");",
+							"    pm.expect(jsonData['olive oil']['included_in_delivery']).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: soy sauce\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['soy sauce']['sk_ingredient']).to.eql(13);",
+							"    pm.expect(jsonData['soy sauce']['ingredient']).to.eql(\"soy sauce\");",
+							"    pm.expect(jsonData['soy sauce']['included_in_delivery']).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: water (for the sauce)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['water (for the sauce)']['sk_ingredient']).to.eql(73);",
+							"    pm.expect(jsonData['water (for the sauce)']['ingredient']).to.eql(\"water (for the sauce)\");",
+							"    pm.expect(jsonData['water (for the sauce)']['included_in_delivery']).to.eql(false);",
+							"});",
+							"",
+							"pm.test(\"Successful GET: water (for the rice)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['water (for the rice)']['sk_ingredient']).to.eql(74);",
+							"    pm.expect(jsonData['water (for the rice)']['ingredient']).to.eql(\"water (for the rice)\");",
+							"    pm.expect(jsonData['water (for the rice)']['included_in_delivery']).to.eql(false);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/ingredients/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ingredients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ingredient-POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d70436c5-db79-4f83-b6ab-b666f1aa5ccf",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful insertion of 2 ingredients\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Added 2 new ingredient(s).\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"ingredient\": \"new-ingredient\",\n        \"included_in_delivery\": \"false\"\n    },\n    {\n        \"ingredient\": \"new-ingredient-2\",\n        \"included_in_delivery\": \"true\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/ingredients/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ingredients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cuisine-GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39ca80bc-9c19-4990-83df-690065e8204b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"Successful GET request\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['cuisines']).to.eql([",
+							"        \"Family Favourite\",",
+							"        \"Turkish\",",
+							"        \"American\",",
+							"        \"Australian\",",
+							"        \"Asian\",",
+							"        \"British\",",
+							"        \"Chinese\",",
+							"        \"Cuban\",",
+							"        \"French\",",
+							"        \"German\",",
+							"        \"Greek\",",
+							"        \"Hawaiian\",",
+							"        \"Indian\",",
+							"        \"Indonesian\",",
+							"        \"Irish\",",
+							"        \"Italian\",",
+							"        \"Japanese\",",
+							"        \"Korean\",",
+							"        \"Lebanese\",",
+							"        \"Mediterrean\",",
+							"        \"Mexican\",",
+							"        \"Middle Eastern\",",
+							"        \"Moroccan\",",
+							"        \"North African\",",
+							"        \"Portuguese\",",
+							"        \"Spanish\",",
+							"        \"Russian\",",
+							"        \"Singaporean\",",
+							"        \"Thai\",",
+							"        \"Vietnamese\" ",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/cuisines/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"cuisines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cuisine-POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cf831e8e-af2c-4385-9ec4-048fb96232a5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful insertion of 2 cuisines\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Added 2 new cuisine(s).\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"sk_cuisine\": \"new-cuisine\"\n    },\n    {\n        \"sk_cuisine\": \"new-cuisine-two\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/cuisines/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"cuisines",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fe4bf89b-84b7-459a-9e85-83efa39379a2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2da040eb-d7d4-48fe-915f-e4b5bf1938f1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,1553 @@
+{
+	"info": {
+		"_postman_id": "8094540c-f7dc-4607-b23e-ec61544b4765",
+		"name": "HF-recipes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "recipes-GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd11d4af-72c4-4024-999e-7f908689ff56",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=1, Southeast Asian Chicken Coconut Soup\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['1']['recipe_name']).to.eql(\"Southeast Asian Chicken Coconut Soup\");",
+							"    pm.expect(jsonData['1']['recipe_subname']).to.eql(\"with Makrut Lime & Noodles\");",
+							"    pm.expect(jsonData['1']['preparation_time']).to.eql(35);",
+							"    pm.expect(jsonData['1']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['1']['fk_cuisine']).to.eql(\"Asian\");",
+							"});    ",
+							"",
+							"pm.test(\"fk_recipe=5, Smokey Beef Cheeseburger\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['5']['recipe_name']).to.eql(\"Smokey Beef Cheeseburger\");",
+							"    pm.expect(jsonData['5']['recipe_subname']).to.eql(\"with BBQ Mayo & Paprika Fries\");",
+							"    pm.expect(jsonData['5']['preparation_time']).to.eql(40);",
+							"    pm.expect(jsonData['5']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['5']['fk_cuisine']).to.eql(\"American\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-search-name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "291968ac-f8a9-46a3-8308-ad9bc8bd7365",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['8']['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['8']['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['8']['preparation_time']).to.eql(35);",
+							"    pm.expect(jsonData['8']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['8']['fk_cuisine']).to.eql(\"Korean\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/?name=Korean",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Korean"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-search-name-two-words",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b46fcef-1fe7-426c-85b2-c08100d2eb55",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=4, Chicken Tenders & Crushed Lemon Potatoes\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['4']['recipe_name']).to.eql(\"Chicken Tenders & Crushed Lemon Potatoes\");",
+							"    pm.expect(jsonData['4']['recipe_subname']).to.eql(\"with Herbed Yoghurt Sauce\");",
+							"    pm.expect(jsonData['4']['preparation_time']).to.eql(30);",
+							"    pm.expect(jsonData['4']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['4']['fk_cuisine']).to.eql(\"American\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/?name=crushed lemon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "crushed lemon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-search-cuisine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2baeae8-39bf-4d4e-b3c1-b8f78b63ab1a",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=4, Chicken Tenders & Crushed Lemon Potatoes\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['4']['recipe_name']).to.eql(\"Chicken Tenders & Crushed Lemon Potatoes\");",
+							"    pm.expect(jsonData['4']['recipe_subname']).to.eql(\"with Herbed Yoghurt Sauce\");",
+							"    pm.expect(jsonData['4']['preparation_time']).to.eql(30);",
+							"    pm.expect(jsonData['4']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['4']['fk_cuisine']).to.eql(\"American\");",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=5, Smokey Beef Cheeseburger\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['5']['recipe_name']).to.eql(\"Smokey Beef Cheeseburger\");",
+							"    pm.expect(jsonData['5']['recipe_subname']).to.eql(\"with BBQ Mayo & Paprika Fries\");",
+							"    pm.expect(jsonData['5']['preparation_time']).to.eql(40);",
+							"    pm.expect(jsonData['5']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['5']['fk_cuisine']).to.eql(\"American\");",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=6, Caribbean Chicken Tacos\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['6']['recipe_name']).to.eql(\"Caribbean Chicken Tacos\");",
+							"    pm.expect(jsonData['6']['recipe_subname']).to.eql(\"with Pineapple & Cucumber Salsa\");",
+							"    pm.expect(jsonData['6']['preparation_time']).to.eql(25);",
+							"    pm.expect(jsonData['6']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['6']['fk_cuisine']).to.eql(\"American\");",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=7, Beef & Basil Pesto Meatballs\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['7']['recipe_name']).to.eql(\"Beef & Basil Pesto Meatballs\");",
+							"    pm.expect(jsonData['7']['recipe_subname']).to.eql(\"with Spaghetti & Parmesan\");",
+							"    pm.expect(jsonData['7']['preparation_time']).to.eql(45);",
+							"    pm.expect(jsonData['7']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['7']['fk_cuisine']).to.eql(\"American\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/?cuisine=American",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					],
+					"query": [
+						{
+							"key": "cuisine",
+							"value": "American"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-search-name-and-cuisine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad29b5a3-1f69-4ad0-829b-3a5b822f970c",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=3, Dukkah Roasted Sweet Potato\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['3']['recipe_name']).to.eql(\"Dukkah Roasted Sweet Potato\");",
+							"    pm.expect(jsonData['3']['recipe_subname']).to.eql(\"with Lemon Yoghurt & Mint | Serves 2\");",
+							"    pm.expect(jsonData['3']['preparation_time']).to.eql(30);",
+							"    pm.expect(jsonData['3']['fk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['3']['fk_cuisine']).to.eql(\"Middle Eastern\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/?name=potato&cuisine=Middle Eastern",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "potato"
+						},
+						{
+							"key": "cuisine",
+							"value": "Middle Eastern"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-sk_recipe=5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e7559a3-c4cc-46de-93b3-eb4423447951",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['recipe_name']).to.eql(\"Smokey Beef Cheeseburger\");",
+							"    pm.expect(jsonData['recipe_subname']).to.eql(\"with BBQ Mayo & Paprika Fries\");",
+							"    pm.expect(jsonData['preparation_time']).to.eql(40);",
+							"    pm.expect(jsonData['fk_difficulty']['sk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['fk_cuisine']['sk_cuisine']).to.eql(\"American\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-GET-sk_recipe=50",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30322e06-0374-449c-a22c-9de02571eb4c",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=50\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"sk_recipe=50 cannot be found in dimensions.recipe_dimension table.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-POST-new-recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4478d395-aea6-4824-8c93-32b27524d0fa",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful POST request: New recipe along with ingredients, nutrients and instructions\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Added new recipe. sk_recipe=9.\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"recipe\": {\n        \"recipe_name\": \"Seared Salmon & Pearl Couscous\",\n        \"recipe_subname\": \"with Roasted Veggies & Lemon Yoghurt\",\n        \"preparation_time\": 35,\n        \"fk_difficulty\": \"easy\",\n        \"fk_cuisine\": \"Lebanese\"\n    },\n    \"ingredients\": [\n        {\n            \"fk_ingredient\": 21,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"\"\n        },\n        {\n            \"fk_ingredient\": 37,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"\"\n        },\n        {\n            \"fk_ingredient\": 75,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"packet\"\n        },\n        {\n            \"fk_ingredient\": 23,\n            \"serving_size\": 2,\n            \"value\": 0.5,\n            \"unit\": \"\"\n        },\n        {\n            \"fk_ingredient\": 76,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"packet\"\n        },\n        {\n            \"fk_ingredient\": 77,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"\"\n        },\n        {\n            \"fk_ingredient\": 78,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"sachet\"\n        },\n        {\n            \"fk_ingredient\": 79,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"cube\"\n        },\n        {\n            \"fk_ingredient\": 28,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"packet\"\n        },\n        {\n            \"fk_ingredient\": 27,\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"bunch\"\n        },\n        {\n            \"fk_ingredient\": 14,\n            \"serving_size\": 2,\n            \"value\": 0.0,\n            \"unit\": \"\"\n        },\n        {\n            \"fk_ingredient\": 12,\n            \"serving_size\": 2,\n            \"value\": 1.25,\n            \"unit\": \"cup\"\n        }\n    ],\n    \"instructions\": {\n            \"1\": \"instruction 1\",\n            \"2\": \"instruction 2\",\n            \"3\": \"instruction 3\",\n            \"4\": \"instruction 4\",\n            \"5\": \"instruction 5\",\n            \"6\": \"instruction 6\"\n    },\n    \"nutrients\": {\n        \"Energy\": 3131,\n        \"Fat\": 32.3,\n        \"Saturated\": 7.7,\n        \"Carbohydrate\": 66.8,\n        \"Sugar\": 24.3,\n        \"Dietary Fiber\": 0,\n        \"Protein\": 42,\n        \"Cholesterol\": 0,\n        \"Sodium\": 679\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-POST-10 (deprecated)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"recipe_name\": \"Thai Red Sweet Potato & Eggplant Curry\",\n        \"recipe_subname\": \"with Roasted Cashews & Brown Rice\",\n        \"preparation_time\": 35,\n        \"fk_difficulty\": \"easy\",\n        \"fk_cuisine\": \"Thai\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-POST-many (deprecated)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"recipe_name\": \"Greek-Style Beef Gyros\",\n        \"recipe_subname\": \"with Oregano Fries & Garlic Aioli\",\n        \"preparation_time\": 30,\n        \"fk_difficulty\": \"easy\",\n        \"fk_cuisine\": \"Greek\"\n    },\n    {\n        \"recipe_name\": \"Greek Pork & Roast Potato Salad\",\n        \"recipe_subname\": \"with Mint Yoghurt\",\n        \"preparation_time\": 35,\n        \"fk_difficulty\": \"easy\",\n        \"fk_cuisine\": \"Greek\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-PUT-8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85c169ab-dae0-4685-9e27-5f2310e011ae",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['recipe_name']).to.eql(\"Korean Pork Bibimbap DELUXE\");",
+							"    pm.expect(jsonData['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['preparation_time']).to.eql(300);",
+							"    pm.expect(jsonData['fk_difficulty']['sk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['fk_cuisine']['sk_cuisine']).to.eql(\"Korean\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"recipe_name\": \"Korean Pork Bibimbap DELUXE\",\n    \"preparation_time\": 300\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-PUT-8-to-original",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb9dcbcb-a575-46f9-9795-72f71697f97a",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=8, Korean Pork Bibimbap\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['recipe_name']).to.eql(\"Korean Pork Bibimbap\");",
+							"    pm.expect(jsonData['recipe_subname']).to.eql(\"with Black Sesame Rice & Sugar Snap Peas\");",
+							"    pm.expect(jsonData['preparation_time']).to.eql(35);",
+							"    pm.expect(jsonData['fk_difficulty']['sk_difficulty']).to.eql(\"easy\");",
+							"    pm.expect(jsonData['fk_cuisine']['sk_cuisine']).to.eql(\"Korean\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"recipe_name\": \"Korean Pork Bibimbap\",\n    \"preparation_time\": 35\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-DELETE-7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36c7b536-416f-41d9-826c-a37e1b2b66f8",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							"",
+							"// pm.test(\"sk_recipe=7\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData['message']).to.eql(\"Recipe sk_recipe=7 deleted.\");",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-GET-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8ac8c39-a0f7-4662-b55b-e9c470b1ae27",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['fk_recipe']).to.eql(1);",
+							"    pm.expect(jsonData['recipe_name']).to.eql(\"Southeast Asian Chicken Coconut Soup\");",
+							"    pm.expect(jsonData['recipe_subname']).to.eql(\"with Makrut Lime & Noodles\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"instructions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-GET-100-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "612308ef-a858-444e-8a13-fae676e29d31",
+						"exec": [
+							"pm.test(\"Unsuccessful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=100\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"sk_recipe=100 cannot be found in dimensions.recipe_dimension table.\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipes/100/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"100",
+						"instructions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-PUT-1-modify",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e36db7b5-3953-44d4-9f75-260c01832078",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Steps [(1, 'testing 1'), (2, 'testing 2'), (3, 'testing 3')] modified, steps [] added for sk_recipe=1 and new_max_step=6.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"instructions\": {\n        \"1\": \"testing 1\",\n        \"2\": \"testing 2\",\n        \"3\": \"testing 3\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"instructions"
+					]
+				},
+				"description": "Modify an existing instruction"
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-PUT-1-add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5fc82adc-e1e4-4f18-9eeb-be600d9d3676",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"Successful DELETE request: sk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Steps [] modified, steps [(7, 'testing 7')] added for sk_recipe=1 and new_max_step=7.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"instructions\": {\n        \"7\": \"testing 7\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"instructions"
+					]
+				},
+				"description": "Add multiple new instructions incorrectly by introducing a non-consecutive step."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-PUT-1-add-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb5b699f-333e-4ed4-b666-eef4af1e11e7",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Successful DELETE request: sk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"The step number for a single new instruction should be 1 greater than the current last step, which is 7.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"instructions\": {\n        \"1\": \"testing 1\",\n        \"2\": \"testing 2\",\n        \"3\": \"testing 3\",\n        \"10\": \"testing 10\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"instructions"
+					]
+				},
+				"description": "Add a new instruction incorrectly by adding step 100 (instead of max step + 1)."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-PUT-1-add-multiple-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "698568ca-712d-4efc-846c-16aaa45bb5fd",
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Successful DELETE request: sk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"When adding multiple instructions, step numbers should increment by one.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"instructions\": {\n        \"1\": \"testing 1\",\n        \"2\": \"testing 2\",\n        \"3\": \"testing 3\",\n        \"7\": \"testing 7\",\n        \"8\": \"testing 8\",\n        \"9\": \"testing 9\",\n        \"10\": \"testing 10\",\n        \"12\": \"testing 12\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"instructions"
+					]
+				},
+				"description": "Add a new instruction incorrectly by adding step 15 (instead of max step + 1)."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-instr-PUT-100",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1ee3200-2d3e-4d36-b56d-9ebe3a463cda",
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=7\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"sk_recipe=100 cannot be found in dimensions.recipe_dimension table. You cannot create instructions for a recipe that does not exist. Please use the POST method at /recipes to create a new recipe first.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sk_recipe\": 100,\n    \"instructions\": {\n        \"1\": \"testing1\",\n        \"2\": \"testing2\",\n        \"3\": \"testing3\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/100/instructions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"100",
+						"instructions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-GET-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "145151d9-a4f6-4963-8d81-68f9ced22869",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['fk_recipe']).to.eql(1);",
+							"    pm.expect(jsonData['nutrients'][\"Protein\"]).to.eql(62.4);",
+							"    pm.expect(jsonData['nutrients'][\"Sugar\"]).to.eql(20.3);",
+							"    pm.expect(jsonData['recipe_name']).to.eql(\"Southeast Asian Chicken Coconut Soup\");",
+							"    pm.expect(jsonData['recipe_subname']).to.eql(\"with Makrut Lime & Noodles\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-PUT-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16f43e6a-fa20-41ab-b1b5-ad264ce6ad64",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Updated ['Carbohydrate', 'Cholesterol', 'Energy'] for sk_recipe=1\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nutrients\": {\n        \"Carbohydrate\": 60.0,\n        \"Cholesterol\": 60.0,\n        \"Energy\": 60.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-PUT-1-str",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59c15b03-7040-42c4-a1a4-fc4491d33e80",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Updated ['Carbohydrate'] for sk_recipe=1\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nutrients\": {\"Carbohydrate\": \"50.5555\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				},
+				"description": "Introduce string nutrient value. It works. PostgreSQL casts it to a float."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-PUT-1-incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a813d85a-c7c6-45b1-b60d-97f701a16c20",
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"nutrient-that-does-not-exist cannot be found in dimensions.nutrient_dimension table. Please use the PUT method at /nutrients to add the new nutrient first.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nutrients\": {\"nutrient-that-does-not-exist\": 50.0}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				},
+				"description": "Specify a new nutrient that does not exist in IngredientDimension"
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-PUT-1-incorrect-key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91e58caf-68e9-4c75-9f9f-a929fef883e1",
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([415]);",
+							"});",
+							"",
+							"pm.test(\"sk_recipe=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"JSON requires 'nutrients' key. See example shown.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nuts\": {\"nutrient-that-does-not-exist\": 50.0}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				},
+				"description": "Specify a new nutrient that does not exist in IngredientDimension"
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-nut-PUT-1-incorrect-value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1067a98c-0462-4710-8edd-f354d601d643",
+						"exec": [
+							"pm.test(\"Unsuccessful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"new row for relation \\\"recipe_nutrient_value\\\" violates check constraint \\\"recipe_nutrient_value_value_check\\\"\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nutrients\": {\"Carbohydrate\": -1}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/1/nutrients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"1",
+						"nutrients"
+					]
+				},
+				"description": "Introduce negative nutrient value."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-ing-GET-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85cddd8f-bcd9-48d5-8228-7413efc7fe4e",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['fk_recipe']).to.eql(2);",
+							"    pm.expect(jsonData['ingredients'][0][\"name\"]).to.eql(\"garlic\");",
+							"    pm.expect(jsonData['ingredients'][1][\"name\"]).to.eql(\"carrot\");",
+							"    pm.expect(jsonData['ingredients'][2][\"name\"]).to.eql(\"chicken thighs\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/recipes/2/ingredients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"2",
+						"ingredients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-ing-PUT-2-add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8881ca2a-6bc6-4a77-966c-419cab78045b",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Updated ['brown onion', 'shredded Cheddar cheese'] for sk_recipe=2\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ingredients\": {\n        \"brown onion\": {\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"unit\"\n        },\n        \"shredded Cheddar cheese\": {\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"unit\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/2/ingredients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"2",
+						"ingredients"
+					]
+				},
+				"description": "Add new ingredients that already exist in recipe_dimension."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-ing-PUT-3-modify",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c30fa10-f2c5-4e9b-bda5-d4b0fa98537d",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Updated ['sweet potato', 'lime'] for sk_recipe=3\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ingredients\": {\n        \"sweet potato\": {\n            \"serving_size\": 2,\n            \"value\": 5,\n            \"unit\": \"unit\"\n        },\n        \"lime\": {\n            \"serving_size\": 2,\n            \"value\": 1,\n            \"unit\": \"unit\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/3/ingredients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"3",
+						"ingredients"
+					]
+				},
+				"description": "Modify one existing ingredient for all 3 values, and add a new ingredient."
+			},
+			"response": []
+		},
+		{
+			"name": "recipes-ing-PUT-3-modify-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "563a0288-3715-464e-83a9-255862ed4f03",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"pm.test(\"fk_recipe=2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['message']).to.eql(\"Updated ['sweet potato', 'lime'] for sk_recipe=3\");",
+							"});    ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ingredients\": {\n        \"sweet potato\": {\n            \"serving_size\": 200,\n            \"unit\": \"UNIT-UNIT-UNIT\"\n        },\n        \"lime\": {\n            \"serving_size\": 20,\n            \"value\": 100,\n            \"unit\": \"unit-TESTING\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/recipes/3/ingredients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipes",
+						"3",
+						"ingredients"
+					]
+				},
+				"description": "Modify one existing ingredient for only 2 values, and add a new ingredient."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -70,19 +70,57 @@ def search_recipes():
         if not request.is_json:
             return jsonify({"message": "Parser requires JSON format."}), 415
 
+        req_json = request.get_json()
+
+        if not check_valid_recipe_post_keys(list(req_json.keys())):
+            return jsonify({"message": "JSON must contain ['recipe', 'ingredients', 'instructions', 'nutrients']"}), 400
+
+        for nutrient in req_json['nutrients']:
+            if not nutrient_exists(nutrient):
+                return jsonify({"message": "Nutrients in JSON must already be in nutrient_dimension"}), 400
+
+        nutrients_to_insert = req_json['nutrients']
+        instructions_to_insert = req_json['ingredients']
+
         try:
             with g.db.atomic():
-                req_json = request.get_json()
+                new_sk_recipe = (
+                    RecipeDimension
+                        .insert(req_json['recipe'])
+                        .execute()
+                )
 
-                batch_size = 50
-                for idx in range(0, len(req_json), batch_size):
-                    current_app.logger.info(f"Inserting rows {idx} to {idx + batch_size}")
-                    rows = req_json[idx:idx + batch_size]
-                    RecipeDimension.insert_many(rows).execute()
+                _ = (
+                    RecipeIngredient
+                        .insert_many(
+                            prepare_ingredients_insertion(req_json['ingredients'], new_sk_recipe)
+                        )
+                        .on_conflict(
+                            action='ignore'
+                        )
+                )
 
-            total_rows = RecipeDimension.select().count()
+                _ = (
+                    RecipeInstruction
+                        .insert_many(
+                            prepare_instructions_insertion(req_json['instructions'], new_sk_recipe)
+                        )
+                        .on_conflict(
+                            action='ignore'
+                        )
+                )
 
-            return f"{len(req_json)} Recipe(s) inserted. Total recipes: {total_rows}", 201
+                _ = (
+                    RecipeNutrientValue
+                        .insert_many(
+                            prepare_nutrients_insertion(req_json['nutrients'], new_sk_recipe)
+                        )
+                        .on_conflict(
+                            action='ignore'
+                        )
+                )
+
+            return jsonify({"message": f"Added new recipe. sk_recipe={new_sk_recipe}."}), 201
         except IntegrityError as e:
             current_app.logger.error(sys.exc_info())
             # current_app.logger.error(dir(e))
@@ -129,21 +167,55 @@ def sk_recipe_methods(sk_recipe):
         except DoesNotExist:
             raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
 
-    # @TODO: Test this API and decide how to deal with dependencies
     elif request.method == 'DELETE':
         try:
             with g.db.atomic():
+                (
+                    RecipeNutrientValue
+                        .delete()
+                        .where(RecipeNutrientValue.fk_recipe == sk_recipe)
+                        .execute()
+                )
+
+                (
+                    RecipeIngredient
+                        .delete()
+                        .where(RecipeIngredient.fk_recipe == sk_recipe)
+                        .execute()
+                )
+
+                (
+                    RecipeInstruction
+                        .delete()
+                        .where(RecipeInstruction.fk_recipe == sk_recipe)
+                        .execute()
+                )
+                (
+                    RecipeRating
+                        .delete()
+                        .where(RecipeRating.fk_recipe == sk_recipe)
+                        .execute()
+                )
+                (
+                    WeeklyMeals
+                        .delete()
+                        .where(WeeklyMeals.fk_recipe == sk_recipe)
+                        .execute()
+                )
                 (
                     RecipeDimension
                         .delete()
                         .where(RecipeDimension.sk_recipe == sk_recipe)
                         .execute()
                 )
-            total_rows = RecipeDimension.select().count()
+            # total_rows = RecipeDimension.select().count()
 
-            return f"Recipe {sk_recipe} deleted. Total recipes: {total_rows}", 204
         except DoesNotExist:
             raise NoSuchData(f'sk_recipe={sk_recipe} cannot be found in dimensions.recipe_dimension table.', status_code=404)
+
+        current_app.logger.info("REACH HERE???")
+
+        return jsonify({"message": f"Recipe={sk_recipe} deleted."}), 204
 
 @bp_recipes.route('/<int:sk_recipe>/instructions', methods=['GET', 'PUT'])
 def sk_recipe_instructions(sk_recipe):
@@ -212,7 +284,7 @@ def sk_recipe_instructions(sk_recipe):
                         RecipeInstruction
                             .update({"instruction": instruction})
                             .where(
-                                (RecipeInstruction.fk_recipe.sk_recipe == sk_recipe) &
+                                (RecipeInstruction.fk_recipe == sk_recipe) &
                                 (RecipeInstruction.step == step)
                             )
                             .execute()
@@ -231,7 +303,7 @@ def sk_recipe_instructions(sk_recipe):
                     )
 
             new_max_step = get_max_step(sk_recipe).max_step
-            return f"Steps {exists_step_arr} modified, steps {new_steps_arr} added for sk_recipe={sk_recipe} and new max step = {new_max_step}", 201
+            return jsonify({"message": f"Steps {exists_step_arr} modified, steps {new_steps_arr} added for sk_recipe={sk_recipe} and new_max_step={new_max_step}."}), 201
         else:
             return jsonify({"message": error_message}), 400
 
@@ -278,7 +350,7 @@ def sk_recipe_nutrients(sk_recipe):
         for nutrient, value in req_json["nutrients"].items():
             try:
                 with g.db.atomic():
-                    current_app.logger.info(f"HERE 3")
+                    # current_app.logger.info(f"HERE 3")
 
                     cte = (
                         NutrientDimension
@@ -313,7 +385,7 @@ def sk_recipe_nutrients(sk_recipe):
                 current_app.logger.error(str(e))
                 return str(e), 400
 
-        return f"Updated {list(req_json['nutrients'].keys())} for sk_recipe={sk_recipe}", 201
+        return jsonify({"message": f"Updated {list(req_json['nutrients'].keys())} for sk_recipe={sk_recipe}"}), 201
 
 @bp_recipes.route('/<int:sk_recipe>/ingredients', methods=['GET', 'PUT'])
 def sk_recipe_ingredients(sk_recipe):
@@ -381,6 +453,9 @@ def sk_recipe_ingredients(sk_recipe):
                             .get()
                     )
 
+                    current_app.logger.info("IngredientDimension")
+                    current_app.logger.info(f"ing_dim.sk_ingredient: {ing_dim.sk_ingredient}")
+
                     rp_ing = (
                         RecipeIngredient
                             .select()
@@ -388,30 +463,46 @@ def sk_recipe_ingredients(sk_recipe):
                                 (RecipeIngredient.fk_recipe == sk_recipe) &
                                 (RecipeIngredient.fk_ingredient == ing_dim.sk_ingredient)
                             )
-                            .get()
+                            .execute()
                     )
+                    current_app.logger.info("RecipeIngredient")
+                    current_app.logger.info(f"len(rp_ing): {len(rp_ing)}")
 
+                    # Default values, which can be overwritten
                     default_values = {
                         "fk_recipe": sk_recipe,
                         "fk_ingredient": ing_dim.sk_ingredient,
-                        "serving_size": rp_ing.serving_size,
-                        "value": rp_ing.value,
-                        "unit": rp_ing.unit,
+                        "serving_size": 2,
+                        "value": 0,
+                        "unit": "",
                     }
 
-                    current_app.logger.info(model_to_dict(ing_dim))
-                    current_app.logger.info(model_to_dict(rp_ing))
+                    if len(rp_ing) > 0:
+                        for rp in rp_ing:
+                            serving_size = rp.serving_size
+                            value = rp.value
+                            unit = rp.unit
+
+                        rp_ing_values = {
+                            "fk_recipe": sk_recipe,
+                            "fk_ingredient": ing_dim.sk_ingredient,
+                            "serving_size": serving_size,
+                            "value": value,
+                            "unit": unit,
+                        }
+                        default_values.update(rp_ing_values)
+
+                    current_app.logger.info(default_values)
 
                     # We update the default values to ensure
                     # INSERT doesn't run into null constraint
                     # issues.
                     default_values.update(ing_json)
+                    current_app.logger.info(default_values)
 
                     query = (
                         RecipeIngredient
                             .insert(default_values)
-                            # .with_cte(cte)
-                            # .from_(cte)
                             .on_conflict(
                                 action="update",
                                 conflict_target=[
@@ -419,12 +510,7 @@ def sk_recipe_ingredients(sk_recipe):
                                     RecipeIngredient.fk_recipe
                                 ],
                                 update=(ing_json),
-                                # update=(ing_json),
                                 where=(RecipeIngredient.fk_recipe == sk_recipe)
-                                # where=(
-                                #     (RecipeIngredient.fk_recipe == sk_recipe) &
-                                #     (RecipeIngredient.fk_ingredient == SQL('nutrient_dimension.sk_ingredient'))
-                                # )
                             )
                     )
                     current_app.logger.error(query.sql())
@@ -432,10 +518,9 @@ def sk_recipe_ingredients(sk_recipe):
 
             except Exception as e:
                 current_app.logger.error(sys.exc_info())
-                current_app.logger.error(str(e))
                 return str(e), 400
 
-        return f"Updated {list(req_json['ingredients'].keys())} for sk_recipe={sk_recipe}", 201
+        return jsonify({"message": f"Updated {list(req_json['ingredients'].keys())} for sk_recipe={sk_recipe}"}), 201
 
 
 #
@@ -500,6 +585,53 @@ def parse_recipe_ingredients(ingredients):
         })
 
     return json_file
+
+def check_valid_recipe_post_keys(keys_arr):
+    keys_set = set(['recipe', 'ingredients', 'nutrients', 'instructions'])
+    return keys_set == set(keys_arr)
+
+# def prepare_ingredients_insertion(json, fk_recipe):
+#     will_deliver = [
+#         {
+#             "ingredient": j['ingredient'],
+#             "included_in_delivery": True
+#         }
+#         for j in json['will_deliver']
+#     ]
+#     will_not_deliver = [
+#         {
+#             "ingredient": j['ingredient'],
+#             "included_in_delivery": False
+#         }
+#         for j in json['will_not_deliver']
+#     ]
+
+#     return will_deliver + will_not_deliver
+
+def prepare_ingredients_insertion(arr, fk_recipe):
+    return [
+        {**json, **{"fk_recipe": fk_recipe}} for json in arr
+    ]
+
+def prepare_instructions_insertion(json, fk_recipe):
+
+    return [
+        {
+            "fk_recipe": fk_recipe,
+            k: v
+        }
+        for k, v in json.items()
+    ]
+
+def prepare_nutrients_insertion(json, fk_recipe):
+
+    return [
+        {
+            "fk_recipe": fk_recipe,
+            k: v
+        }
+        for k, v in json.items()
+    ]
 
 def search_recipe_names(recipe_word):
     return (
@@ -581,7 +713,7 @@ def check_consecutive_steps(steps_arr, table_max_step):
     steps_arr = sorted(steps_arr)
 
     if steps_arr[0] != table_max_step + 1:
-        return False, f"The step number for a single new instruction should be 1 greater than the current last step, which is {table_max_step}"
+        return False, f"The step number for a single new instruction should be 1 greater than the current last step, which is {table_max_step}."
 
     for i in range(1, len(steps_arr)):
         if steps_arr[i] != steps_arr[i-1] + 1:
