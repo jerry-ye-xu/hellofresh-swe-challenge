@@ -2,16 +2,8 @@ NAME    := hellofresh-takehome
 SHELL   := /bin/bash
 VERSION := $(shell cat VERSION)
 
-.PHONY: all clean lint test
-
-setup: set_up_dir
-	echo "Setup has finished."
-
-setup_dir:
-	source setup.sh
-
 export_keys: $(USER_KEYS)
-	echo "Please see README.md on how to export keys in .env file"
+	echo "Please see README.md on how to export keys in env_var_local file"
 
 build_all: clean_all
 	docker-compose up --build
@@ -19,6 +11,14 @@ build_all: clean_all
 build_quick: prune_images clean_containers clean_volumes
 	docker-compose build
 	docker-compose up
+
+# build_all
+
+run_tests:
+	newman run ./postman_tests/HF-dimensions.postman_collection.json
+	newman run ./postman_tests/HF-ratings.postman_collection.json
+	newman run ./postman_tests/HF-recipes.postman_collection.json
+	newman run ./postman_tests/HF-weekly-meals.postman_collection.json
 
 pg_it:
 	docker exec -it pg-database bash

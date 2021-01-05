@@ -48,6 +48,20 @@ Please see the makefile for more.
 
 Import the Postman collections for testing. The version used is `v2.1`.
 
+To run the tests in the command line, first install the `newman` package.
+
+```bash
+npm install -g newman
+```
+Then run
+
+```bash
+make run_tests
+```
+
+__IMPORTANT:__ The tests are not omnipotent. If you want to repeat any steps, please start again from `build_quick` and make sure all Docker assets are deleted with `make clean_all`.
+
+
 ## Schema Design
 
 - The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
