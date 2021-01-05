@@ -733,6 +733,37 @@ if __name__ == "__main__":
         included_in_delivery=False
     )
 
+    IngredientDimension.create(
+        # sk_ingredient=75,
+        ingredient="pearl couscous",
+        included_in_delivery=True
+    )
+
+    IngredientDimension.create(
+        # sk_ingredient=76,
+        ingredient="salmon",
+        included_in_delivery=True
+    )
+
+    IngredientDimension.create(
+        # sk_ingredient=77,
+        ingredient="beetroot",
+        included_in_delivery=True
+    )
+
+    IngredientDimension.create(
+        # sk_ingredient=78,
+        ingredient="smoked paprika",
+        included_in_delivery=True
+    )
+
+    IngredientDimension.create(
+        # sk_ingredient=79,
+        ingredient="vegetable stock",
+        included_in_delivery=True
+    )
+
+
     #############################
     # Recipe Information Tables #
     #############################

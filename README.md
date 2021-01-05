@@ -44,6 +44,10 @@ make build_quick
 
 Please see the makefile for more.
 
+### Step 4
+
+Import the Postman collections for testing. The version used is `v2.1`.
+
 ## Schema Design
 
 - The "included_in_delivery" column was placed in the `recipe_dimension` table. From looking at the website, it appears that the ingredients that are not included is consistent throughout the recipes.
@@ -80,6 +84,13 @@ For the sake of this exercise, we upload the `env_var` file for the reader to vi
 
 For local use outside of the containers, the environment variables are kept in `env_var_local`.
 
+## Improvements
+
+- More test cases. There are a few edge cases not covered.
+- Be more rigorous in specifying how `DELETE` occurs. However, without more business context its hard to determine what is the best course of action.
+- More test cases for the Flask app.
+- Handle more specific errors better. Although we return the error message for some of the endpoints, we should implement code to handle more specific cases.
+
 <br>
 <br>
 
@@ -87,6 +98,8 @@ For local use outside of the containers, the environment variables are kept in `
 
 ## Worklog
 
+- 0.1.1: 05/01/21 - Update DELETE request for recipes (to relevant information from all other dependent tables). Finalise and add POSTMAN collection.
+- 0.1.0: 04/01/21 - Configure /recipes POST method to include ingredients and nutrients and instructions.
 - 0.0.9: 03/01/21 - Split weekly_meals into 'non_default_meals' and 'default_meals' end points and add in checks for various cases. Finalise ER diagram.
 - 0.0.8: 03/01/21 - Create tests for POSTMAN collections (except HF-recipes).
 - 0.0.7: 01/01/21 - Add end point for updating rows in ingredient dimension table. Update relevant tables to use composite keys.
