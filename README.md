@@ -49,12 +49,15 @@ npm install -g newman
 To kickstart the application and run the tests, use
 
 ```bash
-make run_all
+make build_all
 ```
 
-To rebuild without deleting the images, run
+### Step 4
+
+Run the tests with
+
 ```bash
-make build_quick
+make run_tests
 ```
 
 Please see the makefile for more.
@@ -63,9 +66,8 @@ __IMPORTANT:__ The tests are not omnipotent. If you want to repeat any steps, pl
 
 Note: To just run the application without clearing the images, use
 ```bash
-make build_all
+make build_quick
 ```
-
 
 ## Schema Design
 
