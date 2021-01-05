@@ -21,7 +21,7 @@ run_postman_tests:
 	newman run ./postman_tests/HF-recipes.postman_collection.json
 	newman run ./postman_tests/HF-weekly-meals.postman_collection.json
 
-run_tests: run_pytest run_pytest
+run_tests: run_pytest run_postman_tests
 	echo "Finished running Pytest and Postman tests."
 
 pg_it:
@@ -50,6 +50,9 @@ clean_volumes:
 	bash clean_volumes.sh
 
 clean_all: clean_containers clean_volumes clean_images
+
+run_all: build_all run_tests
+	echo "BACKEND_API-${VERSION} finished running."
 
 # test:
 # 	docker ps --all --quiet --filter \
