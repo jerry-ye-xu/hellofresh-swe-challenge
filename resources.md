@@ -60,6 +60,10 @@
 
 - [Pytest for Flask](https://testdriven.io/blog/flask-pytest/)
 
+- [Making Python packages](https://python-packaging-tutorial.readthedocs.io/en/latest/setup_py.html)
+
+- [GiveWhenThen](https://martinfowler.com/bliki/GivenWhenThen.html)
+
 - Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
 
 - Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.
