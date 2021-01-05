@@ -58,6 +58,8 @@
 
 - [Status code for update or delete](https://stackoverflow.com/questions/2342579/http-status-code-for-update-and-delete)
 
+- [Pytest for Flask](https://testdriven.io/blog/flask-pytest/)
+
 - Export ENV variables locally: `export $(egrep -v '^#' env_var | xargs)`
 
 - Ports specified is `external:internal` e.g. `8080:5432` exposes the PostgreSQL container port 5432 to local computer 8080.
